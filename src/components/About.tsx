@@ -54,9 +54,9 @@ function About() {
               viewport={{ once: true }}
               className="text-lg text-primary/75"
             >
-              Hello! I’m Geeth—your photographer, memory maker, and the passionate eye behind
-              Reactive Shots. Over the past two years, I’ve dedicated myself to mastering the art of
-              photography, specializing in portraits and Indian events.
+              Hello! I&apos;m Geeth—your photographer, memory maker, and the passionate eye behind
+              Reactive Shots. Over the past two years, I&apos;ve dedicated myself to mastering the
+              art of photography, specializing in portraits and Indian events.
             </motion.p>
             <motion.p
               variants={pVariants}

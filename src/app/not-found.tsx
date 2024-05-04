@@ -35,7 +35,7 @@ function Page() {
     }
 
     return () => clearInterval(interval);
-  }, [time]);
+  }, [time, router]);
   return (
     <div className="h-screen snap-y snap-mandatory overflow-y-scroll">
       <Navbar />

@@ -123,7 +123,7 @@ function LetsTalk() {
               viewport={{ once: true }}
               className="font-blackmud text-3xl text-primary"
             >
-              Let's make your moments unforgettable
+              Let&apos;s make your moments unforgettable
             </motion.h2>
             <motion.div
               variants={pVariants}
