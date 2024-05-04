@@ -173,7 +173,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
                 initial={{ opacity: 0, y: -100 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -100 }}
-                className="fixed left-0 top-0 z-40 flex h-fit w-full items-center justify-center bg-tertiary bg-opacity-50 backdrop-blur-3xl md:hidden"
+                className="fixed left-0 top-0 z-40 flex h-[26rem] w-full items-center justify-center bg-tertiary bg-opacity-50 backdrop-blur-3xl md:hidden"
               >
                 <div className="absolute left-4 top-4">
                   <button onClick={() => setIsMenuOpen(false)}>
