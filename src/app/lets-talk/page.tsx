@@ -6,15 +6,11 @@ import React from 'react';
 function Page() {
 
   return (
-    <div className="h-screen snap-y snap-mandatory overflow-hidden overflow-y-scroll">
+    <div className="h-screen">
       <Navbar />
-      <div className="snap-start">
-        <LetsTalk />
-      </div>
+      <LetsTalk />
       <hr className="h-0.5 bg-primary" />
-      <div className="snap-start">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }

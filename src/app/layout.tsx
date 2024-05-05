@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lato, Open_Sans } from 'next/font/google';
+import { Open_Sans } from 'next/font/google';
 import './globals.css';
 import localFont from 'next/font/local';
 
@@ -9,16 +9,6 @@ const blackMud = localFont({
   variable: '--font-blackmud',
 });
 
-const stardom = localFont({
-  src: './Stardom-Regular.ttf',
-  display: 'swap',
-  variable: '--font-stardom',
-});
-
-// const lato = Lato({
-//   subsets: ['latin'],
-//   weight: ['100', '300', '400', '700', '900'],
-// });
 const opensans = Open_Sans({
   subsets: ['latin'],
 });
@@ -26,6 +16,7 @@ const opensans = Open_Sans({
 export const metadata: Metadata = {
   title: 'Reactive Shots',
   description: 'Capturing your moments',
+  themeColor: '#00A6FB',
 };
 
 export default function RootLayout({
@@ -37,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <link rel="icon" href="/favicon.ico" />
       <body
-        className={`${stardom.variable} ${blackMud.variable} ${opensans.className} bg-background`}
+        className={` ${blackMud.variable} ${opensans.className} bg-background`}
       >
         {children}
       </body>

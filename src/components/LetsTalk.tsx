@@ -71,21 +71,6 @@ function LetsTalk() {
     } else {
       setIsSubmitting(true);
 
-      // await axios.post(
-      //   'https://mailer.geethg.com/reactiveshots/send',
-      //   new URLSearchParams({
-      //     name: name,
-      //     email: email,
-      //     subject: subject,
-      //     message: message,
-      //   }),
-      //   {
-      //     headers: {
-      //       'Content-Type': 'application/x-www-form-urlencoded',
-      //     },
-      //   },
-      // );
-
       await fetch('https://mailer.geethg.com/reactiveshots/send', {
         method: 'POST',
         headers: {
@@ -191,7 +176,7 @@ function LetsTalk() {
                     placeholder="Your Name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-primary/50 p-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary"
+                    className="w-full rounded-lg border border-primary/50 p-2 text-base md:text-sm focus:border-primary focus:ring-1 focus:ring-primary"
                   />
                 </div>
                 <div className="flex w-full flex-col">
@@ -205,7 +190,7 @@ function LetsTalk() {
                     placeholder="Your Email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-primary/50 p-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary"
+                    className="w-full rounded-lg border border-primary/50 p-2 text-base md:text-sm focus:border-primary focus:ring-1 focus:ring-primary"
                   />
                 </div>
               </div>
@@ -219,7 +204,7 @@ function LetsTalk() {
                 placeholder="Subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className="rounded-lg border border-primary/50 p-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary"
+                className="rounded-lg border border-primary/50 p-2 text-base md:text-sm focus:border-primary focus:ring-1 focus:ring-primary"
               />
               <label htmlFor="message" className="text-primary">
                 Message
@@ -230,7 +215,7 @@ function LetsTalk() {
                 placeholder="Your Message"
                 value={formData.message}
                 onChange={handleChange}
-                className="h-32 rounded-lg border border-primary/50 p-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary lg:h-64"
+                className="h-32 rounded-lg border border-primary/50 p-2 text-base md:text-sm focus:border-primary focus:ring-1 focus:ring-primary lg:h-64"
               />
               <button
                 type="submit"
@@ -245,7 +230,7 @@ function LetsTalk() {
           {images.map((src, index) => (
             <motion.div
               key={index}
-              className="pointer-events-none h-full w-full overflow-hidden"
+              className="pointer-events-none  overflow-hidden"
               initial="offscreen"
               whileInView="onscreen"
               viewport={{ once: true }}
@@ -257,7 +242,11 @@ function LetsTalk() {
                 alt={src.split('-')[0]}
                 width={500}
                 height={500}
-                className={`aspect-square h-full w-full  rounded-lg object-cover`}
+                className={`aspect-square h-full w-full object-cover ${
+                  index === 0 ? 'rounded-tl-lg' : ''
+                } ${index === 1 ? 'rounded-tr-lg' : ''} ${index === 2 ? 'rounded-bl-lg' : ''} ${
+                  index === 3 ? 'rounded-br-lg' : ''
+                }`}             
               />
             </motion.div>
           ))}

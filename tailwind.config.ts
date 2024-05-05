@@ -10,7 +10,6 @@ const config: Config = {
     extend: {
       fontFamily: {
         blackmud: ['var(--font-blackmud)', 'cursive'],
-        stardom: ['var(--font-stardom)', 'cursive'],
       },
       colors: {
         primary: '#00A6FB',

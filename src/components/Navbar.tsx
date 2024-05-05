@@ -141,7 +141,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
             </div>
           </div>
           <h1
-            className={`z-50 mt-2 font-blackmud  text-3xl md:mr-[5.5rem] ${isMenuOpen ? 'text-primary' : ''}`}
+            className={`z-50 mt-2 font-blackmud  text-3xl mr-2 md:mr-[5.5rem] ${isMenuOpen ? 'text-primary' : ''}`}
           >
             {navbarStyle === 'firstSection' ? 'RS' : 'Reactive Shots'}
           </h1>

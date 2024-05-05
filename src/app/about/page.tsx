@@ -5,7 +5,7 @@ import React from 'react';
 
 function Page() {
   return (
-    <div className="h-screen snap-y snap-mandatory overflow-hidden overflow-y-scroll">
+    <div className="h-screen">
       <Navbar />
       <About />
       <hr className="h-0.5 bg-primary" />
