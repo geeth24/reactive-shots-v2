@@ -7,7 +7,7 @@ function CTA() {
       <div className="space-y-4">
         <h1 className="font-blackmud text-3xl leading-loose">Capturing Unforgettable Memories</h1>
         <p className="text-lg">
-          We capture the essence of every moment, ensuring they're cherished forever.
+          We capture the essence of every moment, ensuring they&apos;re cherished forever.
         </p>
       </div>
       <div className="mt-4 flex justify-center">
