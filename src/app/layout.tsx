@@ -14,8 +14,18 @@ const opensans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Reactive Shots',
-  description: 'Capturing your moments',
+  title: 'Reactive Shots | Professional Photography Services',
+  description:
+    'Professional photography services specializing in portraits and Indian events. Contact Reactive Shots today for your next photo shoot!',
+  applicationName: 'Reactive Shots | Professional Photography Services"',
+  authors: [{ name: 'Geeth Gunnampalli' }],
+  openGraph: {
+    images: [
+      {
+        url: 'https://v2.reactiveshots.com/RS-White.pngg',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -26,9 +36,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" href="/favicon.ico" />
-      <body
-        className={` ${blackMud.variable} ${opensans.className} bg-background`}
-      >
+
+      <body className={` ${blackMud.variable} ${opensans.className} bg-background`}>
         {children}
       </body>
     </html>
