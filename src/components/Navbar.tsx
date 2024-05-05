@@ -140,10 +140,12 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
               </Link>
             </div>
           </div>
-          <h1 className={`z-50 mt-2 font-blackmud  text-3xl md:mr-[5.5rem] ${isMenuOpen ? 'text-primary' : ''}`}>
+          <h1
+            className={`z-50 mt-2 font-blackmud  text-3xl md:mr-[5.5rem] ${isMenuOpen ? 'text-primary' : ''}`}
+          >
             {navbarStyle === 'firstSection' ? 'RS' : 'Reactive Shots'}
           </h1>
-          <div className="hidden items-center space-x-4 md:flex">
+          <div className="hidden items-center space-x-4 pr-4 md:flex">
             <Link href="/lets-talk" className="text-2xl md:text-xl">
               Let&apos;s Talk
             </Link>
