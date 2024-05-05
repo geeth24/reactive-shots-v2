@@ -97,7 +97,7 @@ function LetsTalk() {
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-center px-4 py-24">
-      <div className="mt-4 grid w-full gap-4 md:grid-cols-2">
+      <div className="mt-4 grid  w-full gap-4 md:grid-cols-2">
         <div className="flex flex-col justify-between space-y-4">
           <div className="flex flex-col justify-end">
             <motion.h2
@@ -106,7 +106,7 @@ function LetsTalk() {
               animate="animate"
               whileInView="onscreen"
               viewport={{ once: true }}
-              className="font-blackmud text-3xl text-primary"
+              className="font-blackmud text-3xl leading-loose text-primary"
             >
               Let&apos;s make your moments unforgettable
             </motion.h2>
@@ -176,7 +176,7 @@ function LetsTalk() {
                     placeholder="Your Name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-primary/50 p-2 text-base md:text-sm focus:border-primary focus:ring-1 focus:ring-primary"
+                    className="w-full rounded-lg border border-primary/50 p-2 text-base focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
                   />
                 </div>
                 <div className="flex w-full flex-col">
@@ -190,7 +190,7 @@ function LetsTalk() {
                     placeholder="Your Email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-primary/50 p-2 text-base md:text-sm focus:border-primary focus:ring-1 focus:ring-primary"
+                    className="w-full rounded-lg border border-primary/50 p-2 text-base focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
                   />
                 </div>
               </div>
@@ -204,7 +204,7 @@ function LetsTalk() {
                 placeholder="Subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className="rounded-lg border border-primary/50 p-2 text-base md:text-sm focus:border-primary focus:ring-1 focus:ring-primary"
+                className="rounded-lg border border-primary/50 p-2 text-base focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
               />
               <label htmlFor="message" className="text-primary">
                 Message
@@ -215,7 +215,7 @@ function LetsTalk() {
                 placeholder="Your Message"
                 value={formData.message}
                 onChange={handleChange}
-                className="h-32 rounded-lg border border-primary/50 p-2 text-base md:text-sm focus:border-primary focus:ring-1 focus:ring-primary lg:h-64"
+                className="h-32 rounded-lg border border-primary/50 p-2 text-base focus:border-primary focus:ring-1 focus:ring-primary md:text-sm lg:h-64"
               />
               <button
                 type="submit"
@@ -246,7 +246,7 @@ function LetsTalk() {
                   index === 0 ? 'rounded-tl-lg' : ''
                 } ${index === 1 ? 'rounded-tr-lg' : ''} ${index === 2 ? 'rounded-bl-lg' : ''} ${
                   index === 3 ? 'rounded-br-lg' : ''
-                }`}             
+                }`}
               />
             </motion.div>
           ))}

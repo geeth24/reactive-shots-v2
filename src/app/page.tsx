@@ -4,9 +4,8 @@ import React, { useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Types from '@/components/Types';
-import About from '@/components/About';
-import Pricing from '@/components/Pricing';
 import Footer from '@/components/Footer';
+import CTA from '@/components/CTA';
 
 const Page: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -22,8 +21,8 @@ const Page: React.FC = () => {
       <div ref={typesRef} className=" snap-start">
         <Types />
       </div>
-
       <div className="snap-start">
+        <CTA />
         <Footer />
       </div>
     </div>

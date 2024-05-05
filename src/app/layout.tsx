@@ -16,7 +16,6 @@ const opensans = Open_Sans({
 export const metadata: Metadata = {
   title: 'Reactive Shots',
   description: 'Capturing your moments',
-  themeColor: '#00A6FB',
 };
 
 export default function RootLayout({

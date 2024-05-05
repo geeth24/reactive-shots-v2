@@ -8,14 +8,14 @@ const links = [
 ];
 function Footer() {
   return (
-    <footer className="bg-tertiary py-4 text-center text-primary">
-      <h1 className="mb-4 font-blackmud text-3xl leading-loose text-primary">RS</h1>
+    <footer className="bg-backgroundDark py-4 text-center text-tertiary">
+      <h1 className="mb-4 font-blackmud text-3xl leading-loose text-tertiary">RS</h1>
       <div className="mb-4 flex justify-center space-x-4">
         {links.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className="font-blackmud text-xl hover:text-primary/50"
+            className="font-blackmud text-xl hover:text-tertiary/50"
           >
             {link.name}
           </Link>
