@@ -15,7 +15,7 @@ function Page() {
     },
   };
   return (
-    <div className="h-screen snap-y snap-mandatory overflow-y-scroll">
+    <div className="h-screen snap-y snap-mandatory overflow-hidden overflow-y-scroll">
       <Navbar />
       {/* <Pricing /> */}
       <div className="flex h-screen snap-start items-center justify-center pt-24">
