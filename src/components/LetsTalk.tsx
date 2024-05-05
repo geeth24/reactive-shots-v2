@@ -1,5 +1,5 @@
 'use client';
-import { Phone, Mail } from 'lucide-react';
+import { Mail, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -134,7 +134,7 @@ function LetsTalk() {
               className="mt-8 flex flex-col space-y-4"
             >
               <div className="flex flex-row space-x-2">
-                <Phone className="h-6 w-6 text-primary" />
+                <MessageCircle className="h-6 w-6 text-primary" />
                 <Link href="sms:+1-972-829-5173" className="text-primary">
                   +1 (972) 829-5173
                 </Link>
