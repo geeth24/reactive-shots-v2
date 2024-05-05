@@ -140,7 +140,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
               </Link>
             </div>
           </div>
-          <h1 className="z-50 mt-2 font-blackmud text-3xl font-bold md:mr-[5.5rem]">
+          <h1 className={`z-50 mt-2 font-blackmud  text-3xl md:mr-[5.5rem] ${isMenuOpen ? 'text-primary' : ''}`}>
             {navbarStyle === 'firstSection' ? 'RS' : 'Reactive Shots'}
           </h1>
           <div className="hidden items-center space-x-4 md:flex">
@@ -173,17 +173,15 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
                 initial={{ opacity: 0, y: -100 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -100 }}
-                className="fixed left-0 top-0 z-40 flex h-[26rem] w-full items-center justify-center bg-tertiary bg-opacity-50 backdrop-blur-3xl md:hidden"
+                className="fixed left-0 top-0 z-40 flex h-[26rem] w-full items-center justify-center bg-tertiary backdrop-blur-3xl md:hidden"
               >
                 <div className="absolute left-4 top-4">
                   <button onClick={() => setIsMenuOpen(false)}>
-                    <X
-                      className={`h-6 w-6 ${pathname === '/' ? 'text-tertiary' : 'text-primary'}`}
-                    />
+                    <X className={`h-6 w-6 text-primary`} />
                   </button>
                 </div>
                 <div
-                  className={`z-50 flex h-full w-full flex-col items-start justify-start space-y-10 px-4 py-16 ${pathname === '/' ? 'text-tertiary' : 'text-primary'}`}
+                  className={`z-50 flex h-full w-full flex-col items-start justify-start space-y-10 px-4 py-16 text-primary`}
                 >
                   <Link href="https://www.instagram.com/reactiveshots/">
                     <svg
