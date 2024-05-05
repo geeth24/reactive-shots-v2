@@ -100,7 +100,19 @@ const Types: React.FC = () => {
                 alt={src.split('-')[0]}
                 width={500}
                 height={500}
-                className={`aspect-auto h-full w-full  object-cover ${activeCategory === Category.Portraits ? `${index === 0 ? 'rounded-l-lg' : ''} ${index === images[activeCategory].length - 1 ? 'rounded-r-lg' : ''}` : `${activeCategory === Category.Events ? `${index === 0 ? 'rounded-tl-lg' : ''} ${index === 1 ? 'rounded-tr-lg' : ''} ${index === 2 ? 'rounded-bl-lg' : ''} ${index === 3 ? 'rounded-br-lg' : ''}` : `${activeCategory === Category.Cars ? `${index === 0 ? 'rounded-tl-lg' : ''} ${index === 1 ? 'rounded-tr-lg' : ''} ${index === 2 ? 'rounded-bl-lg' : ''} ${index === 3 ? 'rounded-br-lg' : ''}` : ''}`}`}`}
+                className={`aspect-auto h-full w-full  object-cover ${
+                  activeCategory === Category.Portraits
+                    ? `${index === 0 ? 'rounded-tl-lg lg:rounded-l-lg' : ''} ${index === images[activeCategory].length - 1 ? 'rounded-br-lg lg:rounded-r-lg' : ''}
+                ${index === 1 ? 'rounded-tr-lg lg:rounded-none' : ''} ${index === 2 ? 'rounded-bl-lg lg:rounded-none' : ''}
+                `
+                    : `${
+                        activeCategory === Category.Events
+                          ? `${index === 0 ? 'rounded-t-lg lg:rounded-tl-lg' : ''} ${index === 1 ? 'rounded-tr-none lg:rounded-tr-lg' : ''} ${index === 2 ? 'rounded-bl-none lg:rounded-bl-lg' : ''} ${index === 3 ? 'rounded-b-lg lg:rounded-br-lg' : ''}`
+                          : `
+                    
+                    ${activeCategory === Category.Cars ? `${index === 0 ? 'rounded-t-lg lg:rounded-tl-lg' : ''} ${index === 1 ? 'rounded-tr-none lg:rounded-tr-lg' : ''} ${index === 2 ? 'rounded-bl-none lg:rounded-bl-lg' : ''} ${index === 3 ? 'rounded-b-lg lg:rounded-br-lg' : ''}` : ''}`
+                      }`
+                }`}
               />
             </motion.div>
           ))}
