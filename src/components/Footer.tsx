@@ -5,6 +5,7 @@ const links = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
   { name: 'Pricing', href: '/pricing' },
+  { name: "Let's Talk", href: '/lets-talk' },
 ];
 function Footer() {
   return (

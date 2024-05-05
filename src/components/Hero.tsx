@@ -61,7 +61,7 @@ function Hero() {
           variants={h1Variants}
           initial="initial"
           animate="animate"
-          className="font-blackmud text-[12vw] text-white"
+          className="font-blackmud text-[12vw] text-tertiary"
         >
           Reactive Shots
         </motion.h1>
@@ -69,7 +69,7 @@ function Hero() {
           variants={pVariants}
           initial="initial"
           animate="animate"
-          className="font-blackmud text-[4vw] font-light text-white md:text-[3vw]"
+          className="font-blackmud text-[4vw] font-light text-tertiary md:text-[3vw]"
         >
           Capturing your moments
         </motion.p>

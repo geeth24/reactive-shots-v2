@@ -1,5 +1,5 @@
 'use client';
-import { Mail, MessageCircle } from 'lucide-react';
+import { Mail, MessageSquareMore } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -119,7 +119,7 @@ function LetsTalk() {
               className="mt-8 flex flex-col space-y-4"
             >
               <div className="flex flex-row space-x-2">
-                <MessageCircle className="h-6 w-6 text-primary" />
+                <MessageSquareMore className="h-6 w-6 text-primary" />
                 <Link href="sms:+1-972-829-5173" className="text-primary">
                   +1 (972) 829-5173
                 </Link>
@@ -219,7 +219,7 @@ function LetsTalk() {
               />
               <button
                 type="submit"
-                className="hover:bg-primary-dark focus:ring-primary-dark rounded-lg bg-primary p-2 text-white focus:outline-none focus:ring-2 focus:ring-offset-2"
+                className="hover:bg-primary-dark focus:ring-primary-dark rounded-lg bg-primary p-2 text-tertiary focus:outline-none focus:ring-2 focus:ring-offset-2"
               >
                 {isSubmitting ? 'Sending...' : 'Send'}
               </button>

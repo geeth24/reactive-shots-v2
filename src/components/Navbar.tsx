@@ -3,13 +3,14 @@ import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { throttle } from 'lodash';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { Menu, MessageSquareText, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 const links = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
   { name: 'Pricing', href: '/pricing' },
+  { name: "Let's Talk", href: '/lets-talk' },
 ];
 
 interface NavbarProps {
@@ -102,24 +103,52 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
         exit="exit"
         role="navigation"
       >
-        <div className="flex flex-row items-center justify-center md:flex-row md:items-center md:justify-between">
-          <div className="absolute left-4 md:hidden">
-            <button className="z-50 md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <></> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
-          <div
-            className={`${isMenuOpen ? 'hidden' : 'hidden'} items-start space-y-4 md:flex md:space-x-4 md:space-y-0 `}
-          >
-            {links.map((link) => (
-              <Link key={link.name} href={link.href} className="text-2xl md:text-xl">
-                {link.name}
-              </Link>
-            ))}
-            <div className="flex items-center space-x-4 md:hidden">
-              <Link href="/lets-talk" className="text-2xl md:text-xl">
-                Let&apos;s Talk
-              </Link>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className=" flex flex-row items-center justify-center md:flex-row md:items-center md:justify-between">
+            <div className="absolute left-4 md:hidden">
+              <button className="z-50 md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                {isMenuOpen ? <></> : <Menu className="h-6 w-6" />}
+              </button>
+            </div>
+            <div
+              className={`${isMenuOpen ? 'hidden' : 'hidden'} items-start space-y-4 md:flex md:space-x-4 md:space-y-0 `}
+            >
+              {links.map((link) => (
+                <Link key={link.name} href={link.href} className="text-center">
+                  {link.name}
+                </Link>
+              ))}
+              <div className="flex items-center space-x-4 md:hidden">
+                <Link href="/lets-talk" className="text-2xl md:text-xl">
+                  Let&apos;s Talk
+                </Link>
+                <Link href="https://www.instagram.com/reactiveshots/">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-instagram"
+                  >
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+            <Link
+              href="/"
+              className={`z-50 mr-2 mt-2 text-center  font-blackmud text-3xl md:mr-[12.5rem] ${isMenuOpen ? 'text-primary' : ''}`}
+            >
+              {navbarStyle === 'firstSection' ? 'RS' : 'Reactive Shots'}
+            </Link>
+            <div className="hidden items-center space-x-4 pr-2 md:flex">
               <Link href="https://www.instagram.com/reactiveshots/">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -131,90 +160,67 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="lucide lucide-instagram"
+                  className="lucide lucide-instagram h-6 w-6"
                 >
                   <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
                   <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
                 </svg>
               </Link>
+              <Link href="sms:+1-972-829-5173" className="text-2xl md:text-xl">
+                <MessageSquareText className="h-6 w-6" />
+              </Link>
             </div>
-          </div>
-          <h1
-            className={`z-50 mt-2 font-blackmud  text-3xl mr-2 md:mr-[5.5rem] ${isMenuOpen ? 'text-primary' : ''}`}
-          >
-            {navbarStyle === 'firstSection' ? 'RS' : 'Reactive Shots'}
-          </h1>
-          <div className="hidden items-center space-x-4 pr-4 md:flex">
-            <Link href="/lets-talk" className="text-2xl md:text-xl">
-              Let&apos;s Talk
-            </Link>
-            <Link href="https://www.instagram.com/reactiveshots/">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-instagram h-6 w-6"
-              >
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-              </svg>
-            </Link>
-          </div>
-          <AnimatePresence>
-            {isMenuOpen && (
-              <motion.div
-                onClick={() => setIsMenuOpen(false)}
-                initial={{ opacity: 0, y: -100 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -100 }}
-                className="fixed left-0 top-0 z-40 flex h-[26rem] w-full items-center justify-center bg-tertiary backdrop-blur-3xl md:hidden"
-              >
-                <div className="absolute left-4 top-4">
-                  <button onClick={() => setIsMenuOpen(false)}>
-                    <X className={`h-6 w-6 text-primary`} />
-                  </button>
-                </div>
-                <div
-                  className={`z-50 flex h-full w-full flex-col items-start justify-start space-y-10 px-4 py-16 text-primary`}
+            <AnimatePresence>
+              {isMenuOpen && (
+                <motion.div
+                  onClick={() => setIsMenuOpen(false)}
+                  initial={{ opacity: 0, y: -100 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -100 }}
+                  className="fixed left-0 top-0 z-40 flex h-[26rem] w-full items-center justify-center bg-tertiary shadow backdrop-blur-3xl md:hidden"
                 >
-                  <Link href="https://www.instagram.com/reactiveshots/">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-instagram"
-                    >
-                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                    </svg>
-                  </Link>
-                  {links.map((link) => (
-                    <Link key={link.name} href={link.href} className="text-3xl">
-                      {link.name}
-                    </Link>
-                  ))}
-                  <Link href="/lets-talk" className="text-3xl">
-                    Let&apos;s Talk
-                  </Link>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                  <div className="absolute left-4 top-4">
+                    <button onClick={() => setIsMenuOpen(false)}>
+                      <X className={`h-6 w-6 text-primary`} />
+                    </button>
+                  </div>
+                  <div
+                    className={`z-50 flex h-full w-full flex-col items-start justify-start space-y-10 px-4 py-16 text-primary`}
+                  >
+                    <div className="ml-2 flex space-x-4">
+                      <Link href="https://www.instagram.com/reactiveshots/">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-instagram"
+                        >
+                          <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                          <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                        </svg>
+                      </Link>
+                      <Link href="sms:+1-972-829-5173" className="text-3xl">
+                        <MessageSquareText className="h-6 w-6" />
+                      </Link>
+                    </div>
+                    {links.map((link) => (
+                      <Link key={link.name} href={link.href} className="text-3xl">
+                        {link.name}
+                      </Link>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </motion.nav>
     </AnimatePresence>
