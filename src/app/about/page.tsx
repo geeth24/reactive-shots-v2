@@ -7,13 +7,9 @@ function Page() {
   return (
     <div className="h-screen snap-y snap-mandatory overflow-hidden overflow-y-scroll">
       <Navbar />
-      <div className="snap-start">
-        <About />
-      </div>
+      <About />
       <hr className="h-0.5 bg-primary" />
-      <div className="snap-start">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }
