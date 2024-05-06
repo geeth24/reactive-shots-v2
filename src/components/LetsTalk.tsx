@@ -181,7 +181,7 @@ function LetsTalk() {
                     placeholder="Your Name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-primary/50 p-2 text-base focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
+                    className="w-full rounded-lg border border-primary/50 p-2 text-base text-primary focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
                   />
                 </div>
                 <div className="flex w-full flex-col">
@@ -195,7 +195,7 @@ function LetsTalk() {
                     placeholder="Your Email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-primary/50 p-2 text-base focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
+                    className="w-full rounded-lg border border-primary/50 p-2 text-base text-primary focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
                   />
                 </div>
               </div>
@@ -209,7 +209,7 @@ function LetsTalk() {
                 placeholder="Subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className="rounded-lg border border-primary/50 p-2 text-base focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
+                className="rounded-lg border border-primary/50 p-2 text-base text-primary focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
               />
               <label htmlFor="message" className="text-primary">
                 Message
@@ -220,7 +220,7 @@ function LetsTalk() {
                 placeholder="Your Message"
                 value={formData.message}
                 onChange={handleChange}
-                className="h-32 rounded-lg border border-primary/50 p-2 text-base focus:border-primary focus:ring-1 focus:ring-primary md:text-sm lg:h-64"
+                className="h-32 rounded-lg border border-primary/50 p-2 text-base text-primary focus:border-primary focus:ring-1 focus:ring-primary md:text-sm lg:h-64"
               />
               <button
                 type="submit"
