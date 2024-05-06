@@ -24,42 +24,41 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement>(null);
 
-  const calculateThresholds = useMemo(
-    () =>
-      throttle(() => {
-        const navbarHeight = navbarRef.current?.offsetHeight ?? 0;
-        const sectionOneTop = sectionOneRef?.current?.offsetTop ?? 0;
-        const sectionOneBottom =
-          (sectionOneRef?.current?.offsetTop ?? 0) +
-          (sectionOneRef?.current?.offsetHeight ?? 0) -
-          navbarHeight;
-        const sectionTwoTop = (sectionTwoRef?.current?.offsetTop ?? 0) - navbarHeight;
-        const sectionTwoBottom = sectionTwoTop + (sectionTwoRef?.current?.offsetHeight ?? 0);
-
-        const handleScroll = () => {
-          const divScrollTop = (scrollDivRef?.current?.scrollTop ?? 0) + navbarHeight;
-
-          if (divScrollTop >= sectionOneTop && divScrollTop <= sectionOneBottom) {
-            setNavbarStyle('firstSection');
-          } else if (divScrollTop >= sectionTwoTop && divScrollTop <= sectionTwoBottom) {
-            setNavbarStyle('secondSection');
-          } else {
-            setNavbarStyle('default');
-          }
-        };
-
-        scrollDivRef?.current?.addEventListener('scroll', handleScroll);
-        return () => scrollDivRef?.current?.removeEventListener('scroll', handleScroll);
-      }, 100),
-    [scrollDivRef, sectionOneRef, sectionTwoRef],
-  );
-
   useEffect(() => {
+    const currentScrollDiv = scrollDivRef?.current; // Assign the current ref to a variable
+
+    const calculateThresholds = throttle(() => {
+      const navbarHeight = navbarRef.current?.offsetHeight ?? 0;
+      const sectionOneTop = sectionOneRef?.current?.offsetTop ?? 0;
+      const sectionOneBottom =
+        (sectionOneRef?.current?.offsetTop ?? 0) +
+        (sectionOneRef?.current?.offsetHeight ?? 0) -
+        navbarHeight;
+      const sectionTwoTop = (sectionTwoRef?.current?.offsetTop ?? 0) - navbarHeight;
+      const sectionTwoBottom = sectionTwoTop + (sectionTwoRef?.current?.offsetHeight ?? 0);
+
+      const handleScroll = () => {
+        const divScrollTop = (currentScrollDiv?.scrollTop ?? 0) + navbarHeight;
+
+        if (divScrollTop >= sectionOneTop && divScrollTop <= sectionOneBottom) {
+          setNavbarStyle('firstSection');
+        } else if (divScrollTop >= sectionTwoTop && divScrollTop <= sectionTwoBottom) {
+          setNavbarStyle('secondSection');
+        } else {
+          setNavbarStyle('default');
+        }
+      };
+
+      currentScrollDiv?.addEventListener('scroll', handleScroll);
+      return () => currentScrollDiv?.removeEventListener('scroll', handleScroll);
+    }, 100);
+
     calculateThresholds();
+
     return () => {
-      scrollDivRef?.current?.removeEventListener('scroll', calculateThresholds);
+      currentScrollDiv?.removeEventListener('scroll', calculateThresholds);
     };
-  }, [calculateThresholds, scrollDivRef]);
+  }, [scrollDivRef, sectionOneRef, sectionTwoRef]); // Dependencies
 
   const pathname = usePathname();
   useEffect(() => {
