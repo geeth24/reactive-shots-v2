@@ -20,7 +20,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDivRef }) => {
-  const [navbarStyle, setNavbarStyle] = useState('default');
+  const [navbarStyle, setNavbarStyle] = useState('firstSection');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement>(null);
 
