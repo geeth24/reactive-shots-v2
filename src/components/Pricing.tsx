@@ -209,7 +209,7 @@ const Pricing: React.FC = () => {
                 <Link
                   href={`/lets-talk?package=${packageData.title}`}
                   key={pkgIndex}
-                  className="relative rounded-lg"
+                  className="relative rounded-lg p-0.5"
                 >
                   <motion.div
                     initial="offscreen"
