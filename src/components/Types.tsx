@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 // Enum to define categories with a specific order
-enum Category {
+export enum Category {
   Events = 'events',
   Portraits = 'portraits',
   Cars = 'cars',
@@ -24,12 +24,17 @@ const Types: React.FC = () => {
 
   const images: ImageMap = {
     [Category.Events]: [
-      'Aish-Grad-Party-025.jpg',
+      'Aish-Grad-Party-022.jpg',
       'Shema-010.jpg',
       'Emani 001 (4).jpg',
       'Shema-044.jpg',
     ],
-    [Category.Portraits]: ['Monish-15.jpg', 'LM-07.jpg', 'IMG_7076.JPG', 'JT-Edited-217.jpg'],
+    [Category.Portraits]: [
+      'Prom23-TAMS-001.jpg',
+      'Hima-40.jpg',
+      'Prom23-22.jpg',
+      'JT-Edited-217.jpg',
+    ],
     [Category.Cars]: ['Jaideep 075.jpg', 'Smaran 139.jpg', 'Jaideep-088.jpg', 'Smaran-158.jpg'],
   };
 
