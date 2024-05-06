@@ -102,7 +102,7 @@ const pricingData: PricingData = {
       description: [
         { title: '1 Hours Photoshoot' },
         { title: '1 Locations' },
-        { title: 'Car + Driver' },
+        { title: 'Car + Driver.' },
         { title: '1 Revisions' },
       ],
       price: '$150',
@@ -204,6 +204,19 @@ const Pricing: React.FC = () => {
               {category === Category.Cars && carsDescription}
               {category === Category.Events && eventsDescription}
             </motion.p>
+            {category === Category.Events && (
+              <motion.p
+                variants={pVariants}
+                initial="initial"
+                animate="animate"
+                whileInView="onscreen"
+                viewport={{ once: true }}
+                className="text-primary"
+              >
+                *Price can vary based on the event time and location.
+              </motion.p>
+            )}
+
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
               {pricingData[category].map((packageData, pkgIndex) => (
                 <Link
