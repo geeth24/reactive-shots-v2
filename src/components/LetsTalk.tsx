@@ -4,10 +4,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useParams, useSearchParams } from 'next/navigation';
 function LetsTalk() {
+  const urlSearchParams = useSearchParams();
+  const pricingCategory = urlSearchParams.get('category');
+  const pricingPackage = urlSearchParams.get('package');
+
   const [formData, setFormData] = useState({
     name: '',
-    subject: '',
+    subject: `${pricingCategory ? `Inquiry: ${pricingCategory} - ${pricingPackage}` : ''}`,
     email: '',
     message: '',
   });

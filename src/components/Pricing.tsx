@@ -220,7 +220,9 @@ const Pricing: React.FC = () => {
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
               {pricingData[category].map((packageData, pkgIndex) => (
                 <Link
-                  href={`/lets-talk?package=${packageData.title}`}
+                  href={`/lets-talk?category=${
+                    category.charAt(0).toUpperCase() + category.slice(1)
+                  }&package=${packageData.title}`}
                   key={pkgIndex}
                   className="relative rounded-lg p-0.5"
                 >
