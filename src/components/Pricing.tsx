@@ -167,6 +167,7 @@ const Pricing: React.FC = () => {
     },
   };
 
+  const [blurData, setBlurData] = useState<Map<string, string>>(new Map());
   const [loaded, setLoaded] = useState<boolean>(false);
   const getPhotos = async () => {
     const res = await fetch('https://aura-api.reactiveshots.com/api/category-albums');
@@ -183,20 +184,55 @@ const Pricing: React.FC = () => {
         case 'events':
           // images[Category.Events] = randomImages;
           setImages((prev) => ({ ...prev, [Category.Events]: randomImages }));
+          setBlurData((prev) => {
+            const newMap = new Map(prev);
+            randomImages.forEach((image) => {
+              const fullImageData = data_images.find((img) => img.compressed_image === image);
+
+              if (fullImageData) {
+                newMap.set(image, fullImageData.file_metadata.blur_data_url);
+              }
+            });
+            return newMap;
+          });
+
           break;
         case 'portraits':
           // images[Category.Portraits] = randomImages;
           setImages((prev) => ({ ...prev, [Category.Portraits]: randomImages }));
+          setBlurData((prev) => {
+            const newMap = new Map(prev);
+            randomImages.forEach((image) => {
+              const fullImageData = data_images.find((img) => img.compressed_image === image);
+
+              if (fullImageData) {
+                newMap.set(image, fullImageData.file_metadata.blur_data_url);
+              }
+            });
+            return newMap;
+          });
           break;
         case 'cars':
           // images[Category.Cars] = randomImages;
           setImages((prev) => ({ ...prev, [Category.Cars]: randomImages }));
+          setBlurData((prev) => {
+            const newMap = new Map(prev);
+            randomImages.forEach((image) => {
+              const fullImageData = data_images.find((img) => img.compressed_image === image);
+
+              if (fullImageData) {
+                newMap.set(image, fullImageData.file_metadata.blur_data_url);
+              }
+            });
+            return newMap;
+          });
           break;
       }
     });
     setLoaded(true);
     console.log(images);
   };
+
 
   useEffect(() => {
     getPhotos();
@@ -278,6 +314,8 @@ const Pricing: React.FC = () => {
                           <Image
                             key={index}
                             src={`${loaded ? `${src}` : '/RS-White.png'}`}
+                            blurDataURL={`${loaded ? blurData.get(src) : '/RS-White.png'}`}
+                            placeholder="blur"
                             alt={src.split('-')[0]}
                             width={500}
                             height={500}

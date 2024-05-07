@@ -64,26 +64,37 @@ function LetsTalk() {
   };
 
   const [loaded, setLoaded] = useState<boolean>(false);
-  const [images, setImages] = useState<String[]>([]);
+  const [images, setImages] = useState<string[]>([]);
+  const [blurData, setBlurData] = useState<Map<string, string>>(new Map());
+
   const getPhotos = async () => {
     const res = await fetch('https://aura-api.reactiveshots.com/api/category-albums');
     const data = await res.json();
-    let allImages: String[] = []; // Array to store all images from all categories
+    let allImages: string[] = [];
 
-    // Collect all images from each category into one array
     data.forEach((category: Categories) => {
       const data_images = category.album.album_photos;
       allImages = allImages.concat(data_images.map((img) => img.compressed_image));
     });
 
-    // Shuffle the array and select the first four images
     const shuffledImages = allImages.sort(() => 0.5 - Math.random()).slice(0, 4);
-
-    // Update the state with the selected images
     setImages(shuffledImages);
+    shuffledImages.forEach((image) => {
+      const fullImageData = data.find((category: any) =>
+        category.album.album_photos.some((img: any) => img.compressed_image === image),
+      );
+
+      if (fullImageData) {
+        const blurDataUrl = fullImageData.album.album_photos.find(
+          (img: any) => img.compressed_image === image,
+        )?.file_metadata.blur_data_url;
+        if (blurDataUrl) {
+          setBlurData((prev) => new Map(prev).set(image, blurDataUrl));
+        }
+      }
+    });
     setLoaded(true);
   };
-
   useEffect(() => {
     getPhotos();
   }, []);
@@ -268,6 +279,8 @@ function LetsTalk() {
               <Image
                 key={index}
                 src={`${loaded ? `${src}` : '/RS-White.png'}`}
+                blurDataURL={`${loaded ? blurData.get(src) : '/RS-White.png'}`}
+                placeholder="blur"
                 alt={src.split('-')[0]}
                 width={500}
                 height={500}
