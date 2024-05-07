@@ -74,20 +74,19 @@ function LetsTalk() {
 
     data.forEach((category: Categories) => {
       const data_images = category.album.album_photos;
-      allImages = allImages.concat(data_images.map((img) => img.compressed_image));
+      allImages = allImages.concat(data_images.map((img) => img.image));
     });
 
     const shuffledImages = allImages.sort(() => 0.5 - Math.random()).slice(0, 4);
     setImages(shuffledImages);
     shuffledImages.forEach((image) => {
       const fullImageData = data.find((category: any) =>
-        category.album.album_photos.some((img: any) => img.compressed_image === image),
+        category.album.album_photos.some((img: any) => img.image === image),
       );
 
       if (fullImageData) {
-        const blurDataUrl = fullImageData.album.album_photos.find(
-          (img: any) => img.compressed_image === image,
-        )?.file_metadata.blur_data_url;
+        const blurDataUrl = fullImageData.album.album_photos.find((img: any) => img.image === image)
+          ?.file_metadata.blur_data_url;
         if (blurDataUrl) {
           setBlurData((prev) => new Map(prev).set(image, blurDataUrl));
         }

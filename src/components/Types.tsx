@@ -28,7 +28,7 @@ type Albums = {
 };
 
 export type Album = {
-  image: number;
+  image: string;
   compressed_image: string;
   file_metadata: FileMetadata;
 };
@@ -110,7 +110,7 @@ const Types: React.FC = () => {
       const randomImages = data_images
         .sort(() => Math.random() - Math.random())
         .slice(0, 4)
-        .map((image: Album) => image.compressed_image);
+        .map((image: Album) => image.image);
       switch (category.category_name.toLowerCase()) {
         case 'events':
           // images[Category.Events] = randomImages;
@@ -118,7 +118,7 @@ const Types: React.FC = () => {
           setBlurData((prev) => {
             const newMap = new Map(prev);
             randomImages.forEach((image) => {
-              const fullImageData = data_images.find((img) => img.compressed_image === image);
+              const fullImageData = data_images.find((img) => img.image === image);
 
               if (fullImageData) {
                 newMap.set(image, fullImageData.file_metadata.blur_data_url);
@@ -134,7 +134,7 @@ const Types: React.FC = () => {
           setBlurData((prev) => {
             const newMap = new Map(prev);
             randomImages.forEach((image) => {
-              const fullImageData = data_images.find((img) => img.compressed_image === image);
+              const fullImageData = data_images.find((img) => img.image === image);
 
               if (fullImageData) {
                 newMap.set(image, fullImageData.file_metadata.blur_data_url);
@@ -149,7 +149,7 @@ const Types: React.FC = () => {
           setBlurData((prev) => {
             const newMap = new Map(prev);
             randomImages.forEach((image) => {
-              const fullImageData = data_images.find((img) => img.compressed_image === image);
+              const fullImageData = data_images.find((img) => img.image === image);
 
               if (fullImageData) {
                 newMap.set(image, fullImageData.file_metadata.blur_data_url);
