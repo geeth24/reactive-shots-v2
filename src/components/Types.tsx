@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
@@ -17,12 +17,27 @@ type ImageMap = {
 // Array of categories in the desired order
 const categoryOrder: Category[] = [Category.Events, Category.Portraits, Category.Cars];
 
+export type Categories = {
+  category_id: number;
+  category_name: string;
+  album: Albums;
+};
+
+type Albums = {
+  album_photos: Album[];
+};
+
+export type Album = {
+  image: number;
+  compressed_image: string;
+};
+
 // Component
 const Types: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<Category>(Category.Portraits);
   const [direction, setDirection] = useState<number>(0);
 
-  const images: ImageMap = {
+  const [images, setImages] = useState<ImageMap>({
     [Category.Events]: [
       'Aish-Grad-Party-022.jpg',
       'Shema-010.jpg',
@@ -36,7 +51,7 @@ const Types: React.FC = () => {
       'JT-Edited-217.jpg',
     ],
     [Category.Cars]: ['Jaideep 075.jpg', 'Smaran 139.jpg', 'Jaideep-088.jpg', 'Smaran-158.jpg'],
-  };
+  });
 
   // Animation variants to slide images based on direction
   const variants = {
@@ -78,6 +93,40 @@ const Types: React.FC = () => {
       transition: { duration: 0.5, ease: 'easeOut', delay: 0.3 },
     },
   };
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const getPhotos = async () => {
+    const res = await fetch('https://aura-api.reactiveshots.com/api/category-albums');
+    const data = await res.json();
+
+    //update images object take 4 random images from each category
+    data.forEach((category: Categories) => {
+      const data_images = category.album.album_photos;
+      const randomImages = data_images
+        .sort(() => Math.random() - Math.random())
+        .slice(0, 4)
+        .map((image: Album) => image.compressed_image);
+      switch (category.category_name.toLowerCase()) {
+        case 'events':
+          // images[Category.Events] = randomImages;
+          setImages((prev) => ({ ...prev, [Category.Events]: randomImages }));
+          break;
+        case 'portraits':
+          // images[Category.Portraits] = randomImages;
+          setImages((prev) => ({ ...prev, [Category.Portraits]: randomImages }));
+          break;
+        case 'cars':
+          // images[Category.Cars] = randomImages;
+          setImages((prev) => ({ ...prev, [Category.Cars]: randomImages }));
+          break;
+      }
+    });
+    setLoaded(true);
+    console.log(images);
+  };
+
+  useEffect(() => {
+    getPhotos();
+  }, []);
 
   return (
     <div className="relative  h-screen items-center justify-center overflow-hidden bg-background p-1">
@@ -101,7 +150,7 @@ const Types: React.FC = () => {
               variants={imageVariants}
             >
               <Image
-                src={`https://cdn.reactiveshots.com/geeth/website/compressed/${src}`}
+                src={`${loaded ? `${src}` : '/RS-White.png'}`}
                 alt={src.split('-')[0]}
                 width={500}
                 height={500}

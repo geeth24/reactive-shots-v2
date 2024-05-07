@@ -1,8 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { Categories, Album } from './Types';
 // Types for the package descriptions
 type PackageDescription = {
   title: string;
@@ -116,7 +117,7 @@ const pricingData: PricingData = {
 };
 
 const Pricing: React.FC = () => {
-  const images: ImageMap = {
+  const [images, setImages] = useState<ImageMap>({
     [Category.Events]: [
       'Aish-Grad-Party-022.jpg',
       'Shema-010.jpg',
@@ -130,7 +131,7 @@ const Pricing: React.FC = () => {
       'JT-Edited-217.jpg',
     ],
     [Category.Cars]: ['Jaideep 075.jpg', 'Smaran 139.jpg', 'Jaideep-088.jpg', 'Smaran-158.jpg'],
-  };
+  });
 
   const portaitsDescription =
     'Single, couple, Prom, Graduation, Family, Newborn, Senior, and more.';
@@ -165,6 +166,42 @@ const Pricing: React.FC = () => {
       transition: { duration: 0.5, ease: 'easeOut', delay: 0.3 },
     },
   };
+
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const getPhotos = async () => {
+    const res = await fetch('https://aura-api.reactiveshots.com/api/category-albums');
+    const data = await res.json();
+
+    //update images object take 4 random images from each category
+    data.forEach((category: Categories) => {
+      const data_images = category.album.album_photos;
+      const randomImages = data_images
+        .sort(() => Math.random() - Math.random())
+        .slice(0, 4)
+        .map((image: Album) => image.compressed_image);
+      switch (category.category_name.toLowerCase()) {
+        case 'events':
+          // images[Category.Events] = randomImages;
+          setImages((prev) => ({ ...prev, [Category.Events]: randomImages }));
+          break;
+        case 'portraits':
+          // images[Category.Portraits] = randomImages;
+          setImages((prev) => ({ ...prev, [Category.Portraits]: randomImages }));
+          break;
+        case 'cars':
+          // images[Category.Cars] = randomImages;
+          setImages((prev) => ({ ...prev, [Category.Cars]: randomImages }));
+          break;
+      }
+    });
+    setLoaded(true);
+    console.log(images);
+  };
+
+  useEffect(() => {
+    getPhotos();
+  }, []);
+
   return (
     <div className="container mx-auto flex flex-col items-center justify-start px-4 py-24">
       <motion.h1
@@ -240,7 +277,7 @@ const Pricing: React.FC = () => {
                         >
                           <Image
                             key={index}
-                            src={`https://cdn.reactiveshots.com/geeth/website/compressed/${src}`}
+                            src={`${loaded ? `${src}` : '/RS-White.png'}`}
                             alt={src.split('-')[0]}
                             width={500}
                             height={500}

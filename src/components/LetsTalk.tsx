@@ -2,9 +2,10 @@
 import { Mail, MessageSquareMore } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useParams, useSearchParams } from 'next/navigation';
+import { Categories, Category, Album } from './Types';
 function LetsTalk() {
   const urlSearchParams = useSearchParams();
   const pricingCategory = urlSearchParams.get('category');
@@ -62,7 +63,30 @@ function LetsTalk() {
     },
   };
 
-  let images = ['Smaran 139.jpg', 'LM-07.jpg', 'IMG_7076.JPG', 'Shema-044.jpg'];
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const [images, setImages] = useState<String[]>([]);
+  const getPhotos = async () => {
+    const res = await fetch('https://aura-api.reactiveshots.com/api/category-albums');
+    const data = await res.json();
+    let allImages: String[] = []; // Array to store all images from all categories
+
+    // Collect all images from each category into one array
+    data.forEach((category: Categories) => {
+      const data_images = category.album.album_photos;
+      allImages = allImages.concat(data_images.map((img) => img.compressed_image));
+    });
+
+    // Shuffle the array and select the first four images
+    const shuffledImages = allImages.sort(() => 0.5 - Math.random()).slice(0, 4);
+
+    // Update the state with the selected images
+    setImages(shuffledImages);
+    setLoaded(true);
+  };
+
+  useEffect(() => {
+    getPhotos();
+  }, []);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -243,7 +267,7 @@ function LetsTalk() {
             >
               <Image
                 key={index}
-                src={`https://cdn.reactiveshots.com/geeth/website/compressed/${src}`}
+                src={`${loaded ? `${src}` : '/RS-White.png'}`}
                 alt={src.split('-')[0]}
                 width={500}
                 height={500}
