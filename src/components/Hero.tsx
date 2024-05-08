@@ -40,7 +40,7 @@ function Hero() {
   return (
     <div className="relative flex h-screen w-screen flex-col items-center justify-center">
       <motion.div
-        className="absolute left-0 top-0 z-[-1] h-full w-full"
+        className="fixed left-0 top-0 z-[-1] h-full w-full"
         variants={bgVariants}
         initial="initial"
         animate="animate"

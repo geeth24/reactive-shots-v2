@@ -135,7 +135,7 @@ function LetsTalk() {
   };
 
   return (
-    <div className="container mx-auto flex flex-col items-center justify-center px-4 py-24">
+    <div className="container mx-auto flex h-screen flex-col items-center justify-center px-4 py-24">
       <div className="mt-4 grid  w-full gap-4 md:grid-cols-2">
         <div className="flex flex-col justify-between space-y-4">
           <div className="flex flex-col justify-end">
