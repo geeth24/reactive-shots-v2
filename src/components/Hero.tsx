@@ -81,7 +81,7 @@ function Hero() {
           animate="animate"
           className="font-blackmud text-[4vw] font-light text-tertiary md:text-[3vw]"
         >
-          Capturing your moments
+          Let&apos;s make your moments unforgettable
         </motion.p>
       </div>
     </div>
