@@ -1,4 +1,5 @@
 'use client';
+import { Heart } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 const links = [
@@ -22,7 +23,14 @@ function Footer() {
           </Link>
         ))}
       </div>
-
+      <p className="flex items-center justify-center space-x-1 text-xs">
+        <span>Made with</span>
+        <Heart className="" size={16} />
+        <span>by</span>
+        <Link href="https://geethg.com" className="underline">
+          Geeth
+        </Link>
+      </p>
       <p className="text-sm">Reactive Shots © {new Date().getFullYear()} </p>
     </footer>
   );
