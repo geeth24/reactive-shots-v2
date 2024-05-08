@@ -37,6 +37,22 @@ export type FileMetadata = {
   blur_data_url: string;
 };
 
+const getDynamicClassNames = (activeCategory: Category, index: number, length: number): string => {
+  switch (activeCategory) {
+    case Category.Portraits:
+      return `${index === 0 ? 'rounded-tl-lg lg:rounded-l-lg' : ''} ${index === length - 1 ? 'rounded-br-lg lg:rounded-r-lg' : ''}
+              ${index === 1 ? 'rounded-tr-lg lg:rounded-none' : ''} ${index === 2 ? 'rounded-bl-lg lg:rounded-none' : ''}`;
+
+    case Category.Events:
+    case Category.Cars:
+      return `${index === 0 ? 'rounded-t-lg lg:rounded-t-none lg:rounded-tl-lg' : ''} ${index === 1 ? 'rounded-tr-none lg:rounded-tr-lg' : ''}
+              ${index === 2 ? 'rounded-bl-none lg:rounded-bl-lg' : ''} ${index === 3 ? 'rounded-b-lg lg:rounded-b-none lg:rounded-br-lg' : ''}`;
+
+    default:
+      return '';
+  }
+};
+
 // Component
 const Types: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<Category>(Category.Portraits);
@@ -180,38 +196,36 @@ const Types: React.FC = () => {
           custom={direction}
           className={`grid h-full grid-cols-1 gap-0.5 ${activeCategory === Category.Events ? 'md:grid-cols-2' : `${activeCategory === Category.Cars ? 'md:grid-cols-2' : 'grid-cols-2 lg:grid-cols-4'}`} `}
         >
-          {images[activeCategory].map((src, index) => (
-            <motion.div
-              key={index}
-              className="pointer-events-none h-full w-full overflow-hidden"
-              initial="offscreen"
-              whileInView="onscreen"
-              viewport={{ once: true }}
-              variants={imageVariants}
-            >
-              <Image
-                src={`${loaded ? `${src}` : '/RS-White.png'}`}
-                blurDataURL={`${loaded ? blurData.get(src) : '/RS-White.png'}`}
-                placeholder="blur"
-                alt={src.split('-')[0]}
-                width={500}
-                height={500}
-                className={`aspect-auto h-full w-full  object-cover ${
-                  activeCategory === Category.Portraits
-                    ? `${index === 0 ? 'rounded-tl-lg lg:rounded-l-lg' : ''} ${index === images[activeCategory].length - 1 ? 'rounded-br-lg lg:rounded-r-lg' : ''}
-                ${index === 1 ? 'rounded-tr-lg lg:rounded-none' : ''} ${index === 2 ? 'rounded-bl-lg lg:rounded-none' : ''}
-                `
-                    : `${
-                        activeCategory === Category.Events
-                          ? `${index === 0 ? 'rounded-t-lg lg:rounded-tl-lg' : ''} ${index === 1 ? 'rounded-tr-none lg:rounded-tr-lg' : ''} ${index === 2 ? 'rounded-bl-none lg:rounded-bl-lg' : ''} ${index === 3 ? 'rounded-b-lg lg:rounded-br-lg' : ''}`
-                          : `
-                    
-                    ${activeCategory === Category.Cars ? `${index === 0 ? 'rounded-t-lg lg:rounded-tl-lg' : ''} ${index === 1 ? 'rounded-tr-none lg:rounded-tr-lg' : ''} ${index === 2 ? 'rounded-bl-none lg:rounded-bl-lg' : ''} ${index === 3 ? 'rounded-b-lg lg:rounded-br-lg' : ''}` : ''}`
-                      }`
-                }`}
-              />
-            </motion.div>
-          ))}
+          {images[activeCategory].map((src, index) => {
+            const dynamicClasses = getDynamicClassNames(
+              activeCategory,
+              index,
+              images[activeCategory].length,
+            );
+
+            return (
+              <motion.div
+                key={index}
+                className="pointer-events-none h-full w-full overflow-hidden"
+                initial="offscreen"
+                whileInView="onscreen"
+                viewport={{ once: true }}
+                variants={imageVariants}
+              >
+                <Image
+                  src={`${loaded ? `${src}` : '/RS-White.png'}`}
+                  blurDataURL={`${loaded ? blurData.get(src) : '/RS-White.png'}`}
+                  placeholder="blur"
+                  alt={src.split('-')[0]}
+                  width={500}
+                  height={500}
+                  className={`aspect-auto h-full w-full  object-cover ${
+                    dynamicClasses ? dynamicClasses : ''
+                  }`}
+                />
+              </motion.div>
+            );
+          })}
         </motion.div>
       </AnimatePresence>
       <motion.div
