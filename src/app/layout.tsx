@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Open_Sans } from 'next/font/google';
 import './globals.css';
 import localFont from 'next/font/local';
+import { Analytics } from '@vercel/analytics/react';
 
 const blackMud = localFont({
   src: './Blackmud-VGoOx.ttf',
@@ -39,6 +40,7 @@ export default function RootLayout({
 
       <body className={` ${blackMud.variable} ${opensans.className} bg-background`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
