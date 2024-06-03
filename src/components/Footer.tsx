@@ -24,6 +24,7 @@ function Footer() {
         ))}
       </div>
       <p className="flex items-center justify-center space-x-1 text-xs">
+        <p className='sr-only'>Geeth Gunnampalli</p>
         <span>Made with</span>
         <Heart className="" size={16} />
         <span>by</span>
