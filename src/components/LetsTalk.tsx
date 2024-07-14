@@ -94,9 +94,16 @@ function LetsTalk() {
     });
     setLoaded(true);
   };
+
   useEffect(() => {
+  // get photos on load and refresh every 2 seconds
     getPhotos();
+    const interval = setInterval(() => {
+      getPhotos();
+    }, 2000);
+    return () => clearInterval(interval);
   }, []);
+  
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();

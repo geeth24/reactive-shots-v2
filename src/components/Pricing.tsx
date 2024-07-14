@@ -232,12 +232,16 @@ const Pricing: React.FC = () => {
     setLoaded(true);
     console.log(images);
   };
-
-
+  
   useEffect(() => {
+  // get photos on load and refresh every 2 seconds
     getPhotos();
+    const interval = setInterval(() => {
+      getPhotos();
+    }, 2000);
+    return () => clearInterval(interval);
   }, []);
-
+  
   return (
     <div className="container mx-auto flex flex-col items-center justify-start px-4 py-24">
       <motion.h1

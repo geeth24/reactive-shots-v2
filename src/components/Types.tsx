@@ -179,16 +179,22 @@ const Types: React.FC = () => {
     setLoaded(true);
     console.log(images);
   };
+  const [refreshCounter, setRefreshCounter] = useState(0);
 
   useEffect(() => {
     getPhotos();
-  }, []);
+    const interval = setInterval(() => {
+      getPhotos();
+      setRefreshCounter((c) => c + 1); // Increment to trigger re-animation
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [refreshCounter]); // Add refreshCounter as a dependency here
 
   return (
     <div className="relative  h-screen items-center justify-center overflow-hidden bg-background p-1">
       <AnimatePresence custom={direction} mode="popLayout">
         <motion.div
-          key={activeCategory}
+          key={`${activeCategory}-${refreshCounter}`}
           variants={variants}
           initial="enter"
           animate="center"
