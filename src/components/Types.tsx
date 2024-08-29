@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { PauseCircle, PlayCircle } from 'lucide-react';
 
 // Enum to define categories with a specific order
 export enum Category {
@@ -116,6 +117,7 @@ const Types: React.FC = () => {
   };
   const [blurData, setBlurData] = useState<Map<string, string>>(new Map());
   const [loaded, setLoaded] = useState<boolean>(false);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
   const getPhotos = async () => {
     const res = await fetch('https://aura-api.reactiveshots.com/api/category-albums');
     const data = await res.json();
@@ -182,14 +184,14 @@ const Types: React.FC = () => {
   const [refreshCounter, setRefreshCounter] = useState(0);
 
   useEffect(() => {
-    getPhotos();
-    const interval = setInterval(() => {
-      getPhotos();
-      setRefreshCounter((c) => c + 1); // Increment to trigger re-animation
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [refreshCounter]); // Add refreshCounter as a dependency here
-
+    if (!isPaused) {
+      const interval = setInterval(() => {
+        getPhotos();
+        setRefreshCounter((c) => c + 1);
+      }, 2000);
+      return () => clearInterval(interval);
+    }
+  }, [refreshCounter, isPaused]);
   return (
     <div className="relative  h-screen items-center justify-center overflow-hidden bg-background p-1">
       <AnimatePresence custom={direction} mode="popLayout">
@@ -258,6 +260,14 @@ const Types: React.FC = () => {
               </h1>
             </button>
           ))}
+        </div>
+        <div className="absolute bottom-0  right-0 flex items-center justify-center space-x-4 p-4">
+          <button
+            className="rounded-full bg-tertiary p-2 text-primary"
+            onClick={() => setIsPaused(!isPaused)}
+          >
+            {isPaused ? <PlayCircle className="h-6 w-6" /> : <PauseCircle className="h-6 w-6" />}
+          </button>
         </div>
       </motion.div>
     </div>
