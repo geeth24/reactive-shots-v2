@@ -13,17 +13,22 @@ const Page: React.FC = () => {
   const divRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="h-screen snap-y snap-mandatory overflow-hidden overflow-y-scroll" ref={divRef}>
-      <Navbar sectionOneRef={heroRef} sectionTwoRef={typesRef} scrollDivRef={divRef} />
-      <div ref={heroRef} className="snap-start">
-        <Hero />
-      </div>
-      <div ref={typesRef} className=" snap-start">
-        <Types />
-      </div>
-      <div className="snap-start">
-        <CTA />
-        <Footer />
+    <div className="overflow-hidden">
+      <div
+        className="h-screen snap-y snap-mandatory overflow-hidden overflow-y-scroll"
+        ref={divRef}
+      >
+        <Navbar sectionOneRef={heroRef} sectionTwoRef={typesRef} scrollDivRef={divRef} />
+        <div ref={heroRef} className="snap-start">
+          <Hero />
+        </div>
+        <div ref={typesRef} className=" snap-start">
+          <Types />
+        </div>
+        <div className="snap-start">
+          <CTA />
+          <Footer />
+        </div>
       </div>
     </div>
   );
