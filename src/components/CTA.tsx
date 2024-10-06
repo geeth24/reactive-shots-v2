@@ -10,9 +10,9 @@ function CTA() {
           We capture the essence of every moment, ensuring they&apos;re cherished forever.
         </p>
       </div>
-      <div className="mt-4 flex justify-center">
+      <div className="mt-6 flex justify-center">
         <Link
-          className="rounded-lg bg-primary px-4 py-2 font-blackmud text-sm  text-tertiary"
+          className="hover:bg-primary-dark transform rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-tertiary shadow-lg transition duration-300 ease-in-out hover:scale-105"
           href="/lets-talk"
         >
           Start Your Story

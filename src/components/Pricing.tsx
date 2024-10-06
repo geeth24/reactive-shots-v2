@@ -42,7 +42,7 @@ const pricingData: PricingData = {
         { title: '1 Location' },
         { title: '1 Revision' },
       ],
-      price: '$60',
+      price: '$90',
     },
     {
       title: 'Package 2',
@@ -51,7 +51,7 @@ const pricingData: PricingData = {
         { title: '1 Locations' },
         { title: '2 Revisions' },
       ],
-      price: '$120',
+      price: '$180',
     },
     {
       title: 'Custom Package',
@@ -68,7 +68,7 @@ const pricingData: PricingData = {
         { title: 'Unlimited Images' },
         { title: '2 Revisions' },
       ],
-      price: '$70/hr',
+      price: '$90/hr',
       bestValue: true,
     },
     {
@@ -79,7 +79,7 @@ const pricingData: PricingData = {
         { title: 'Unlimited Images' },
         { title: '2 Revisions' },
       ],
-      price: '$90/hr',
+      price: '$110/hr',
     },
     {
       title: 'Custom Package',
@@ -96,7 +96,7 @@ const pricingData: PricingData = {
         { title: 'Car Only' },
         { title: '1 Revision' },
       ],
-      price: '$50',
+      price: '$80',
     },
     {
       title: 'Package 2',
@@ -106,7 +106,7 @@ const pricingData: PricingData = {
         { title: 'Car + Driver.' },
         { title: '1 Revisions' },
       ],
-      price: '$100',
+      price: '$160',
     },
     {
       title: 'Custom Package',

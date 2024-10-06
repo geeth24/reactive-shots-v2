@@ -263,7 +263,7 @@ const Types: React.FC = () => {
         </div>
         <div className="absolute bottom-0  right-0 flex items-center justify-center space-x-4 p-4">
           <button
-            className="rounded-full bg-tertiary p-2 text-primary"
+            className="rounded-lg bg-tertiary p-2 text-primary"
             onClick={() => setIsPaused(!isPaused)}
           >
             {isPaused ? <PlayCircle className="h-6 w-6" /> : <PauseCircle className="h-6 w-6" />}
