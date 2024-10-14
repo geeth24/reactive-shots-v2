@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: 'https://reactiveshots.com/RS-White.png',
+        url: 'https://reactiveshots.com/RS-Logo.png',
       },
     ],
   },

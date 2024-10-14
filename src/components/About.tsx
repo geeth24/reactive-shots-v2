@@ -77,7 +77,7 @@ function About() {
               viewport={{ once: true }}
               className="text-lg text-primary/75"
             >
-              Whether it's through still images or motion pictures, I strive to create lasting
+              Whether it&apos;s through still images or motion pictures, I strive to create lasting
               memories that you can relive for years to come.
             </motion.p>
           </div>
