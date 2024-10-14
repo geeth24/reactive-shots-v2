@@ -15,10 +15,10 @@ const opensans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Reactive Shots | Professional Photography Services',
+  title: 'Reactive Shots | Professional Photography & Videography Services',
   description:
-    'Professional photography services specializing in portraits and Indian events. Contact Reactive Shots today for your next photo shoot!',
-  applicationName: 'Reactive Shots | Professional Photography Services"',
+    'Professional photography & videography services specializing in portraits and Indian events. Contact Reactive Shots today!',
+  applicationName: 'Reactive Shots | Professional Photography & Videography Services"',
   authors: [{ name: 'Geeth Gunnampalli' }],
   openGraph: {
     images: [
@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className=" snap-y snap-mandatory">
+    <html lang="en" className="snap-y snap-mandatory">
       <link rel="icon" href="/favicon.ico" />
 
       <body className={` ${blackMud.variable} ${opensans.className}  `}>

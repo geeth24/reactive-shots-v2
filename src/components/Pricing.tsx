@@ -61,25 +61,15 @@ const pricingData: PricingData = {
   ],
   [Category.Events]: [
     {
-      title: 'Package 1',
-      description: [
-        { title: 'Min 3 Hours Event/Party' },
-        { title: 'Daytime' },
-        { title: 'Unlimited Images' },
-        { title: '2 Revisions' },
-      ],
+      title: 'Photos Or Video',
+      description: [{ title: 'Only Photos or Video' }, { title: '2 Revisions' }],
       price: '$90/hr',
-      bestValue: true,
     },
     {
-      title: 'Package 2',
-      description: [
-        { title: 'Min 3 Hours Event/Party' },
-        { title: 'Evening' },
-        { title: 'Unlimited Images' },
-        { title: '2 Revisions' },
-      ],
+      title: 'Photo + Video',
+      description: [{ title: 'Photos and Video' }, { title: '2 Revisions' }],
       price: '$110/hr',
+      bestValue: true,
     },
     {
       title: 'Custom Package',
@@ -89,7 +79,7 @@ const pricingData: PricingData = {
   ],
   [Category.Cars]: [
     {
-      title: 'Package 1',
+      title: 'Photos Only',
       description: [
         { title: '1 Hour Photoshoot' },
         { title: '1 Location' },
@@ -99,14 +89,14 @@ const pricingData: PricingData = {
       price: '$80',
     },
     {
-      title: 'Package 2',
+      title: 'Photo & Video',
       description: [
         { title: '1 Hours Photoshoot' },
         { title: '1 Locations' },
         { title: 'Car + Driver.' },
         { title: '1 Revisions' },
       ],
-      price: '$160',
+      price: '$120',
     },
     {
       title: 'Custom Package',
@@ -118,19 +108,9 @@ const pricingData: PricingData = {
 
 const Pricing: React.FC = () => {
   const [images, setImages] = useState<ImageMap>({
-    [Category.Events]: [
-      'Aish-Grad-Party-022.jpg',
-      'Shema-010.jpg',
-      'Emani 001 (4).jpg',
-      'Shema-044.jpg',
-    ],
-    [Category.Portraits]: [
-      'Monish-15.jpg',
-      'Prom23-TAMS-046.jpg',
-      'Prom23-25.jpg',
-      'JT-Edited-217.jpg',
-    ],
-    [Category.Cars]: ['Jaideep 075.jpg', 'Smaran 139.jpg', 'Jaideep-088.jpg', 'Smaran-158.jpg'],
+    [Category.Portraits]: [],
+    [Category.Events]: [],
+    [Category.Cars]: [],
   });
 
   const portaitsDescription =
@@ -232,16 +212,16 @@ const Pricing: React.FC = () => {
     setLoaded(true);
     console.log(images);
   };
-  
+
   useEffect(() => {
-  // get photos on load and refresh every 2 seconds
+    // get photos on load and refresh every 2 seconds
     getPhotos();
     const interval = setInterval(() => {
       getPhotos();
     }, 2000);
     return () => clearInterval(interval);
   }, []);
-  
+
   return (
     <div className="container mx-auto flex flex-col items-center justify-start px-4 py-24">
       <motion.h1

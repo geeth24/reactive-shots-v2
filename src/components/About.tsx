@@ -13,7 +13,6 @@ function About() {
     },
   };
 
-  // h1 animation with parallax-like effect
   const h1Variants = {
     initial: { y: -50, opacity: 0 },
     animate: {
@@ -23,7 +22,6 @@ function About() {
     },
   };
 
-  // Paragraph animation that complements the h1
   const pVariants = {
     initial: { y: 100, opacity: 0 },
     animate: {
@@ -54,9 +52,10 @@ function About() {
               viewport={{ once: true }}
               className="text-lg text-primary/75"
             >
-              Hello! I&apos;m Geeth—your photographer, memory maker, and the passionate eye behind
+              Hello! I&apos;m Geeth—your photographer, videographer, and memory maker behind
               Reactive Shots. Over the past two years, I&apos;ve dedicated myself to mastering the
-              art of photography, specializing in portraits and Indian events.
+              art of both photography and videography, specializing in portraits, Indian events, and
+              cinematic storytelling.
             </motion.p>
             <motion.p
               variants={pVariants}
@@ -65,10 +64,21 @@ function About() {
               viewport={{ once: true }}
               className="text-lg text-primary/75"
             >
-              At Reactive Shots, every click of the shutter is an opportunity to capture the unique
-              essence and vibrant spirit of my subjects. From the subtle intricacies of a
-              professional headshot to the lively energy of a family celebration, my camera is an
-              extension of my vision to bring out the best in every moment.
+              At Reactive Shots, every click of the shutter and every second of video footage is an
+              opportunity to capture the unique essence and vibrant spirit of my subjects. From the
+              subtle intricacies of a professional headshot to the dynamic energy of a family
+              celebration, my camera and video equipment are extensions of my vision to bring out
+              the best in every moment.
+            </motion.p>
+            <motion.p
+              variants={pVariants}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              className="text-lg text-primary/75"
+            >
+              Whether it's through still images or motion pictures, I strive to create lasting
+              memories that you can relive for years to come.
             </motion.p>
           </div>
         </motion.div>
