@@ -201,10 +201,10 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
                 >
                   <div className="absolute left-4 top-4">
                     <button
-                      className="text-tertiary rounded-lg px-4 py-2"
+                      className="text-primary rounded-lg px-4 py-2"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <X className={`h-6 w-6 text-tertiary`} />
+                      <X className={`h-6 w-6 text-primary`} />
                     </button>
                   </div>
                   <div
