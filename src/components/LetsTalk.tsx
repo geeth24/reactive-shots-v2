@@ -265,7 +265,7 @@ function LetsTalk() {
               />
               <button
                 type="submit"
-                className="hover:bg-primary-dark focus:ring-primary-dark rounded-lg bg-primary p-2 text-tertiary focus:outline-none focus:ring-2 focus:ring-offset-2"
+                className="bg-primary hover:bg-primary-dark text-tertiary rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
               >
                 {isSubmitting ? 'Sending...' : 'Send'}
               </button>

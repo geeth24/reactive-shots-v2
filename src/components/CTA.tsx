@@ -12,7 +12,7 @@ function CTA() {
       </div>
       <div className="mt-6 flex justify-center">
         <Link
-          className="hover:bg-primary-dark transform rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-tertiary shadow-lg transition duration-300 ease-in-out hover:scale-105"
+          className="bg-primary hover:bg-primary-dark text-tertiary rounded-lg transform px-6 py-3 text-sm font-semibold shadow-lg transition duration-300 ease-in-out hover:scale-105"
           href="/lets-talk"
         >
           Start Your Story
