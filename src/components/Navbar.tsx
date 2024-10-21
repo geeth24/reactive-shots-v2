@@ -106,7 +106,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
           <div className=" flex flex-row items-center justify-center md:flex-row md:items-center md:justify-between">
             <div className="absolute left-4 md:hidden">
               <button
-                className="z-50 md:hidden bg-primary hover:bg-primary-dark text-tertiary rounded-lg px-4 py-2"
+                className="z-50 md:hidden text-tertiary rounded-lg px-4 py-2"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 {isMenuOpen ? <></> : <Menu className="h-6 w-6" />}
@@ -201,7 +201,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
                 >
                   <div className="absolute left-4 top-4">
                     <button
-                      className="bg-primary hover:bg-primary-dark text-tertiary rounded-lg px-4 py-2"
+                      className="text-tertiary rounded-lg px-4 py-2"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <X className={`h-6 w-6 text-tertiary`} />
