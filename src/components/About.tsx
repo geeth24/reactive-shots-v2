@@ -33,14 +33,14 @@ function About() {
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-center px-4 py-24">
-      <div className="mt-4 grid  w-full gap-4 md:grid-cols-2">
+      <div className="mt-4 grid w-full gap-4 md:grid-cols-2">
         <motion.div className="flex flex-col justify-center space-y-4">
           <motion.h1
             variants={h1Variants}
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
-            className="font-blackmud text-5xl leading-loose text-primary"
+            className="font-blackmud text-primary text-5xl leading-loose"
           >
             Capturing your moments that last a lifetime
           </motion.h1>
@@ -50,7 +50,7 @@ function About() {
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
-              className="text-lg text-primary/75"
+              className="text-primary/75 text-lg"
             >
               Hello! I&apos;m Geeth—your photographer, videographer, and memory maker behind
               Reactive Shots. Over the past two years, I&apos;ve dedicated myself to mastering the
@@ -62,7 +62,7 @@ function About() {
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
-              className="text-lg text-primary/75"
+              className="text-primary/75 text-lg"
             >
               At Reactive Shots, every click of the shutter and every second of video footage is an
               opportunity to capture the unique essence and vibrant spirit of my subjects. From the
@@ -75,7 +75,7 @@ function About() {
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
-              className="text-lg text-primary/75"
+              className="text-primary/75 text-lg"
             >
               Whether it&apos;s through still images or motion pictures, I strive to create lasting
               memories that you can relive for years to come.
@@ -90,7 +90,7 @@ function About() {
           viewport={{ once: true }}
         >
           <Image
-            src="https://aura-cdn.reactiveshots.com/geeth/website/compressed/Jul-24-1.jpg"
+            src="https://aura-cdn.reactiveshots.com/fit-in/1920x0/geeth/website/Jul-24-1.jpg"
             width={500}
             height={500}
             alt=""

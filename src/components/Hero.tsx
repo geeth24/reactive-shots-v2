@@ -55,7 +55,7 @@ function Hero() {
         >
           <p className="sr-only">Reactive Shots</p>
           <Image
-            src="https:///aura-cdn.reactiveshots.com/geeth/website/compressed/ReactiveShots Desk.jpg"
+            src="https://aura-cdn.reactiveshots.com/fit-in/1920x0/geeth/website/ReactiveShots Desk.jpg"
             layout="fill"
             alt=""
             className="object-cover object-center"
