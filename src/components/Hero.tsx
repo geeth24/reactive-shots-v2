@@ -48,26 +48,26 @@ function Hero() {
     return (
       <div className="relative flex h-screen w-screen flex-col items-center justify-center">
         <motion.div
-          className="absolute left-0 top-0 z-[-1] h-full w-full"
+          className="absolute top-0 left-0 z-[-1] h-full w-full"
           variants={bgVariants}
           initial="initial"
           animate="animate"
         >
           <p className="sr-only">Reactive Shots</p>
           <Image
-            src="https://cdn.reactiveshots.com/geeth/website/compressed/ReactiveShots Desk.jpg"
+            src="https:///aura-cdn.reactiveshots.com/geeth/website/compressed/ReactiveShots Desk.jpg"
             layout="fill"
             alt=""
             className="object-cover object-center"
           />
         </motion.div>
-        <motion.div className="absolute left-0 top-0 z-[-1] h-full w-full bg-linear-to-b from-black/25 via-primary to-secondary opacity-50" />
+        <motion.div className="via-primary to-secondary absolute top-0 left-0 z-[-1] h-full w-full bg-linear-to-b from-black/25 opacity-50" />
         <div className="relative z-10 text-center">
           <motion.h1
             variants={h1Variants}
             initial="initial"
             animate="animate"
-            className="font-blackmud text-[12vw] text-tertiary"
+            className="font-blackmud text-tertiary text-[12vw]"
           >
             {heading.split('').map((letter, index) => (
               <motion.span
@@ -87,7 +87,7 @@ function Hero() {
             variants={pVariants}
             initial="initial"
             animate="animate"
-            className="font-blackmud text-[3vw] font-light text-tertiary md:text-[2vw]"
+            className="font-blackmud text-tertiary text-[3vw] font-light md:text-[2vw]"
           >
             Photography & Videography
           </motion.p>
@@ -95,7 +95,7 @@ function Hero() {
             variants={p2Variants}
             initial="initial"
             animate="animate"
-            className="font-blackmud text-[4vw] font-light text-tertiary md:text-[3vw]"
+            className="font-blackmud text-tertiary text-[4vw] font-light md:text-[3vw]"
           >
             Let&apos;s make your moments unforgettable
           </motion.p>
