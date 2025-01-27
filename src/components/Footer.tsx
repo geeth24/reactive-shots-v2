@@ -10,7 +10,7 @@ const links = [
 ];
 function Footer() {
   return (
-    <footer className="bg-backgroundDark py-4 text-center text-tertiary">
+    <footer className="bg-background-dark py-4 text-center text-tertiary">
       <h1 className="mb-4 font-blackmud text-3xl leading-loose text-tertiary">RS</h1>
       <div className="mb-4 flex justify-center space-x-4">
         {links.map((link) => (

@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import React from 'react';
+import { Button } from './button';
 
 function CTA() {
   return (
-    <div className="flex flex-col space-y-8 bg-tertiary py-16 text-center text-primary">
+    <div className="bg-tertiary text-primary flex flex-col space-y-8 py-16 text-center">
       <div className="space-y-4">
         <h1 className="font-blackmud text-3xl leading-loose">Capturing Unforgettable Memories</h1>
         <p className="text-lg">
@@ -11,12 +12,9 @@ function CTA() {
         </p>
       </div>
       <div className="mt-6 flex justify-center">
-        <Link
-          className="bg-primary hover:bg-primary-dark text-tertiary rounded-lg transform px-6 py-3 text-sm font-semibold shadow-lg transition duration-300 ease-in-out hover:scale-105"
-          href="/lets-talk"
-        >
+        <Button href="/lets-talk" color="primary">
           Start Your Story
-        </Link>
+        </Button>
       </div>
     </div>
   );

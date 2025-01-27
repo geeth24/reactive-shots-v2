@@ -14,9 +14,11 @@ const links = [
 ];
 
 interface NavbarProps {
-  sectionOneRef?: React.RefObject<HTMLDivElement>;
-  sectionTwoRef?: React.RefObject<HTMLDivElement>;
-  scrollDivRef?: React.RefObject<HTMLDivElement>;
+  sectionOneRef?: React.RefObject<HTMLDivElement | null>;
+
+  sectionTwoRef?: React.RefObject<HTMLDivElement | null>;
+
+  scrollDivRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDivRef }) => {
@@ -95,7 +97,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
     <AnimatePresence>
       <motion.nav
         ref={navbarRef}
-        className="fixed z-20 w-screen p-4 font-blackmud"
+        className="font-blackmud fixed z-20 w-screen p-4"
         animate={navbarStyle}
         variants={variants}
         initial="firstSection"
@@ -103,17 +105,17 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
         role="navigation"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className=" flex flex-row items-center justify-center md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-row items-center justify-center md:flex-row md:items-center md:justify-between">
             <div className="absolute left-4 md:hidden">
               <button
-                className="z-50 md:hidden text-tertiary rounded-lg px-4 py-2"
+                className="text-tertiary z-50 rounded-lg px-4 py-2 md:hidden"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 {isMenuOpen ? <></> : <Menu className="h-6 w-6" />}
               </button>
             </div>
             <div
-              className={`${isMenuOpen ? 'hidden' : 'hidden'} items-start space-y-4 md:flex md:space-x-4 md:space-y-0 `}
+              className={`${isMenuOpen ? 'hidden' : 'hidden'} items-start space-y-4 md:flex md:space-y-0 md:space-x-4`}
             >
               {links.map((link) => (
                 <Link key={link.name} href={link.href} className="text-center">
@@ -146,7 +148,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
             </div>
             <Link
               href="/"
-              className={`z-50 mr-2 mt-2 text-center  font-blackmud text-3xl md:mr-[12.5rem] ${isMenuOpen ? 'text-primary' : ''}`}
+              className={`font-blackmud z-50 mt-2 mr-2 text-center text-3xl md:mr-[12.5rem] ${isMenuOpen ? 'text-primary' : ''}`}
             >
               {navbarStyle === 'firstSection' ? 'RS' : 'Reactive Shots'}
             </Link>
@@ -197,18 +199,18 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
                   initial={{ opacity: 0, y: -100 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -100 }}
-                  className="fixed left-0 top-0 z-40 flex h-[26rem] w-full items-center justify-center bg-tertiary shadow backdrop-blur-3xl md:hidden"
+                  className="bg-tertiary fixed top-0 left-0 z-40 flex h-[26rem] w-full items-center justify-center shadow-sm backdrop-blur-3xl md:hidden"
                 >
-                  <div className="absolute left-4 top-4">
+                  <div className="absolute top-4 left-4">
                     <button
                       className="text-primary rounded-lg px-4 py-2"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <X className={`h-6 w-6 text-primary`} />
+                      <X className={`text-primary h-6 w-6`} />
                     </button>
                   </div>
                   <div
-                    className={`z-50 flex h-full w-full flex-col items-start justify-start space-y-10 px-4 py-16 text-primary`}
+                    className={`text-primary z-50 flex h-full w-full flex-col items-start justify-start space-y-10 px-4 py-16`}
                   >
                     <div className="ml-2 flex space-x-4">
                       <Link href="https://www.instagram.com/reactiveshots/">

@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Categories, Category, Album } from './Types';
+import { Button } from './button';
 function LetsTalk() {
   const urlSearchParams = useSearchParams();
   const pricingCategory = urlSearchParams.get('category');
@@ -96,14 +97,13 @@ function LetsTalk() {
   };
 
   useEffect(() => {
-  // get photos on load and refresh every 2 seconds
+    // get photos on load and refresh every 2 seconds
     getPhotos();
     const interval = setInterval(() => {
       getPhotos();
     }, 2000);
     return () => clearInterval(interval);
   }, []);
-  
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -143,7 +143,7 @@ function LetsTalk() {
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-center px-4 py-24">
-      <div className="mt-4 grid  w-full gap-4 md:grid-cols-2">
+      <div className="mt-4 grid w-full gap-4 md:grid-cols-2">
         <div className="flex flex-col justify-between space-y-4">
           <div className="flex flex-col justify-end">
             <motion.h2
@@ -152,7 +152,7 @@ function LetsTalk() {
               animate="animate"
               whileInView="onscreen"
               viewport={{ once: true }}
-              className="font-blackmud text-3xl leading-loose text-primary"
+              className="font-blackmud text-primary text-3xl leading-loose"
             >
               Let&apos;s make your moments unforgettable
             </motion.h2>
@@ -165,20 +165,20 @@ function LetsTalk() {
               className="mt-8 flex flex-col space-y-4"
             >
               <div className="flex flex-row space-x-2">
-                <MessageSquareMore className="h-6 w-6 text-primary" />
+                <MessageSquareMore className="text-primary h-6 w-6" />
                 <Link href="sms:+1-972-829-5173" className="text-primary">
                   +1 (972) 829-5173
                 </Link>
               </div>
               <div className="flex flex-row space-x-2">
-                <Mail className="h-6 w-6 text-primary" />
+                <Mail className="text-primary h-6 w-6" />
                 <Link href="mailto:info@reactiveshots.com" className="text-primary">
                   info@reactiveshots.com
                 </Link>
               </div>
 
               <Link href="https://www.instagram.com/reactiveshots/">
-                <div className="flex flex-row space-x-2 text-primary">
+                <div className="text-primary flex flex-row space-x-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -222,7 +222,7 @@ function LetsTalk() {
                     placeholder="Your Name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-primary/50 p-2 text-base text-primary focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
+                    className="border-primary/50 text-primary focus:border-primary focus:ring-primary w-full rounded-lg border p-2 text-base focus:ring-1 md:text-sm"
                   />
                 </div>
                 <div className="flex w-full flex-col">
@@ -236,7 +236,7 @@ function LetsTalk() {
                     placeholder="Your Email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-primary/50 p-2 text-base text-primary focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
+                    className="border-primary/50 text-primary focus:border-primary focus:ring-primary w-full rounded-lg border p-2 text-base focus:ring-1 md:text-sm"
                   />
                 </div>
               </div>
@@ -250,7 +250,7 @@ function LetsTalk() {
                 placeholder="Subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className="rounded-lg border border-primary/50 p-2 text-base text-primary focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
+                className="border-primary/50 text-primary focus:border-primary focus:ring-primary rounded-lg border p-2 text-base focus:ring-1 md:text-sm"
               />
               <label htmlFor="message" className="text-primary">
                 Message
@@ -261,14 +261,12 @@ function LetsTalk() {
                 placeholder="Your Message"
                 value={formData.message}
                 onChange={handleChange}
-                className="h-32 rounded-lg border border-primary/50 p-2 text-base text-primary focus:border-primary focus:ring-1 focus:ring-primary md:text-sm lg:h-64"
+                className="border-primary/50 text-primary focus:border-primary focus:ring-primary h-32 rounded-lg border p-2 text-base focus:ring-1 md:text-sm lg:h-64"
               />
-              <button
-                type="submit"
-                className="bg-primary hover:bg-primary-dark text-tertiary rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-              >
+
+              <Button type="submit" color="primary" className="w-full">
                 {isSubmitting ? 'Sending...' : 'Send'}
-              </button>
+              </Button>
             </div>
           </motion.form>
         </div>
@@ -276,7 +274,7 @@ function LetsTalk() {
           {images.map((src, index) => (
             <motion.div
               key={index}
-              className="pointer-events-none  overflow-hidden"
+              className="pointer-events-none overflow-hidden"
               initial="offscreen"
               whileInView="onscreen"
               viewport={{ once: true }}

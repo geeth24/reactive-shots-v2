@@ -61,7 +61,7 @@ function Hero() {
             className="object-cover object-center"
           />
         </motion.div>
-        <motion.div className="absolute left-0 top-0 z-[-1] h-full w-full bg-gradient-to-b from-black/25 via-primary to-secondary opacity-50" />
+        <motion.div className="absolute left-0 top-0 z-[-1] h-full w-full bg-linear-to-b from-black/25 via-primary to-secondary opacity-50" />
         <div className="relative z-10 text-center">
           <motion.h1
             variants={h1Variants}

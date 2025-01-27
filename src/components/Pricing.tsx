@@ -245,7 +245,7 @@ const Pricing: React.FC = () => {
               animate="animate"
               whileInView="onscreen"
               viewport={{ once: true }}
-              className="mt-4 font-blackmud text-2xl leading-loose text-primary"
+              className="font-blackmud text-primary mt-4 text-2xl leading-loose"
             >
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </motion.h2>
@@ -312,9 +312,9 @@ const Pricing: React.FC = () => {
                         </div>
                       ))}
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 top-0  rounded-lg bg-black bg-opacity-50" />
-                    <div className="absolute bottom-0 left-0 right-0 top-0 flex flex-col items-center justify-center">
-                      <h3 className="font-blackmud text-xl leading-loose text-tertiary">
+                    <div className="absolute top-0 right-0 bottom-0 left-0 rounded-lg bg-black/50" />
+                    <div className="absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center">
+                      <h3 className="font-blackmud text-tertiary text-xl leading-loose">
                         {packageData.title}
                       </h3>
                       {packageData.description.map((desc, descIndex) => (
@@ -322,11 +322,11 @@ const Pricing: React.FC = () => {
                           {desc.title}
                         </p>
                       ))}
-                      <h4 className="font-blackmud text-3xl leading-loose text-tertiary">
+                      <h4 className="font-blackmud text-tertiary text-3xl leading-loose">
                         {packageData.price}
                       </h4>
                       {packageData.bestValue && (
-                        <p className="text-center text-tertiary">Best Value</p>
+                        <p className="text-tertiary text-center">Best Value</p>
                       )}
                     </div>
                   </motion.div>

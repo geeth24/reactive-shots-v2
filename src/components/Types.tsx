@@ -241,7 +241,7 @@ const Types: React.FC = () => {
         whileInView="onscreen"
         viewport={{ once: true }}
         variants={imageVariants}
-        className="absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-black bg-opacity-25"
+        className="absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-black/25"
       />
       <motion.div
         initial="offscreen"
