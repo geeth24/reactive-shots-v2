@@ -131,8 +131,8 @@ function About() {
               for creativity, Kevin is quickly becoming an integral part of our team. He assists in
               various aspects of our projects, from setting up equipment to post-processing, always
               eager to learn and contribute to capturing those perfect moments. Having Kevin as a
-              second shooter means you'll receive even more amazing photos to cherish, as he captures
-              unique angles and candid moments that might otherwise be missed.
+              second shooter means you&apos;ll receive even more amazing photos to cherish, as he
+              captures unique angles and candid moments that might otherwise be missed.
             </motion.p>
           </div>
         </div>

@@ -13,7 +13,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$120',
+      price: '$110',
     },
     {
       title: 'Extended Package',
@@ -26,7 +26,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$220',
+      price: '$200',
     },
     {
       title: 'Custom Package',
