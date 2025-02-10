@@ -1,163 +1,19 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+
+import type React from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Categories, Album } from './Types';
-// Types for the package descriptions
-type PackageDescription = {
-  title: string;
+import { motion, AnimatePresence } from 'framer-motion';
+import { Category, type ImageMap, type Categories, type Album } from '@/types/pricing';
+import { pricingData } from '@/data/pricingData';
+import { Button } from '@/components/button';
+
+const categoryDescriptions = {
+  [Category.Portraits]: 'Single, couple, Prom, Graduation, Family, Newborn, Senior, and more.',
+  [Category.Cars]: 'Car and driver',
+  [Category.Events]: 'Indian events, Graduation, Birthday, and more.',
 };
-
-// Types for the pricing packages
-type PricingPackage = {
-  title: string;
-  description: PackageDescription[];
-  price: string;
-  bestValue?: boolean;
-};
-
-// Types for the data structure holding all packages
-type PricingData = {
-  [key: string]: PricingPackage[];
-};
-
-// Define the categories
-enum Category {
-  Portraits = 'portraits',
-  Events = 'events',
-  Cars = 'cars',
-}
-
-export type ImageMap = {
-  [key: string]: string[]; // This allows any string as a key
-};
-
-const pricingData: PricingData = {
-  [Category.Portraits]: [
-    {
-      title: 'Essential Package',
-      description: [
-        { title: '1 Hour Photoshoot' },
-        { title: '1 Location' },
-        { title: 'Includes Standard Editing' },
-        { title: '1 Revision' },
-        { title: 'Optional: Premium Retouching ($30/image)' },
-        { title: 'Optional: Express Delivery ($50)' },
-        { title: 'Optional: Raw Files ($500)' },
-      ],
-      price: '$120',
-    },
-    {
-      title: 'Extended Package',
-      description: [
-        { title: '2 Hours Photoshoot' },
-        { title: '1 Location' },
-        { title: 'Includes Standard Editing' },
-        { title: '2 Revisions' },
-        { title: 'Optional: Premium Retouching ($30/image)' },
-        { title: 'Optional: Express Delivery ($50)' },
-        { title: 'Optional: Raw Files ($500)' },
-      ],
-      price: '$220',
-    },
-    {
-      title: 'Custom Package',
-      description: [
-        { title: 'Custom Photoshoot' },
-        { title: 'Includes Standard Editing' },
-        { title: 'Optional: Premium Retouching ($30/image)' },
-        { title: 'Optional: Express Delivery ($50)' },
-        { title: 'Optional: Raw Files ($500)' },
-      ],
-      price: 'Contact for Pricing',
-    },
-  ],
-  [Category.Events]: [
-    {
-      title: 'Photos or Video',
-      description: [
-        { title: 'Only Photos or Video' },
-        { title: 'Includes Standard Editing' },
-        { title: '2 Revisions' },
-        { title: 'Optional: Extra Photographer ($25/hr)' },
-        { title: 'Optional: Premium Retouching ($30/image)' },
-        { title: 'Optional: Express Delivery ($50)' },
-        { title: 'Optional: Raw Files ($500)' },
-      ],
-      price: '$110/hr',
-    },
-    {
-      title: 'Photo + Video',
-      description: [
-        { title: 'Photos and Video' },
-        { title: 'Includes Standard Editing' },
-        { title: '2 Revisions' },
-        { title: 'Optional: Extra Photographer ($25/hr)' },
-        { title: 'Optional: Premium Retouching ($30/image)' },
-        { title: 'Optional: Express Delivery ($50)' },
-        { title: 'Optional: Raw Files ($500)' },
-      ],
-      price: '$130/hr',
-      bestValue: true,
-    },
-    {
-      title: 'Custom Package',
-      description: [
-        { title: 'Custom Event' },
-        { title: 'Custom Hours' },
-        { title: 'Includes Standard Editing' },
-        { title: 'Optional: Extra Photographer ($25/hr)' },
-        { title: 'Optional: Premium Retouching ($30/image)' },
-        { title: 'Optional: Express Delivery ($50)' },
-        { title: 'Optional: Raw Files ($500)' },
-      ],
-      price: 'Contact for Pricing',
-    },
-  ],
-  [Category.Cars]: [
-    {
-      title: 'Photos Only',
-      description: [
-        { title: '1 Hour Photoshoot' },
-        { title: '1 Location' },
-        { title: 'Car Only' },
-        { title: 'Includes Standard Editing' },
-        { title: '1 Revision' },
-        { title: 'Optional: Premium Retouching ($30/image)' },
-        { title: 'Optional: Express Delivery ($50)' },
-        { title: 'Optional: Raw Files ($500)' },
-      ],
-      price: '$100',
-    },
-    {
-      title: 'Photo & Video',
-      description: [
-        { title: '1 Hour Photoshoot' },
-        { title: '1 Location' },
-        { title: 'Car + Driver' },
-        { title: 'Includes Standard Editing' },
-        { title: '1 Revision' },
-        { title: 'Optional: Premium Retouching ($30/image)' },
-        { title: 'Optional: Express Delivery ($50)' },
-        { title: 'Optional: Raw Files ($500)' },
-      ],
-      price: '$140',
-    },
-    {
-      title: 'Custom Package',
-      description: [
-        { title: 'Custom Photoshoot' },
-        { title: 'Includes Standard Editing' },
-        { title: 'Optional: Premium Retouching ($30/image)' },
-        { title: 'Optional: Express Delivery ($50)' },
-        { title: 'Optional: Raw Files ($500)' },
-      ],
-      price: 'Contact for Pricing',
-    },
-  ],
-};
-
 
 const Pricing: React.FC = () => {
   const [images, setImages] = useState<ImageMap>({
@@ -165,230 +21,177 @@ const Pricing: React.FC = () => {
     [Category.Events]: [],
     [Category.Cars]: [],
   });
-
-  const portaitsDescription =
-    'Single, couple, Prom, Graduation, Family, Newborn, Senior, and more.';
-  const carsDescription = 'Car and driver';
-  const eventsDescription = 'Indian events, Graduation, Birthday, and more.';
-
-  // h1 animation with parallax-like effect
-  const h1Variants = {
-    initial: { y: -50, opacity: 0 },
-    animate: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut' },
-    },
-  };
-
-  // Paragraph animation that complements the h1
-  const pVariants = {
-    initial: { y: 100, opacity: 0 },
-    animate: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut', delay: 0.3 },
-    },
-  };
-
-  const imageVariants = {
-    offscreen: { opacity: 0, scale: 0.95 },
-    onscreen: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5, ease: 'easeOut', delay: 0.3 },
-    },
-  };
-
   const [blurData, setBlurData] = useState<Map<string, string>>(new Map());
   const [loaded, setLoaded] = useState<boolean>(false);
-  const getPhotos = async () => {
-    const res = await fetch('https://aura-api.reactiveshots.com/api/category-albums');
-    const data = await res.json();
+  const [currentImageIndex, setCurrentImageIndex] = useState<Record<Category, number>>({
+    [Category.Portraits]: 0,
+    [Category.Events]: 0,
+    [Category.Cars]: 0,
+  });
 
-    //update images object take 4 random images from each category
-    data.forEach((category: Categories) => {
-      const data_images = category.album.album_photos;
-      const randomImages = data_images
-        .sort(() => Math.random() - Math.random())
-        .slice(0, 4)
-        .map((image: Album) => image.image);
-      switch (category.category_name.toLowerCase()) {
-        case 'events':
-          // images[Category.Events] = randomImages;
-          setImages((prev) => ({ ...prev, [Category.Events]: randomImages }));
-          setBlurData((prev) => {
-            const newMap = new Map(prev);
-            randomImages.forEach((image) => {
-              const fullImageData = data_images.find((img) => img.image === image);
+  const getPhotos = useCallback(async () => {
+    try {
+      const res = await fetch('https://aura-api.reactiveshots.com/api/category-albums');
+      const data = await res.json();
 
-              if (fullImageData) {
-                newMap.set(image, fullImageData.file_metadata.blur_data_url);
-              }
-            });
-            return newMap;
-          });
+      const newImages: ImageMap = {
+        [Category.Portraits]: [],
+        [Category.Events]: [],
+        [Category.Cars]: [],
+      };
+      const newBlurData = new Map<string, string>();
 
-          break;
-        case 'portraits':
-          // images[Category.Portraits] = randomImages;
-          setImages((prev) => ({ ...prev, [Category.Portraits]: randomImages }));
-          setBlurData((prev) => {
-            const newMap = new Map(prev);
-            randomImages.forEach((image) => {
-              const fullImageData = data_images.find((img) => img.image === image);
+      data.forEach((category: Categories) => {
+        const dataImages = category.album.album_photos;
+        const randomImages = dataImages
+          .sort(() => Math.random() - Math.random())
+          .slice(0, 4)
+          .map((image: Album) => image.image);
 
-              if (fullImageData) {
-                newMap.set(image, fullImageData.file_metadata.blur_data_url);
-              }
-            });
-            return newMap;
-          });
-          break;
-        case 'cars':
-          // images[Category.Cars] = randomImages;
-          setImages((prev) => ({ ...prev, [Category.Cars]: randomImages }));
-          setBlurData((prev) => {
-            const newMap = new Map(prev);
-            randomImages.forEach((image) => {
-              const fullImageData = data_images.find((img) => img.image === image);
+        const categoryName = category.category_name.toLowerCase() as Category;
+        newImages[categoryName] = randomImages;
 
-              if (fullImageData) {
-                newMap.set(image, fullImageData.file_metadata.blur_data_url);
-              }
-            });
-            return newMap;
-          });
-          break;
-      }
-    });
-    setLoaded(true);
-    console.log(images);
-  };
+        randomImages.forEach((image) => {
+          const fullImageData = dataImages.find((img) => img.image === image);
+          if (fullImageData) {
+            newBlurData.set(image, fullImageData.file_metadata.blur_data_url);
+          }
+        });
+      });
+
+      setImages(newImages);
+      setBlurData(newBlurData);
+      setLoaded(true);
+    } catch (error) {
+      console.error('Error fetching photos:', error);
+    }
+  }, []);
 
   useEffect(() => {
-    // get photos on load and refresh every 2 seconds
     getPhotos();
     const interval = setInterval(() => {
       getPhotos();
-    }, 2000);
+    }, 30000); // Fetch new images every 30 seconds
+    return () => clearInterval(interval);
+  }, [getPhotos]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => ({
+        [Category.Portraits]: (prev[Category.Portraits] + 1) % 4,
+        [Category.Events]: (prev[Category.Events] + 1) % 4,
+        [Category.Cars]: (prev[Category.Cars] + 1) % 4,
+      }));
+    }, 5000); // Change displayed image every 5 seconds
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="container mx-auto flex flex-col items-center justify-start px-4 py-24">
+    <div className="container mx-auto px-4 py-24">
       <motion.h1
-        variants={h1Variants}
-        initial="initial"
-        animate="animate"
-        whileInView="onscreen"
-        viewport={{ once: true }}
-        className="mb-4 font-blackmud text-3xl leading-loose text-primary"
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="font-blackmud text-primary mb-12 text-center text-4xl"
       >
         Pricing
       </motion.h1>
-      {Object.keys(pricingData).map((category, index) => {
-        //randome the order of images for each category
-        images[category] = images[category].sort(() => Math.random() - 0.5);
-        return (
-          <div key={index} className="flex w-full flex-col space-y-4">
-            <motion.h2
-              variants={h1Variants}
-              initial="initial"
-              animate="animate"
-              whileInView="onscreen"
-              viewport={{ once: true }}
-              className="font-blackmud text-primary mt-4 text-2xl leading-loose"
-            >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </motion.h2>
-            <motion.p
-              variants={pVariants}
-              initial="initial"
-              animate="animate"
-              whileInView="onscreen"
-              viewport={{ once: true }}
-              className="text-primary"
-            >
-              {category === Category.Portraits && portaitsDescription}
-              {category === Category.Cars && carsDescription}
-              {category === Category.Events && eventsDescription}
-            </motion.p>
-            {category === Category.Events && (
-              <motion.p
-                variants={pVariants}
-                initial="initial"
-                animate="animate"
-                whileInView="onscreen"
-                viewport={{ once: true }}
-                className="text-primary"
-              >
-                *Price can vary based on the event time and location.
-              </motion.p>
-            )}
 
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-              {pricingData[category].map((packageData, pkgIndex) => (
-                <Link
-                  href={`/lets-talk?category=${
-                    category.charAt(0).toUpperCase() + category.slice(1)
-                  }&package=${packageData.title}`}
-                  key={pkgIndex}
-                  className="relative rounded-lg p-0.5"
-                >
-                  <motion.div
-                    initial="offscreen"
-                    whileInView="onscreen"
-                    viewport={{ once: true }}
-                    variants={imageVariants}
-                  >
-                    <div className="grid grid-cols-2 gap-0.5">
-                      {images[category].map((src, index) => (
-                        <div
-                          key={index}
-                          className="pointer-events-none h-full w-full overflow-hidden"
+      {Object.entries(pricingData).map(([category, packages]) => (
+        <div key={category} className="mb-16">
+          <motion.h2
+            initial={{ y: -30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
+            className="font-blackmud text-primary mb-4 text-3xl"
+          >
+            {category.charAt(0).toUpperCase() + category.slice(1)}
+          </motion.h2>
+          <motion.p
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.4 }}
+            className="text-primary mb-6 text-lg"
+          >
+            {categoryDescriptions[category as Category]}
+            {category === Category.Events && (
+              <span className="mt-2 block text-sm italic">
+                *Price can vary based on the event time and location.
+              </span>
+            )}
+          </motion.p>
+
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {packages.map((pkg, pkgIndex) => (
+              <motion.div
+                key={pkgIndex}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 * pkgIndex }}
+              >
+                <div className="h-full rounded-lg shadow">
+                  <div className="relative aspect-square">
+                    <AnimatePresence mode="wait">
+                      {loaded && (
+                        <motion.div
+                          key={currentImageIndex[category as Category]}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.5 }}
+                          className="absolute inset-0"
                         >
                           <Image
-                            key={index}
-                            src={`${loaded ? `${src}` : '/RS-White.png'}`}
-                            blurDataURL={`${loaded ? blurData.get(src) : '/RS-White.png'}`}
+                            src={
+                              images[category as Category][
+                                currentImageIndex[category as Category]
+                              ] || '/placeholder.svg'
+                            }
+                            blurDataURL={blurData.get(
+                              images[category as Category][currentImageIndex[category as Category]],
+                            )}
                             placeholder="blur"
-                            alt={src.split('-')[0]}
-                            width={500}
-                            height={500}
-                            className={`aspect-square h-full w-full object-cover ${
-                              index === 0 ? 'rounded-tl-lg' : ''
-                            } ${index === 1 ? 'rounded-tr-lg' : ''} ${index === 2 ? 'rounded-bl-lg' : ''} ${
-                              index === 3 ? 'rounded-br-lg' : ''
-                            }`}
+                            alt={`${category} image ${currentImageIndex[category as Category] + 1}`}
+                            layout="fill"
+                            objectFit="cover"
+                            className="transition-transform duration-300 hover:scale-105"
                           />
-                        </div>
-                      ))}
-                    </div>
-                    <div className="absolute top-0 right-0 bottom-0 left-0 rounded-lg bg-black/50" />
-                    <div className="absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center">
-                      <h3 className="font-blackmud text-tertiary text-xl leading-loose">
-                        {packageData.title}
-                      </h3>
-                      {packageData.description.map((desc, descIndex) => (
-                        <p key={descIndex} className="text-tertiary">
-                          {desc.title}
-                        </p>
-                      ))}
-                      <h4 className="font-blackmud text-tertiary text-3xl leading-loose">
-                        {packageData.price}
-                      </h4>
-                      {packageData.bestValue && (
-                        <p className="text-tertiary text-center">Best Value</p>
+                        </motion.div>
                       )}
+                    </AnimatePresence>
+                  </div>
+                  <div className="h-full p-6">
+                    <h3 className="font-blackmud text-primary mb-2 text-2xl">{pkg.title}</h3>
+                    <ul className="mb-4 space-y-2">
+                      {pkg.description.map((desc, descIndex) => (
+                        <li key={descIndex} className="text-muted-foreground text-sm">
+                          {desc.title}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="flex flex-col items-start justify-between pt-4">
+                      <span className="font-blackmud text-primary text-3xl">{pkg.price}</span>
+                      <Button color="primary" className="mt-4 w-full">
+                        <Link
+                          href={`/lets-talk?category=${category}&package=${pkg.title}`}
+                          className="inline-block"
+                        >
+                          Book Now
+                        </Link>
+                      </Button>
                     </div>
-                  </motion.div>
-                </Link>
-              ))}
-            </div>
+                    {pkg.bestValue && (
+                      <span className="mt-2 block text-center text-sm font-semibold text-green-600">
+                        Best Value
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 };
