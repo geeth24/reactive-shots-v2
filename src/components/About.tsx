@@ -89,7 +89,7 @@ function About() {
           viewport={{ once: true }}
         >
           <Image
-            src="https://aura-cdn.reactiveshots.com/fit-in/1920x0/geeth/website/Jul-24-1.jpg"
+            src="https://aura-cdn.reactiveshots.com/fit-in/1920x0/geeth/website/Jul-24-V2.jpg"
             width={500}
             height={500}
             alt="Geeth, the photographer and videographer"
