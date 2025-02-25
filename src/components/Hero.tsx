@@ -75,7 +75,7 @@ function Hero() {
   const heading = 'Reactive Shots';
 
   return (
-    <div className="relative flex h-screen w-screen flex-col items-center justify-center">
+    <div className="relative flex h-screen w-full flex-col items-center justify-center">
       <motion.div
         className="absolute top-0 left-0 z-[-1] h-full w-full"
         variants={bgVariants}
@@ -142,7 +142,9 @@ function Hero() {
         initial="initial"
         animate="animate"
       >
-        <motion.p className="font-blackmud text-tertiary mb-2 text-sm font-light">Scroll Down</motion.p>
+        <motion.p className="font-blackmud text-tertiary mb-2 text-sm font-light">
+          Scroll Down
+        </motion.p>
         <motion.div variants={arrowVariants} animate="animate" className="text-tertiary">
           <ArrowDown className="size-4" />
         </motion.div>

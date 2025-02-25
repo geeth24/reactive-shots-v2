@@ -10,21 +10,21 @@ const links = [
 ];
 function Footer() {
   return (
-    <footer className="bg-background-dark py-4 text-center text-tertiary">
-      <h1 className="mb-4 font-blackmud text-3xl leading-loose text-tertiary">RS</h1>
-      <div className="mb-4 flex justify-center space-x-4">
+    <footer className="bg-background-dark text-tertiary py-6 text-center">
+      <h1 className="font-blackmud text-tertiary mb-2 text-3xl leading-loose">RS</h1>
+      <div className="mb-2 flex justify-center space-x-4">
         {links.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className="font-blackmud text-xl hover:text-tertiary/50"
+            className="font-blackmud hover:text-tertiary/50 text-xl"
           >
             {link.name}
           </Link>
         ))}
       </div>
       <p className="flex items-center justify-center space-x-1 text-xs">
-        <span className='sr-only'>Geeth Gunnampalli</span>
+        <span className="sr-only">Geeth Gunnampalli</span>
         <span>Made with</span>
         <Heart className="" size={16} />
         <span>by</span>

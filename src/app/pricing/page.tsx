@@ -10,7 +10,9 @@ function Page() {
     <div className="h-screen">
       <Navbar />
       <Pricing />
-      <CTA />
+      <div className="h-[50vh] w-full">
+        <CTA />
+      </div>
       <hr className="h-0.5 bg-primary" />
       <Footer />
     </div>

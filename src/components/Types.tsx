@@ -193,7 +193,7 @@ const Types: React.FC = () => {
     }
   }, [refreshCounter, isPaused]);
   return (
-    <div className="relative  h-screen items-center justify-center overflow-hidden bg-background p-1">
+    <div className="bg-background relative h-screen items-center justify-center overflow-hidden p-0">
       <AnimatePresence custom={direction} mode="popLayout">
         <motion.div
           key={`${activeCategory}-${refreshCounter}`}
@@ -227,7 +227,7 @@ const Types: React.FC = () => {
                   alt={src.split('-')[0]}
                   width={500}
                   height={500}
-                  className={`aspect-auto h-full w-full  object-cover ${
+                  className={`aspect-auto h-full w-full object-cover ${
                     dynamicClasses ? dynamicClasses : ''
                   }`}
                 />
@@ -241,14 +241,14 @@ const Types: React.FC = () => {
         whileInView="onscreen"
         viewport={{ once: true }}
         variants={imageVariants}
-        className="absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-black/25"
+        className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center bg-black/25"
       />
       <motion.div
         initial="offscreen"
         whileInView="onscreen"
         viewport={{ once: true }}
         variants={imageVariants}
-        className="absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center"
+        className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center"
       >
         <div className="flex space-x-4">
           {categoryOrder.map((category) => (
@@ -261,9 +261,9 @@ const Types: React.FC = () => {
             </button>
           ))}
         </div>
-        <div className="absolute bottom-0  right-0 flex items-center justify-center space-x-4 p-4">
+        <div className="absolute right-0 bottom-0 flex items-center justify-center space-x-4 p-4">
           <button
-            className="rounded-lg bg-tertiary p-2 text-primary"
+            className="bg-tertiary text-primary rounded-lg p-2"
             onClick={() => setIsPaused(!isPaused)}
           >
             {isPaused ? <PlayCircle className="h-6 w-6" /> : <PauseCircle className="h-6 w-6" />}

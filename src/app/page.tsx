@@ -13,21 +13,37 @@ const Page: React.FC = () => {
   const divRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="">
-      <div className="" ref={divRef}>
-        <Navbar sectionOneRef={heroRef} sectionTwoRef={typesRef} scrollDivRef={divRef} />
-        <div ref={heroRef} className="h-screen  snap-start overflow-hidden">
+    <>
+      <Navbar sectionOneRef={heroRef} sectionTwoRef={typesRef} scrollDivRef={divRef} />
+
+      <div
+        ref={divRef}
+        className="h-screen overflow-y-auto overscroll-none"
+        style={{
+          scrollSnapType: 'y mandatory',
+          scrollBehavior: 'smooth',
+          WebkitOverflowScrolling: 'touch',
+        }}
+      >
+        <div ref={heroRef} className="h-screen w-full" style={{ scrollSnapAlign: 'start' }}>
           <Hero />
         </div>
-        <div ref={typesRef} className="h-screen snap-start  ">
+
+        <div ref={typesRef} className="h-screen w-full" style={{ scrollSnapAlign: 'start' }}>
           <Types />
         </div>
-        <div className="snap-start">
-          <CTA />
-          <Footer />
+
+        <div
+          className="h-[50vh] w-full"
+          style={{ scrollSnapAlign: 'end', scrollSnapStop: 'always' }}
+        >
+          <div className="flex h-full flex-col justify-between">
+            <CTA />
+            <Footer />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

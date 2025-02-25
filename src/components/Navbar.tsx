@@ -97,7 +97,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
     <AnimatePresence>
       <motion.nav
         ref={navbarRef}
-        className="font-blackmud fixed z-20 w-screen p-4"
+        className="font-blackmud fixed z-20 w-full p-4"
         animate={navbarStyle}
         variants={variants}
         initial="firstSection"

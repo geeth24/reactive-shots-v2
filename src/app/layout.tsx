@@ -35,10 +35,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="snap-y snap-mandatory">
+    <html lang="en">
       <link rel="icon" href="/favicon.ico" />
 
-      <body className={` ${blackMud.variable} ${opensans.className}  `}>
+      <body className={`${blackMud.variable} ${opensans.className}`}>
         {children}
         <Analytics />
       </body>
