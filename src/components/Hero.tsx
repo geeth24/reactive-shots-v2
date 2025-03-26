@@ -128,7 +128,7 @@ function Hero() {
           variants={subheadingVariants}
           className="font-blackmud text-primary/90 mb-12 max-w-xl leading-14 text-2xl font-light tracking-wide md:text-3xl"
         >
-          Capturing Life's Beautiful Moments Through Photography & Videography
+          Capturing Life&apos;s  Beautiful Moments Through Photography & Videography
         </motion.p>
 
         <motion.div variants={ctaVariants} className="flex flex-col gap-4 sm:flex-row">

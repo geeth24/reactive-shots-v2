@@ -57,7 +57,7 @@ function CTA() {
       <div className="relative z-10 flex w-full max-w-5xl flex-col items-center justify-center text-center">
         <motion.div className="mb-8 max-w-4xl space-y-6" variants={headingVariants}>
           <h1 className="font-blackmud text-primary text-4xl leading-tight font-light tracking-tight md:text-5xl lg:text-6xl">
-            Let's Create Something
+            Let&apos;s Create Something
             <span className="text-primary/90 mt-2 block">Extraordinary Together</span>
           </h1>
           <motion.p
