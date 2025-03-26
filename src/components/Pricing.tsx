@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Category, type ImageMap, type Categories, type Album } from '@/types/pricing';
 import { pricingData } from '@/data/pricingData';
 import { Button } from '@/components/button';
+import { Check } from 'lucide-react';
 
 const categoryDescriptions = {
   [Category.Portraits]: 'Single, couple, Prom, Graduation, Family, Newborn, Senior, and more.',
@@ -71,7 +72,7 @@ const Pricing: React.FC = () => {
     getPhotos();
     const interval = setInterval(() => {
       getPhotos();
-    }, 30000); // Fetch new images every 30 seconds
+    }, 30000);
     return () => clearInterval(interval);
   }, [getPhotos]);
 
@@ -82,40 +83,74 @@ const Pricing: React.FC = () => {
         [Category.Events]: (prev[Category.Events] + 1) % 4,
         [Category.Cars]: (prev[Category.Cars] + 1) % 4,
       }));
-    }, 5000); // Change displayed image every 5 seconds
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
+  const containerVariants = {
+    initial: { opacity: 0 },
+    animate: {
+      opacity: 1,
+      transition: { duration: 0.8, ease: 'easeOut' },
+    },
+  };
+
+  const headingVariants = {
+    initial: { y: 20, opacity: 0 },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: 'easeOut' },
+    },
+  };
+
+  const cardVariants = {
+    initial: { y: 20, opacity: 0 },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: 'easeOut' },
+    },
+    hover: {
+      y: -5,
+      transition: { duration: 0.2 },
+    },
+  };
+
   return (
-    <div className="container mx-auto px-4 py-24">
+    <motion.div
+      className="container mx-auto px-4 py-24"
+      variants={containerVariants}
+      initial="initial"
+      animate="animate"
+    >
       <motion.h1
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="font-blackmud text-primary mb-12 text-center text-4xl"
+        variants={headingVariants}
+        className="font-blackmud text-primary mb-12 text-center text-4xl font-light tracking-tight md:text-5xl"
       >
         Pricing
       </motion.h1>
 
-      {Object.entries(pricingData).map(([category, packages]) => (
-        <div key={category} className="mb-16">
+      {Object.entries(pricingData).map(([category, packages], categoryIndex) => (
+        <motion.div
+          key={category}
+          className="mb-24"
+          variants={containerVariants}
+          transition={{ delay: categoryIndex * 0.2 }}
+        >
           <motion.h2
-            initial={{ y: -30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
-            className="font-blackmud text-primary mb-4 text-3xl"
+            variants={headingVariants}
+            className="font-blackmud text-primary mb-4 text-3xl font-light tracking-tight md:text-4xl"
           >
             {category.charAt(0).toUpperCase() + category.slice(1)}
           </motion.h2>
           <motion.p
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.4 }}
-            className="text-primary mb-6 text-lg"
+            variants={headingVariants}
+            className="text-primary/80 mb-8 text-lg font-light tracking-wide"
           >
             {categoryDescriptions[category as Category]}
             {category === Category.Events && (
-              <span className="mt-2 block text-sm italic">
+              <span className="text-primary/60 mt-2 block text-sm italic">
                 *Price can vary based on the event time and location.
               </span>
             )}
@@ -125,12 +160,12 @@ const Pricing: React.FC = () => {
             {packages.map((pkg, pkgIndex) => (
               <motion.div
                 key={pkgIndex}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 * pkgIndex }}
+                variants={cardVariants}
+                whileHover="hover"
+                transition={{ delay: pkgIndex * 0.1 }}
               >
-                <div className="h-full rounded-lg shadow">
-                  <div className="relative aspect-square">
+                <div className="group h-full overflow-hidden rounded-2xl bg-white shadow-lg transition-shadow hover:shadow-xl">
+                  <div className="relative aspect-square overflow-hidden">
                     <AnimatePresence mode="wait">
                       {loaded && (
                         <motion.div
@@ -152,26 +187,36 @@ const Pricing: React.FC = () => {
                             )}
                             placeholder="blur"
                             alt={`${category} image ${currentImageIndex[category as Category] + 1}`}
-                            layout="fill"
-                            objectFit="cover"
-                            className="transition-transform duration-300 hover:scale-105"
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
                           />
                         </motion.div>
                       )}
                     </AnimatePresence>
                   </div>
-                  <div className="h-full p-6">
-                    <h3 className="font-blackmud text-primary mb-2 text-2xl">{pkg.title}</h3>
-                    <ul className="mb-4 space-y-2">
+                  <div className="h-full p-8">
+                    <h3 className="font-blackmud text-primary mb-4 text-2xl font-light tracking-tight">
+                      {pkg.title}
+                    </h3>
+                    <ul className="mb-6 space-y-3">
                       {pkg.description.map((desc, descIndex) => (
-                        <li key={descIndex} className="text-muted-foreground text-sm">
+                        <li
+                          key={descIndex}
+                          className="text-primary/80 flex items-center gap-2 text-sm font-light tracking-wide"
+                        >
+                          <Check className="text-primary size-4" />
                           {desc.title}
                         </li>
                       ))}
                     </ul>
                     <div className="flex flex-col items-start justify-between pt-4">
-                      <span className="font-blackmud text-primary text-3xl">{pkg.price}</span>
-                      <Button color="primary" className="mt-4 w-full">
+                      <span className="font-blackmud text-primary text-3xl font-light tracking-tight">
+                        {pkg.price}
+                      </span>
+                      <Button
+                        color="primary"
+                        className="mt-6 w-full px-8 py-3 text-lg font-medium tracking-wide"
+                      >
                         <Link
                           href={`/lets-talk?category=${category}&package=${pkg.title}`}
                           className="inline-block"
@@ -181,7 +226,7 @@ const Pricing: React.FC = () => {
                       </Button>
                     </div>
                     {pkg.bestValue && (
-                      <span className="mt-2 block text-center text-sm font-semibold text-green-600">
+                      <span className="mt-4 block text-center text-sm font-medium text-green-600">
                         Best Value
                       </span>
                     )}
@@ -190,9 +235,9 @@ const Pricing: React.FC = () => {
               </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 

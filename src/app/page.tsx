@@ -8,42 +8,60 @@ import Footer from '@/components/Footer';
 import CTA from '@/components/CTA';
 
 const Page: React.FC = () => {
+  // Refs for scroll sections
   const heroRef = useRef<HTMLDivElement>(null);
   const typesRef = useRef<HTMLDivElement>(null);
-  const divRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+
+  // Scroll container styles
+  const scrollContainerStyles = {
+    scrollSnapType: 'y mandatory' as const,
+    scrollBehavior: 'smooth' as const,
+    WebkitOverflowScrolling: 'touch' as const,
+  };
+
+  // Section styles
+  const sectionStyles = {
+    scrollSnapAlign: 'start' as const,
+  };
+
+  const ctaSectionStyles = {
+    scrollSnapAlign: 'end' as const,
+    scrollSnapStop: 'always' as const,
+  };
 
   return (
-    <>
-      <Navbar sectionOneRef={heroRef} sectionTwoRef={typesRef} scrollDivRef={divRef} />
+    <div className="bg-background relative min-h-screen">
+      {/* Navigation */}
+      <Navbar sectionOneRef={heroRef} sectionTwoRef={typesRef} scrollDivRef={ctaRef} />
 
-      <div
-        ref={divRef}
+      {/* Main Content */}
+      <main
+        ref={ctaRef}
         className="h-screen overflow-y-auto overscroll-none"
-        style={{
-          scrollSnapType: 'y mandatory',
-          scrollBehavior: 'smooth',
-          WebkitOverflowScrolling: 'touch',
-        }}
+        style={scrollContainerStyles}
       >
-        <div ref={heroRef} className="h-screen w-full" style={{ scrollSnapAlign: 'start' }}>
+        {/* Hero Section */}
+        <section ref={heroRef} className="h-screen w-full" style={sectionStyles}>
           <Hero />
-        </div>
+        </section>
 
-        <div ref={typesRef} className="h-screen w-full" style={{ scrollSnapAlign: 'start' }}>
+        {/* Types Section */}
+        <section ref={typesRef} className="h-screen w-full" style={sectionStyles}>
           <Types />
-        </div>
+        </section>
 
-        <div
-          className="h-[50vh] w-full"
-          style={{ scrollSnapAlign: 'end', scrollSnapStop: 'always' }}
-        >
-          <div className="flex h-full flex-col justify-between">
-            <CTA />
+        {/* CTA Section with Footer */}
+        <section className="min-h-screen w-full" style={ctaSectionStyles}>
+          <div className="flex min-h-screen flex-col">
+            <div className="flex-1">
+              <CTA />
+            </div>
             <Footer />
           </div>
-        </div>
-      </div>
-    </>
+        </section>
+      </main>
+    </div>
   );
 };
 

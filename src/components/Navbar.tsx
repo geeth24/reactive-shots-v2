@@ -1,9 +1,9 @@
 'use client';
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { throttle } from 'lodash';
 import Link from 'next/link';
-import { Menu, MessageSquareText, X, Youtube } from 'lucide-react';
+import { Menu, MessageSquareText, X, Youtube, Instagram } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 const links = [
@@ -15,9 +15,7 @@ const links = [
 
 interface NavbarProps {
   sectionOneRef?: React.RefObject<HTMLDivElement | null>;
-
   sectionTwoRef?: React.RefObject<HTMLDivElement | null>;
-
   scrollDivRef?: React.RefObject<HTMLDivElement | null>;
 }
 
@@ -27,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
   const navbarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const currentScrollDiv = scrollDivRef?.current; // Assign the current ref to a variable
+    const currentScrollDiv = scrollDivRef?.current;
 
     const calculateThresholds = throttle(() => {
       const navbarHeight = navbarRef.current?.offsetHeight ?? 0;
@@ -60,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
     return () => {
       currentScrollDiv?.removeEventListener('scroll', calculateThresholds);
     };
-  }, [scrollDivRef, sectionOneRef, sectionTwoRef]); // Dependencies
+  }, [scrollDivRef, sectionOneRef, sectionTwoRef]);
 
   const pathname = usePathname();
   useEffect(() => {
@@ -73,26 +71,43 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
 
   const variants = {
     firstSection: {
-      opacity: 1,
-      background: 'transparent',
-      color: '#F7FCFF',
+      backgroundColor: 'transparent',
+      color: '#00A6FB',
       transition: { duration: 0.5 },
     },
     secondSection: {
-      opacity: 1,
-      background: 'transparent',
+      backgroundColor: 'transparent',
       color: '#F7FCFF',
-      borderBottom: 'none',
-      transition: { duration: 0 },
+      transition: { duration: 0.5 },
     },
     default: {
-      opacity: 1,
-      background: '#F7FCFF',
+      backgroundColor: '#F7FCFF',
       color: '#00A6FB',
       boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
       transition: { duration: 0.5 },
     },
   };
+
+  const linkVariants = {
+    initial: { y: -20, opacity: 0 },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5, ease: 'easeOut' },
+    },
+    hover: {
+      scale: 1.05,
+      transition: { duration: 0.2 },
+    },
+  };
+
+  const iconVariants = {
+    hover: {
+      scale: 1.1,
+      transition: { duration: 0.2 },
+    },
+  };
+
   return (
     <AnimatePresence>
       <motion.nav
@@ -106,92 +121,76 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-row items-center justify-center md:flex-row md:items-center md:justify-between">
-            <div className="absolute left-4 md:hidden">
-              <button
-                className="text-tertiary z-50 rounded-lg px-4 py-2 md:hidden"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                {isMenuOpen ? <></> : <Menu className="h-6 w-6" />}
-              </button>
-            </div>
-            <div
-              className={`${isMenuOpen ? 'hidden' : 'hidden'} items-start space-y-4 md:flex md:space-y-0 md:space-x-4`}
+            {/* Mobile Menu Button */}
+            <motion.button
+              className="absolute left-4 z-50 rounded-lg p-2 md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {links.map((link) => (
-                <Link key={link.name} href={link.href} className="text-center">
-                  {link.name}
-                </Link>
-              ))}
-              <div className="flex items-center space-x-4 md:hidden">
-                <Link href="/lets-talk" className="text-2xl md:text-xl">
-                  Let&apos;s Talk
-                </Link>
-                <Link href="https://www.instagram.com/reactiveshots/">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-instagram"
+              {isMenuOpen ? (
+                <X
+                  className="h-6 w-6"
+                  style={{ color: navbarStyle === 'firstSection' ? '#F7FCFF' : '#00A6FB' }}
+                />
+              ) : (
+                <Menu
+                  className="h-6 w-6"
+                  style={{ color: navbarStyle === 'firstSection' ? '#F7FCFF' : '#00A6FB' }}
+                />
+              )}
+            </motion.button>
+
+            {/* Desktop Navigation */}
+            <div className="hidden items-center space-x-8 md:flex">
+              {links.map((link, index) => (
+                <motion.div
+                  key={link.name}
+                  variants={linkVariants}
+                  initial="initial"
+                  animate="animate"
+                  whileHover="hover"
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Link
+                    href={link.href}
+                    className="text-lg font-light tracking-wide transition-colors"
                   >
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                  </svg>
-                </Link>
-              </div>
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
             </div>
-            <Link
-              href="/"
-              className={`font-blackmud z-50 mt-2 mr-2 text-center text-3xl md:mr-[12.5rem] ${isMenuOpen ? 'text-primary' : ''}`}
+
+            {/* Logo */}
+            <motion.div
+              className="font-blackmud z-50 text-center text-3xl font-light tracking-tight md:mr-[12.5rem]"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {navbarStyle === 'firstSection' ? 'RS' : 'Reactive Shots'}
-            </Link>
-            <div className="hidden items-center space-x-4 pr-2 md:flex">
-              <Link href="https://www.instagram.com/reactiveshots/">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-instagram h-6 w-6"
-                >
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                </svg>
-              </Link>
-              <Link href="https://www.youtube.com/@reactive_shots">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-youtube"
-                >
-                  <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
-                  <path d="m10 15 5-3-5-3z" />
-                </svg>
-              </Link>
-              <Link href="sms:+1-972-829-5173" className="text-2xl md:text-xl">
-                <MessageSquareText className="h-6 w-6" />
-              </Link>
+              <Link href="/">{navbarStyle === 'firstSection' ? 'RS' : 'Reactive Shots'}</Link>
+            </motion.div>
+
+            {/* Social Links */}
+            <div className="hidden items-center space-x-6 pr-2 md:flex">
+              <motion.div variants={iconVariants} whileHover="hover">
+                <Link href="https://www.instagram.com/reactiveshots/" className="transition-colors">
+                  <Instagram className="h-6 w-6" />
+                </Link>
+              </motion.div>
+              <motion.div variants={iconVariants} whileHover="hover">
+                <Link href="https://www.youtube.com/@reactive_shots" className="transition-colors">
+                  <Youtube className="h-6 w-6" />
+                </Link>
+              </motion.div>
+              <motion.div variants={iconVariants} whileHover="hover">
+                <Link href="sms:+1-972-829-5173" className="transition-colors">
+                  <MessageSquareText className="h-6 w-6" />
+                </Link>
+              </motion.div>
             </div>
+
+            {/* Mobile Menu */}
             <AnimatePresence>
               {isMenuOpen && (
                 <motion.div
@@ -199,64 +198,57 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
                   initial={{ opacity: 0, y: -100 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -100 }}
-                  className="bg-tertiary fixed top-0 left-0 z-40 flex h-[26rem] w-full items-center justify-center shadow-sm backdrop-blur-3xl md:hidden"
+                  transition={{ duration: 0.3 }}
+                  className="fixed inset-0 z-40 backdrop-blur-sm md:hidden"
                 >
-                  <div className="absolute top-4 left-4">
-                    <button
-                      className="text-primary rounded-lg px-4 py-2"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <X className={`text-primary h-6 w-6`} />
-                    </button>
-                  </div>
-                  <div
-                    className={`text-primary z-50 flex h-full w-full flex-col items-start justify-start space-y-10 px-4 py-16`}
-                  >
-                    <div className="ml-2 flex space-x-4">
-                      <Link href="https://www.instagram.com/reactiveshots/">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-instagram"
+                  <div className="flex h-full flex-col items-center justify-center space-y-8">
+                    {links.map((link, index) => (
+                      <motion.div
+                        key={link.name}
+                        variants={linkVariants}
+                        initial="initial"
+                        animate="animate"
+                        whileHover="hover"
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <Link
+                          href={link.href}
+                          className="text-2xl font-light tracking-wide transition-colors"
+                          style={{ color: '#F7FCFF' }}
                         >
-                          <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                          <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                        </svg>
-                      </Link>
-                      <Link href="https://www.youtube.com/@reactive_shots">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          className="lucide lucide-youtube"
-                        >
-                          <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
-                          <path d="m10 15 5-3-5-3z" />
-                        </svg>
-                      </Link>
-                      <Link href="sms:+1-972-829-5173" className="text-3xl">
-                        <MessageSquareText className="h-6 w-6" />
-                      </Link>
-                    </div>
-                    {links.map((link) => (
-                      <Link key={link.name} href={link.href} className="text-3xl">
-                        {link.name}
-                      </Link>
+                          {link.name}
+                        </Link>
+                      </motion.div>
                     ))}
+                    <div className="flex items-center space-x-6">
+                      <motion.div variants={iconVariants} whileHover="hover">
+                        <Link
+                          href="https://www.instagram.com/reactiveshots/"
+                          className="transition-colors"
+                          style={{ color: '#F7FCFF' }}
+                        >
+                          <Instagram className="h-8 w-8" />
+                        </Link>
+                      </motion.div>
+                      <motion.div variants={iconVariants} whileHover="hover">
+                        <Link
+                          href="https://www.youtube.com/@reactive_shots"
+                          className="transition-colors"
+                          style={{ color: '#F7FCFF' }}
+                        >
+                          <Youtube className="h-8 w-8" />
+                        </Link>
+                      </motion.div>
+                      <motion.div variants={iconVariants} whileHover="hover">
+                        <Link
+                          href="sms:+1-972-829-5173"
+                          className="transition-colors"
+                          style={{ color: '#F7FCFF' }}
+                        >
+                          <MessageSquareText className="h-8 w-8" />
+                        </Link>
+                      </motion.div>
+                    </div>
                   </div>
                 </motion.div>
               )}

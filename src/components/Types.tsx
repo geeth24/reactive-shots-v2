@@ -58,6 +58,10 @@ const getDynamicClassNames = (activeCategory: Category, index: number, length: n
 const Types: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<Category>(Category.Portraits);
   const [direction, setDirection] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const [refreshCounter, setRefreshCounter] = useState(0);
+  const [blurData, setBlurData] = useState<Map<string, string>>(new Map());
 
   const [images, setImages] = useState<ImageMap>({
     [Category.Events]: [
@@ -75,49 +79,21 @@ const Types: React.FC = () => {
     [Category.Cars]: ['Jaideep 075.jpg', 'Smaran 139.jpg', 'Jaideep-088.jpg', 'Smaran-158.jpg'],
   });
 
-  // Animation variants to slide images based on direction
-  const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 0.75,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5, ease: 'easeInOut' },
-    },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 0.75,
-      transition: { duration: 0.5, ease: 'easeInOut' },
-    }),
-  };
+  // Add initial load effect
+  useEffect(() => {
+    getPhotos();
+  }, []);
 
-  // Calculate slide direction based on the current and new category
   const handleClick = (newCategory: Category) => {
     if (newCategory !== activeCategory) {
       const currentIndex = categoryOrder.indexOf(activeCategory);
       const newIndex = categoryOrder.indexOf(newCategory);
       const newDirection = newIndex > currentIndex ? 1 : -1;
-      setDirection(newDirection); // Update the direction
-      setActiveCategory(newCategory); // Update the active category
+      setDirection(newDirection);
+      setActiveCategory(newCategory);
     }
   };
 
-  const imageVariants = {
-    offscreen: { opacity: 0, scale: 0.95 },
-    onscreen: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5, ease: 'easeOut', delay: 0.3 },
-    },
-  };
-  const [blurData, setBlurData] = useState<Map<string, string>>(new Map());
-  const [loaded, setLoaded] = useState<boolean>(false);
-  const [isPaused, setIsPaused] = useState<boolean>(false);
   const getPhotos = async () => {
     const res = await fetch('https://aura-api.reactiveshots.com/api/category-albums');
     const data = await res.json();
@@ -181,19 +157,48 @@ const Types: React.FC = () => {
     setLoaded(true);
     console.log(images);
   };
-  const [refreshCounter, setRefreshCounter] = useState(0);
 
   useEffect(() => {
     if (!isPaused) {
       const interval = setInterval(() => {
         getPhotos();
         setRefreshCounter((c) => c + 1);
-      }, 2000);
+      }, 5000);
       return () => clearInterval(interval);
     }
   }, [refreshCounter, isPaused]);
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.75,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.75,
+      transition: { duration: 0.6, ease: 'easeOut' },
+    }),
+  };
+
+  const imageVariants = {
+    offscreen: { opacity: 0, scale: 0.95 },
+    onscreen: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.6, ease: 'easeOut', delay: 0.2 },
+    },
+  };
+
   return (
-    <div className="bg-background relative h-screen items-center justify-center overflow-hidden p-0">
+    <div className="bg-background relative h-screen items-center justify-center overflow-hidden p-1">
       <AnimatePresence custom={direction} mode="popLayout">
         <motion.div
           key={`${activeCategory}-${refreshCounter}`}
@@ -202,7 +207,7 @@ const Types: React.FC = () => {
           animate="center"
           exit="exit"
           custom={direction}
-          className={`grid h-full grid-cols-1 gap-0.5 ${activeCategory === Category.Events ? 'md:grid-cols-2' : `${activeCategory === Category.Cars ? 'md:grid-cols-2' : 'grid-cols-2 lg:grid-cols-4'}`} `}
+          className={`grid h-full grid-cols-1 gap-0.5 ${activeCategory === Category.Events ? 'md:grid-cols-2' : `${activeCategory === Category.Cars ? 'md:grid-cols-2' : 'grid-cols-2 lg:grid-cols-4'}`}`}
         >
           {images[activeCategory].map((src, index) => {
             const dynamicClasses = getDynamicClassNames(
@@ -214,7 +219,7 @@ const Types: React.FC = () => {
             return (
               <motion.div
                 key={index}
-                className="pointer-events-none h-full w-full overflow-hidden"
+                className="relative h-full w-full overflow-hidden"
                 initial="offscreen"
                 whileInView="onscreen"
                 viewport={{ once: true }}
@@ -227,49 +232,45 @@ const Types: React.FC = () => {
                   alt={src.split('-')[0]}
                   width={500}
                   height={500}
-                  className={`aspect-auto h-full w-full object-cover ${
-                    dynamicClasses ? dynamicClasses : ''
-                  }`}
+                  className={`h-full w-full object-cover ${dynamicClasses}`}
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100" />
               </motion.div>
             );
           })}
         </motion.div>
       </AnimatePresence>
-      <motion.div
-        initial="offscreen"
-        whileInView="onscreen"
-        viewport={{ once: true }}
-        variants={imageVariants}
-        className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center bg-black/25"
-      />
-      <motion.div
-        initial="offscreen"
-        whileInView="onscreen"
-        viewport={{ once: true }}
-        variants={imageVariants}
-        className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center"
-      >
-        <div className="flex space-x-4">
+
+      {/* Dark Overlay for Text Visibility */}
+      <div className="absolute inset-0 bg-black/20" />
+
+      {/* Category Navigation */}
+      <div className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center">
+        <div className="flex space-x-8">
           {categoryOrder.map((category) => (
-            <button key={category} className={``} onClick={() => handleClick(category)}>
+            <button key={category} onClick={() => handleClick(category)} className="relative">
               <h1
-                className={`font-blackmud text-3xl sm:text-4xl md:text-6xl ${activeCategory === category ? 'text-tertiary' : 'text-tertiary/50'}`}
+                className={`font-blackmud text-3xl transition-colors duration-300 sm:text-4xl md:text-6xl ${
+                  activeCategory === category ? 'text-white' : 'text-white/60 hover:text-white/80'
+                }`}
               >
                 {category.charAt(0).toUpperCase() + category.slice(1)}
               </h1>
+              {activeCategory === category && (
+                <div className="absolute right-0 -bottom-1 left-0 h-0.5 bg-white" />
+              )}
             </button>
           ))}
         </div>
-        <div className="absolute right-0 bottom-0 flex items-center justify-center space-x-4 p-4">
-          <button
-            className="bg-tertiary text-primary rounded-lg p-2"
-            onClick={() => setIsPaused(!isPaused)}
-          >
-            {isPaused ? <PlayCircle className="h-6 w-6" /> : <PauseCircle className="h-6 w-6" />}
-          </button>
-        </div>
-      </motion.div>
+
+        {/* Play/Pause Button */}
+        <button
+          className="absolute right-4 bottom-4 rounded-full bg-white/10 p-2 text-white/70 transition-colors hover:bg-white/20 hover:text-white"
+          onClick={() => setIsPaused(!isPaused)}
+        >
+          {isPaused ? <PlayCircle className="h-6 w-6" /> : <PauseCircle className="h-6 w-6" />}
+        </button>
+      </div>
     </div>
   );
 };

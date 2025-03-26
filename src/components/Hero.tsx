@@ -1,70 +1,73 @@
 'use client';
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Button } from '@/components/button';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, Play, Pause } from 'lucide-react';
+
 function Hero() {
-  // Background image variants for parallax-like effect
+  const [isPlaying, setIsPlaying] = useState(true);
+  const { scrollY } = useScroll();
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const scale = useTransform(scrollY, [0, 300], [1, 1.1]);
+
   const bgVariants = {
-    initial: { scale: 1.1, opacity: 0.5 },
+    initial: { scale: 1.2, opacity: 0 },
     animate: {
       scale: 1,
-      opacity: 0.5,
-      transition: { duration: 1, ease: 'easeOut' },
+      opacity: 1,
+      transition: { duration: 2, ease: 'easeOut' },
     },
   };
 
-  // h1 animation with parallax-like effect
-  const h1Variants = {
-    initial: { y: -50, opacity: 0 },
+  const contentVariants = {
+    initial: { opacity: 0 },
+    animate: {
+      opacity: 1,
+      transition: { duration: 1.5, ease: 'easeOut' },
+    },
+  };
+
+  const headingVariants = {
+    initial: { y: 50, opacity: 0 },
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 1.2, ease: 'easeOut' },
     },
   };
 
-  // Paragraph animation that complements the h1
-  const pVariants = {
-    initial: { y: 100, opacity: 0 },
+  const subheadingVariants = {
+    initial: { y: 30, opacity: 0 },
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut', delay: 0.3 },
+      transition: { duration: 1.2, ease: 'easeOut', delay: 0.3 },
     },
   };
 
-  const p2Variants = {
-    initial: { y: 100, opacity: 0 },
+  const ctaVariants = {
+    initial: { y: 30, opacity: 0 },
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut', delay: 0.5 },
+      transition: { duration: 1.2, ease: 'easeOut', delay: 0.6 },
     },
   };
 
-  // Scroll down animation variants
-  const scrollDownVariants = {
-    initial: { y: -10, opacity: 0 },
+  const scrollVariants = {
+    initial: { opacity: 0 },
     animate: {
-      y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: 'easeOut',
-        delay: 0.7,
-      },
+      transition: { duration: 1.2, ease: 'easeOut', delay: 0.9 },
     },
   };
 
-  // Bouncing arrow animation
   const arrowVariants = {
     animate: {
       y: [0, 10, 0],
       transition: {
-        duration: 1.5,
+        duration: 2,
         repeat: Infinity,
         repeatType: 'loop' as const,
         ease: 'easeInOut',
@@ -72,84 +75,119 @@ function Hero() {
     },
   };
 
-  const heading = 'Reactive Shots';
+  const overlayVariants = {
+    initial: { opacity: 0 },
+    animate: {
+      opacity: 1,
+      transition: { duration: 1.5, ease: 'easeOut' },
+    },
+  };
 
   return (
-    <div className="relative flex h-screen w-full flex-col items-center justify-center">
+    <motion.div
+      className="bg-tertiary relative flex h-screen w-full overflow-hidden"
+      style={{ opacity, scale }}
+    >
+      {/* Background Image with Parallax Effect */}
       <motion.div
-        className="absolute top-0 left-0 z-[-1] h-full w-full"
+        className="absolute inset-0"
         variants={bgVariants}
         initial="initial"
         animate="animate"
       >
-        <p className="sr-only">Reactive Shots</p>
         <Image
-          src="https://aura-cdn.reactiveshots.com/fit-in/1920x0/geeth/website/Jul-24-3.jpg"
-          alt=""
+          src="https://aura-cdn.reactiveshots.com/fit-in/1920x0/geeth/website/IMG_5007.jpg"
+          alt="Reactive Shots Hero"
           className="object-cover object-center"
           fill
           priority
         />
+        <motion.div
+          className="from-tertiary/90 via-tertiary/50 absolute inset-0 bg-gradient-to-r to-transparent"
+          variants={overlayVariants}
+          initial="initial"
+          animate="animate"
+        />
       </motion.div>
-      <motion.div className="via-primary to-secondary absolute top-0 left-0 z-[-1] h-full w-full bg-gradient-to-b from-black/25 opacity-50" />
 
-      <div className="relative z-10 px-4 text-center">
-        <motion.h1
-          variants={h1Variants}
-          initial="initial"
-          animate="animate"
-          className="font-blackmud text-tertiary mb-2 text-[12vw] md:text-[8vw] lg:text-[6vw]"
-        >
-          {heading.split('').map((letter, index) => (
-            <motion.span
-              key={index}
-              initial={{ x: -50, opacity: 0 }}
-              animate={{
-                x: 0,
-                opacity: 1,
-                transition: { delay: index * 0.1, duration: 0.5, ease: 'easeOut' },
-              }}
-              className="inline-block"
-            >
-              {letter}
-            </motion.span>
-          ))}
-        </motion.h1>
-
-        <motion.p
-          variants={pVariants}
-          initial="initial"
-          animate="animate"
-          className="font-blackmud text-tertiary mb-2 text-[3vw] font-light md:text-[2vw]"
-        >
-          Photography & Videography
-        </motion.p>
-
-        <motion.p
-          variants={p2Variants}
-          initial="initial"
-          animate="animate"
-          className="font-blackmud text-tertiary mb-6 text-[4vw] font-light md:text-[3vw]"
-        >
-          Let&apos;s make your moments unforgettable
-        </motion.p>
-      </div>
-
-      {/* Scroll down indicator */}
+      {/* Content Section */}
       <motion.div
-        className="absolute right-0 bottom-8 left-0 flex flex-col items-center"
-        variants={scrollDownVariants}
+        className="relative z-20 flex w-full flex-col items-start justify-center px-8 md:w-1/2 md:px-16 lg:px-24"
+        variants={contentVariants}
         initial="initial"
         animate="animate"
       >
-        <motion.p className="font-blackmud text-tertiary mb-2 text-sm font-light">
-          Scroll Down
+        <motion.div variants={headingVariants} className="mb-6 space-y-2">
+          <h1 className="font-blackmud text-primary text-7xl font-light tracking-tight">
+            Reactive Shots
+          </h1>
+          <div className="bg-primary/80 h-1 w-24" />
+        </motion.div>
+
+        <motion.p
+          variants={subheadingVariants}
+          className="font-blackmud text-primary/90 mb-12 max-w-xl leading-14 text-2xl font-light tracking-wide md:text-3xl"
+        >
+          Capturing Life's Beautiful Moments Through Photography & Videography
         </motion.p>
-        <motion.div variants={arrowVariants} animate="animate" className="text-tertiary">
-          <ArrowDown className="size-4" />
+
+        <motion.div variants={ctaVariants} className="flex flex-col gap-4 sm:flex-row">
+          <Button
+            href="/lets-talk"
+            color="primary"
+            className="group relative overflow-hidden px-8 py-3 text-lg font-medium tracking-wide"
+          >
+            <span className="relative z-10">Start Your Journey</span>
+            <motion.div
+              className="bg-primary/20 absolute inset-0"
+              initial={{ x: '-100%' }}
+              whileHover={{ x: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+          </Button>
+          <Button
+            href="/portfolio"
+            color="white"
+            className="group relative overflow-hidden px-8 py-3 text-lg font-medium tracking-wide"
+          >
+            <span className="relative z-10">View Our Work</span>
+            <motion.div
+              className="absolute inset-0 bg-white/20"
+              initial={{ x: '-100%' }}
+              whileHover={{ x: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+          </Button>
+        </motion.div>
+
+        {/* Play/Pause Button */}
+        <motion.button
+          variants={ctaVariants}
+          className="text-primary/80 hover:text-primary mt-8 flex items-center gap-2 transition-colors"
+          onClick={() => setIsPlaying(!isPlaying)}
+        >
+          {isPlaying ? <Pause className="size-5" /> : <Play className="size-5" />}
+          <span className="font-blackmud text-sm font-light tracking-wide">
+            {isPlaying ? 'Pause' : 'Play'} Background
+          </span>
+        </motion.button>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center md:left-8 md:translate-x-0"
+        variants={scrollVariants}
+        initial="initial"
+        animate="animate"
+      >
+        <motion.p className="font-blackmud text-primary/80 mb-2 text-sm font-light tracking-wide">
+          Scroll to Discover
+        </motion.p>
+        <motion.div variants={arrowVariants} animate="animate">
+          <ArrowDown className="text-primary/80 size-5" />
         </motion.div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
 
