@@ -145,7 +145,7 @@ function Hero() {
               transition={{ duration: 0.3 }}
             />
           </Button>
-          <Button
+          {/* <Button
             href="/portfolio"
             color="white"
             className="group relative overflow-hidden px-8 py-3 text-lg font-medium tracking-wide"
@@ -157,7 +157,7 @@ function Hero() {
               whileHover={{ x: 0 }}
               transition={{ duration: 0.3 }}
             />
-          </Button>
+          </Button> */}
         </motion.div>
 
         {/* Play/Pause Button */}
