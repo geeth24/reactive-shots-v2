@@ -13,7 +13,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$110',
+      price: '$140',
     },
     {
       title: 'Extended Package',
@@ -26,7 +26,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$200',
+      price: '$270',
     },
     {
       title: 'Custom Package',
@@ -52,7 +52,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$110/hr',
+      price: '$120/hr',
     },
     {
       title: 'Photo + Video',
@@ -65,7 +65,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$130/hr',
+      price: '$140/hr',
       bestValue: true,
     },
     {
@@ -95,7 +95,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$100',
+      price: '$120',
     },
     {
       title: 'Photo & Video',
