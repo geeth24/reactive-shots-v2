@@ -8,6 +8,7 @@ export enum Category {
   Events = 'events',
   Portraits = 'portraits',
   Cars = 'cars',
+  RealEstate = 'real estate',
 }
 
 // Define a type for the images object
@@ -16,7 +17,12 @@ type ImageMap = {
 };
 
 // Array of categories in the desired order
-const categoryOrder: Category[] = [Category.Events, Category.Portraits, Category.Cars];
+const categoryOrder: Category[] = [
+  Category.Events,
+  Category.Portraits,
+  Category.Cars,
+  Category.RealEstate,
+];
 
 export type Categories = {
   category_id: number;
@@ -49,6 +55,10 @@ const getDynamicClassNames = (activeCategory: Category, index: number, length: n
       return `${index === 0 ? 'rounded-t-lg lg:rounded-t-none lg:rounded-tl-lg' : ''} ${index === 1 ? 'rounded-tr-none lg:rounded-tr-lg' : ''}
               ${index === 2 ? 'rounded-bl-none lg:rounded-bl-lg' : ''} ${index === 3 ? 'rounded-b-lg lg:rounded-b-none lg:rounded-br-lg' : ''}`;
 
+    case Category.RealEstate:
+      return `${index === 0 ? 'rounded-t-lg lg:rounded-t-none lg:rounded-tl-lg' : ''} ${index === 1 ? 'rounded-tr-none lg:rounded-tr-lg' : ''}
+              ${index === 2 ? 'rounded-bl-none lg:rounded-bl-lg' : ''} ${index === 3 ? 'rounded-b-lg lg:rounded-b-none lg:rounded-br-lg' : ''}`;
+
     default:
       return '';
   }
@@ -77,6 +87,12 @@ const Types: React.FC = () => {
       'JT-Edited-217.jpg',
     ],
     [Category.Cars]: ['Jaideep 075.jpg', 'Smaran 139.jpg', 'Jaideep-088.jpg', 'Smaran-158.jpg'],
+    [Category.RealEstate]: [
+      'Shema-044.jpg',
+      'Shema-010.jpg',
+      'Emani 001 (4).jpg',
+      'Aish-Grad-Party-022.jpg',
+    ],
   });
 
   // Add initial load effect
@@ -140,6 +156,20 @@ const Types: React.FC = () => {
         case 'cars':
           // images[Category.Cars] = randomImages;
           setImages((prev) => ({ ...prev, [Category.Cars]: randomImages }));
+          setBlurData((prev) => {
+            const newMap = new Map(prev);
+            randomImages.forEach((image) => {
+              const fullImageData = data_images.find((img) => img.image === image);
+
+              if (fullImageData) {
+                newMap.set(image, fullImageData.file_metadata.blur_data_url);
+              }
+            });
+            return newMap;
+          });
+          break;
+        case 'real estate':
+          setImages((prev) => ({ ...prev, [Category.RealEstate]: randomImages }));
           setBlurData((prev) => {
             const newMap = new Map(prev);
             randomImages.forEach((image) => {
@@ -227,8 +257,12 @@ const Types: React.FC = () => {
               >
                 <Image
                   src={`${loaded ? `${src}` : '/RS-White.png'}`}
-                  blurDataURL={`${loaded ? blurData.get(src) : '/RS-White.png'}`}
-                  placeholder="blur"
+                  {...(loaded && blurData.get(src)
+                    ? {
+                        blurDataURL: blurData.get(src),
+                        placeholder: 'blur' as const,
+                      }
+                    : {})}
                   alt={src.split('-')[0]}
                   width={500}
                   height={500}
@@ -254,7 +288,10 @@ const Types: React.FC = () => {
                   activeCategory === category ? 'text-white' : 'text-white/60 hover:text-white/80'
                 }`}
               >
-                {category.charAt(0).toUpperCase() + category.slice(1)}
+                {category
+                  .split(' ')
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ')}
               </h1>
               {activeCategory === category && (
                 <div className="absolute right-0 -bottom-1 left-0 h-0.5 bg-white" />

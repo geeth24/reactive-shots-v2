@@ -14,6 +14,7 @@ const categoryDescriptions = {
   [Category.Portraits]: 'Single, couple, Prom, Graduation, Family, Newborn, Senior, and more.',
   [Category.Cars]: 'Car and driver',
   [Category.Events]: 'Indian events, Graduation, Birthday, and more.',
+  [Category.RealEstate]: 'Interior, exterior, aerial, and twilight property photography.',
 };
 
 const Pricing: React.FC = () => {
@@ -21,6 +22,7 @@ const Pricing: React.FC = () => {
     [Category.Portraits]: [],
     [Category.Events]: [],
     [Category.Cars]: [],
+    [Category.RealEstate]: [],
   });
   const [blurData, setBlurData] = useState<Map<string, string>>(new Map());
   const [loaded, setLoaded] = useState<boolean>(false);
@@ -28,6 +30,7 @@ const Pricing: React.FC = () => {
     [Category.Portraits]: 0,
     [Category.Events]: 0,
     [Category.Cars]: 0,
+    [Category.RealEstate]: 0,
   });
 
   const getPhotos = useCallback(async () => {
@@ -39,6 +42,7 @@ const Pricing: React.FC = () => {
         [Category.Portraits]: [],
         [Category.Events]: [],
         [Category.Cars]: [],
+        [Category.RealEstate]: [],
       };
       const newBlurData = new Map<string, string>();
 
@@ -50,14 +54,16 @@ const Pricing: React.FC = () => {
           .map((image: Album) => image.image);
 
         const categoryName = category.category_name.toLowerCase() as Category;
-        newImages[categoryName] = randomImages;
+        if (categoryName in newImages) {
+          newImages[categoryName] = randomImages;
 
-        randomImages.forEach((image) => {
-          const fullImageData = dataImages.find((img) => img.image === image);
-          if (fullImageData) {
-            newBlurData.set(image, fullImageData.file_metadata.blur_data_url);
-          }
-        });
+          randomImages.forEach((image) => {
+            const fullImageData = dataImages.find((img) => img.image === image);
+            if (fullImageData) {
+              newBlurData.set(image, fullImageData.file_metadata.blur_data_url);
+            }
+          });
+        }
       });
 
       setImages(newImages);
@@ -82,6 +88,7 @@ const Pricing: React.FC = () => {
         [Category.Portraits]: (prev[Category.Portraits] + 1) % 4,
         [Category.Events]: (prev[Category.Events] + 1) % 4,
         [Category.Cars]: (prev[Category.Cars] + 1) % 4,
+        [Category.RealEstate]: (prev[Category.RealEstate] + 1) % 4,
       }));
     }, 5000);
     return () => clearInterval(interval);
@@ -142,7 +149,10 @@ const Pricing: React.FC = () => {
             variants={headingVariants}
             className="font-blackmud text-primary mb-4 text-3xl font-light tracking-tight md:text-4xl"
           >
-            {category.charAt(0).toUpperCase() + category.slice(1)}
+            {category
+              .split(' ')
+              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(' ')}
           </motion.h2>
           <motion.p
             variants={headingVariants}
@@ -179,14 +189,24 @@ const Pricing: React.FC = () => {
                           <Image
                             src={
                               images[category as Category][
-                                currentImageIndex[category as Category]
+                                (currentImageIndex[category as Category] + pkgIndex) % 4
                               ] || '/placeholder.svg'
                             }
-                            blurDataURL={blurData.get(
-                              images[category as Category][currentImageIndex[category as Category]],
-                            )}
-                            placeholder="blur"
-                            alt={`${category} image ${currentImageIndex[category as Category] + 1}`}
+                            {...(blurData.get(
+                              images[category as Category][
+                                (currentImageIndex[category as Category] + pkgIndex) % 4
+                              ],
+                            )
+                              ? {
+                                  blurDataURL: blurData.get(
+                                    images[category as Category][
+                                      (currentImageIndex[category as Category] + pkgIndex) % 4
+                                    ],
+                                  ),
+                                  placeholder: 'blur' as const,
+                                }
+                              : {})}
+                            alt={`${category} image ${((currentImageIndex[category as Category] + pkgIndex) % 4) + 1}`}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
                           />

@@ -2,6 +2,7 @@ export enum Category {
   Portraits = 'portraits',
   Events = 'events',
   Cars = 'cars',
+  RealEstate = 'real estate',
 }
 
 export type PackageDescription = {

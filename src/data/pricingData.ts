@@ -13,7 +13,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$160',
+      price: '$140',
     },
     {
       title: 'Extended Package',
@@ -26,7 +26,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$310',
+      price: '$270',
     },
     {
       title: 'Custom Package',
@@ -52,7 +52,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$160/hr',
+      price: '$140/hr',
     },
     {
       title: 'Photo + Video',
@@ -65,7 +65,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$180/hr',
+      price: '$160/hr',
       bestValue: true,
     },
     {
@@ -95,7 +95,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$160',
+      price: '$140',
     },
     {
       title: 'Photo & Video',
@@ -109,7 +109,7 @@ export const pricingData: PricingData = {
         { title: 'Optional: Express Delivery ($50)' },
         { title: 'Optional: Raw Files ($500)' },
       ],
-      price: '$180',
+      price: '$160',
     },
     {
       title: 'Custom Package',
@@ -121,6 +121,54 @@ export const pricingData: PricingData = {
         { title: 'Optional: Raw Files ($500)' },
       ],
       price: 'Contact for Pricing',
+    },
+  ],
+  [Category.RealEstate]: [
+    {
+      title: 'Basic Package',
+      description: [
+        { title: '1 Hour Photoshoot' },
+        { title: 'Interior & Exterior Photos' },
+        { title: 'Up to 2,500 sq ft' },
+        { title: 'Includes Standard Editing' },
+        { title: '1 Revision' },
+        { title: 'Optional: Premium Retouching ($30/image)' },
+        { title: 'Optional: Express Delivery ($50)' },
+        { title: 'Optional: Raw Files ($500)' },
+      ],
+      price: '$100',
+    },
+    {
+      title: 'Premium Package',
+      description: [
+        { title: '1.5 Hour Photoshoot' },
+        { title: 'Interior & Exterior Photos' },
+        { title: 'Up to 4,000 sq ft' },
+        { title: 'Aerial/Drone Photography' },
+        { title: 'Includes Standard Editing' },
+        { title: '2 Revisions' },
+        { title: 'Optional: Premium Retouching ($30/image)' },
+        { title: 'Optional: Express Delivery ($50)' },
+        { title: 'Optional: Raw Files ($500)' },
+      ],
+      price: '$175',
+      bestValue: true,
+    },
+    {
+      title: 'Luxury Package',
+      description: [
+        { title: '2+ Hour Photoshoot' },
+        { title: 'Interior & Exterior Photos' },
+        { title: 'Unlimited Square Footage' },
+        { title: 'Aerial/Drone Photography' },
+        { title: 'Twilight Photos' },
+        { title: 'Includes Standard Editing' },
+        { title: '3 Revisions' },
+        { title: 'Optional: Premium Retouching ($30/image)' },
+        { title: 'Optional: Express Delivery ($50)' },
+        { title: 'Optional: Raw Files ($500)' },
+      ],
+      price: '$250',
     },
   ],
 };

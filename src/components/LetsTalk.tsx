@@ -283,8 +283,12 @@ function LetsTalk() {
               <Image
                 key={index}
                 src={`${loaded ? `${src}` : '/RS-White.png'}`}
-                blurDataURL={`${loaded ? blurData.get(src) : '/RS-White.png'}`}
-                placeholder="blur"
+                {...(loaded && blurData.get(src)
+                  ? {
+                      blurDataURL: blurData.get(src),
+                      placeholder: 'blur' as const,
+                    }
+                  : {})}
                 alt={src.split('-')[0]}
                 width={500}
                 height={500}

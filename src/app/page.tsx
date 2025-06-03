@@ -25,11 +25,6 @@ const Page: React.FC = () => {
     scrollSnapAlign: 'start' as const,
   };
 
-  const ctaSectionStyles = {
-    scrollSnapAlign: 'end' as const,
-    scrollSnapStop: 'always' as const,
-  };
-
   return (
     <div className="bg-background relative min-h-screen">
       {/* Navigation */}
@@ -52,7 +47,7 @@ const Page: React.FC = () => {
         </section>
 
         {/* CTA Section with Footer */}
-        <section className="min-h-screen w-full" style={ctaSectionStyles}>
+        <section className="min-h-screen w-full" style={sectionStyles}>
           <div className="flex min-h-screen flex-col">
             <div className="flex-1">
               <CTA />
