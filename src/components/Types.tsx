@@ -237,7 +237,7 @@ const Types: React.FC = () => {
           animate="center"
           exit="exit"
           custom={direction}
-          className={`grid h-full grid-cols-1 gap-0.5 ${activeCategory === Category.Events ? 'md:grid-cols-2' : `${activeCategory === Category.Cars ? 'md:grid-cols-2' : 'grid-cols-2 lg:grid-cols-4'}`}`}
+          className={`grid h-full grid-cols-1 gap-0.5 ${activeCategory === Category.Events || activeCategory === Category.Cars || activeCategory === Category.RealEstate ? 'md:grid-cols-2' : 'grid-cols-2 lg:grid-cols-4'}`}
         >
           {images[activeCategory].map((src, index) => {
             const dynamicClasses = getDynamicClassNames(
