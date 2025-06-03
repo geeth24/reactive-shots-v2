@@ -264,8 +264,8 @@ const Types: React.FC = () => {
                       }
                     : {})}
                   alt={src.split('-')[0]}
-                  width={500}
-                  height={500}
+                  width={1920}
+                  height={1080}
                   className={`h-full w-full object-cover ${dynamicClasses}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100" />
