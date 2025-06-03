@@ -112,7 +112,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
     <AnimatePresence>
       <motion.nav
         ref={navbarRef}
-        className="font-blackmud fixed z-20 w-full p-4"
+        className="font-blackmud fixed z-50 w-full p-4"
         animate={navbarStyle}
         variants={variants}
         initial="firstSection"
@@ -123,7 +123,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
           <div className="flex flex-row items-center justify-center md:flex-row md:items-center md:justify-between">
             {/* Mobile Menu Button */}
             <motion.button
-              className="absolute left-4 z-50 rounded-lg p-2 md:hidden"
+              className="absolute left-4 z-[60] rounded-lg p-2 md:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -164,7 +164,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
 
             {/* Logo */}
             <motion.div
-              className="font-blackmud z-50 text-center text-3xl font-light tracking-tight md:mr-[12.5rem]"
+              className="font-blackmud z-[60] text-center text-3xl font-light tracking-tight md:mr-[12.5rem]"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -199,7 +199,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -100 }}
                   transition={{ duration: 0.3 }}
-                  className="fixed inset-0 z-40 backdrop-blur-sm md:hidden"
+                  className="fixed inset-0 z-[55] backdrop-blur-sm md:hidden"
                 >
                   <div className="flex h-full flex-col items-center justify-center space-y-8">
                     {links.map((link, index) => (

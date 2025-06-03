@@ -190,7 +190,7 @@ const Pricing: React.FC = () => {
                             src={
                               images[category as Category][
                                 (currentImageIndex[category as Category] + pkgIndex) % 4
-                              ] || '/placeholder.svg'
+                              ] || '/RS-Logo.png'
                             }
                             {...(blurData.get(
                               images[category as Category][

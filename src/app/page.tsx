@@ -33,7 +33,7 @@ const Page: React.FC = () => {
       {/* Main Content */}
       <main
         ref={ctaRef}
-        className="h-screen overflow-y-auto overscroll-none"
+        className="relative z-10 h-screen overflow-y-auto overscroll-none"
         style={scrollContainerStyles}
       >
         {/* Hero Section */}
