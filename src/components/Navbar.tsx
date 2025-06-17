@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 const links = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
+  { name: 'Gallery', href: '/gallery' },
   { name: 'Pricing', href: '/pricing' },
   { name: "Let's Talk", href: '/lets-talk' },
 ];
@@ -20,11 +21,21 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDivRef }) => {
-  const [navbarStyle, setNavbarStyle] = useState('firstSection');
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
+
+  // Initialize state immediately based on current page
+  const getInitialStyle = () => (isHomePage ? 'firstSection' : 'darkPage');
+  const [navbarStyle, setNavbarStyle] = useState(getInitialStyle);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!isHomePage) {
+      setNavbarStyle('darkPage');
+      return;
+    }
+
     const currentScrollDiv = scrollDivRef?.current;
 
     const calculateThresholds = throttle(() => {
@@ -58,33 +69,36 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
     return () => {
       currentScrollDiv?.removeEventListener('scroll', calculateThresholds);
     };
-  }, [scrollDivRef, sectionOneRef, sectionTwoRef]);
+  }, [scrollDivRef, sectionOneRef, sectionTwoRef, isHomePage]);
 
-  const pathname = usePathname();
+  // Immediate update when pathname changes - no animation
   useEffect(() => {
-    if (pathname === '/') {
-      setNavbarStyle('firstSection');
-    } else {
-      setNavbarStyle('default');
-    }
-  }, [pathname]);
+    const newStyle = isHomePage ? 'firstSection' : 'darkPage';
+    setNavbarStyle(newStyle);
+  }, [isHomePage]);
 
   const variants = {
     firstSection: {
       backgroundColor: 'transparent',
       color: '#00A6FB',
-      transition: { duration: 0.5 },
+      transition: { duration: isHomePage ? 0.3 : 0 },
     },
     secondSection: {
       backgroundColor: 'transparent',
       color: '#F7FCFF',
-      transition: { duration: 0.5 },
+      transition: { duration: isHomePage ? 0.3 : 0 },
     },
     default: {
-      backgroundColor: '#F7FCFF',
-      color: '#00A6FB',
-      boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-      transition: { duration: 0.5 },
+      backgroundColor: 'rgba(0, 0, 0, 0.95)',
+      color: '#F7FCFF',
+      boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.2)',
+      transition: { duration: isHomePage ? 0.3 : 0 },
+    },
+    darkPage: {
+      backgroundColor: 'rgba(0, 0, 0, 0.95)',
+      color: '#F7FCFF',
+      boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.2)',
+      transition: { duration: 0 },
     },
   };
 
@@ -109,154 +123,221 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
   };
 
   return (
-    <AnimatePresence>
-      <motion.nav
-        ref={navbarRef}
-        className="font-blackmud fixed z-50 w-full p-4"
-        animate={navbarStyle}
-        variants={variants}
-        initial="firstSection"
-        exit="exit"
-        role="navigation"
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-row items-center justify-center md:flex-row md:items-center md:justify-between">
-            {/* Mobile Menu Button */}
-            <motion.button
-              className="absolute left-4 z-[60] rounded-lg p-2 md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {isMenuOpen ? (
-                <X
-                  className="h-6 w-6"
-                  style={{ color: navbarStyle === 'firstSection' ? '#F7FCFF' : '#00A6FB' }}
-                />
-              ) : (
-                <Menu
-                  className="h-6 w-6"
-                  style={{ color: navbarStyle === 'firstSection' ? '#F7FCFF' : '#00A6FB' }}
-                />
-              )}
-            </motion.button>
+    <motion.nav
+      ref={navbarRef}
+      className="font-blackmud fixed z-50 w-full p-2"
+      animate={navbarStyle}
+      variants={variants}
+      initial={getInitialStyle()}
+      role="navigation"
+    >
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+        <div className="flex h-12 items-center justify-between">
+          {/* Mobile Menu Button */}
+          <motion.button
+            className="z-[60] flex h-10 w-10 items-center justify-center rounded-xl transition-colors md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            style={{
+              backgroundColor:
+                navbarStyle === 'firstSection'
+                  ? 'rgba(0, 166, 251, 0.1)'
+                  : 'rgba(247, 252, 255, 0.1)',
+            }}
+          >
+            {isMenuOpen ? (
+              <X
+                className="h-5 w-5"
+                style={{
+                  color: navbarStyle === 'firstSection' ? '#00A6FB' : '#F7FCFF',
+                }}
+              />
+            ) : (
+              <Menu
+                className="h-5 w-5"
+                style={{
+                  color: navbarStyle === 'firstSection' ? '#00A6FB' : '#F7FCFF',
+                }}
+              />
+            )}
+          </motion.button>
 
-            {/* Desktop Navigation */}
-            <div className="hidden items-center space-x-8 md:flex">
-              {links.map((link, index) => (
-                <motion.div
-                  key={link.name}
-                  variants={linkVariants}
-                  initial="initial"
-                  animate="animate"
-                  whileHover="hover"
-                  transition={{ delay: index * 0.1 }}
+          {/* Logo - Always centered */}
+          <motion.div
+            className="font-blackmud absolute top-1/2 left-1/2 z-[60] -translate-x-1/2 -translate-y-1/2 text-center text-lg font-medium tracking-tight md:text-xl"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Link href="/" className="block">
+              {navbarStyle === 'firstSection' ? 'RS' : 'Reactive Shots'}
+            </Link>
+          </motion.div>
+
+          {/* Desktop Navigation - Left */}
+          <div className="hidden items-center space-x-1 md:flex">
+            {links.slice(0, 2).map((link, index) => (
+              <motion.div
+                key={link.name}
+                variants={linkVariants}
+                initial="initial"
+                animate="animate"
+                whileHover="hover"
+                transition={{ delay: index * 0.05 }}
+              >
+                <Link
+                  href={link.href}
+                  className="rounded-xl px-4 py-2 text-base font-medium tracking-wide transition-all duration-200 hover:bg-white/10"
                 >
-                  <Link
-                    href={link.href}
-                    className="text-lg font-light tracking-wide transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
+                  {link.name}
+                </Link>
+              </motion.div>
+            ))}
+          </div>
 
-            {/* Logo */}
-            <motion.div
-              className="font-blackmud z-[60] text-center text-3xl font-light tracking-tight md:mr-[12.5rem]"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link href="/">{navbarStyle === 'firstSection' ? 'RS' : 'Reactive Shots'}</Link>
-            </motion.div>
+          {/* Desktop Navigation - Right */}
+          <div className="hidden items-center space-x-1 md:flex">
+            {links.slice(2).map((link, index) => (
+              <motion.div
+                key={link.name}
+                variants={linkVariants}
+                initial="initial"
+                animate="animate"
+                whileHover="hover"
+                transition={{ delay: (index + 2) * 0.05 }}
+              >
+                <Link
+                  href={link.href}
+                  className="rounded-xl px-4 py-2 text-base font-medium tracking-wide transition-all duration-200 hover:bg-white/10"
+                >
+                  {link.name}
+                </Link>
+              </motion.div>
+            ))}
+
+            {/* Divider */}
+            <div
+              className="mx-3 h-6 w-px"
+              style={{
+                backgroundColor:
+                  navbarStyle === 'firstSection'
+                    ? 'rgba(0, 166, 251, 0.3)'
+                    : 'rgba(247, 252, 255, 0.3)',
+              }}
+            />
 
             {/* Social Links */}
-            <div className="hidden items-center space-x-6 pr-2 md:flex">
+            <div className="flex items-center space-x-2">
               <motion.div variants={iconVariants} whileHover="hover">
-                <Link href="https://www.instagram.com/reactiveshots/" className="transition-colors">
-                  <Instagram className="h-6 w-6" />
+                <Link
+                  href="https://www.instagram.com/reactiveshots/"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200 hover:bg-white/10"
+                >
+                  <Instagram className="h-5 w-5" />
                 </Link>
               </motion.div>
               <motion.div variants={iconVariants} whileHover="hover">
-                <Link href="https://www.youtube.com/@reactive_shots" className="transition-colors">
-                  <Youtube className="h-6 w-6" />
+                <Link
+                  href="https://www.youtube.com/@reactive_shots"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200 hover:bg-white/10"
+                >
+                  <Youtube className="h-5 w-5" />
                 </Link>
               </motion.div>
               <motion.div variants={iconVariants} whileHover="hover">
-                <Link href="sms:+1-972-829-5173" className="transition-colors">
-                  <MessageSquareText className="h-6 w-6" />
+                <Link
+                  href="sms:+1-972-829-5173"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200 hover:bg-white/10"
+                >
+                  <MessageSquareText className="h-5 w-5" />
                 </Link>
               </motion.div>
             </div>
+          </div>
 
-            {/* Mobile Menu */}
-            <AnimatePresence>
-              {isMenuOpen && (
+          {/* Mobile Menu */}
+          <AnimatePresence>
+            {isMenuOpen && (
+              <>
+                {/* Backdrop */}
                 <motion.div
                   onClick={() => setIsMenuOpen(false)}
-                  initial={{ opacity: 0, y: -100 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -100 }}
-                  transition={{ duration: 0.3 }}
-                  className="fixed inset-0 z-[55] backdrop-blur-sm md:hidden"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="fixed inset-0 z-[55] bg-black/20 backdrop-blur-sm md:hidden"
+                />
+
+                {/* Dropdown Menu */}
+                <motion.div
+                  initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                  transition={{ duration: 0.2, ease: 'easeOut' }}
+                  className="fixed top-12 right-4 left-4 z-[56] rounded-2xl border border-white/10 bg-black/95 shadow-xl backdrop-blur-lg md:hidden"
                 >
-                  <div className="flex h-full flex-col items-center justify-center space-y-8">
-                    {links.map((link, index) => (
-                      <motion.div
-                        key={link.name}
-                        variants={linkVariants}
-                        initial="initial"
-                        animate="animate"
-                        whileHover="hover"
-                        transition={{ delay: index * 0.1 }}
-                      >
-                        <Link
-                          href={link.href}
-                          className="text-2xl font-light tracking-wide transition-colors"
-                          style={{ color: '#F7FCFF' }}
+                  <div className="flex flex-col space-y-6 p-6">
+                    {/* Navigation Links */}
+                    <div className="space-y-4">
+                      {links.map((link, index) => (
+                        <motion.div
+                          key={link.name}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.05, duration: 0.2 }}
                         >
-                          {link.name}
-                        </Link>
-                      </motion.div>
-                    ))}
-                    <div className="flex items-center space-x-6">
+                          <Link
+                            href={link.href}
+                            onClick={() => setIsMenuOpen(false)}
+                            className="block rounded-lg px-4 py-3 text-lg font-light tracking-wide text-white transition-all hover:bg-white/10"
+                          >
+                            {link.name}
+                          </Link>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* Divider */}
+                    <div className="bg-primary/20 h-px w-full" />
+
+                    {/* Social Links */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3, duration: 0.2 }}
+                      className="flex items-center justify-center space-x-8"
+                    >
                       <motion.div variants={iconVariants} whileHover="hover">
                         <Link
                           href="https://www.instagram.com/reactiveshots/"
-                          className="transition-colors"
-                          style={{ color: '#F7FCFF' }}
+                          className="text-primary transition-colors"
                         >
-                          <Instagram className="h-8 w-8" />
+                          <Instagram className="h-6 w-6" />
                         </Link>
                       </motion.div>
                       <motion.div variants={iconVariants} whileHover="hover">
                         <Link
                           href="https://www.youtube.com/@reactive_shots"
-                          className="transition-colors"
-                          style={{ color: '#F7FCFF' }}
+                          className="text-primary transition-colors"
                         >
-                          <Youtube className="h-8 w-8" />
+                          <Youtube className="h-6 w-6" />
                         </Link>
                       </motion.div>
                       <motion.div variants={iconVariants} whileHover="hover">
-                        <Link
-                          href="sms:+1-972-829-5173"
-                          className="transition-colors"
-                          style={{ color: '#F7FCFF' }}
-                        >
-                          <MessageSquareText className="h-8 w-8" />
+                        <Link href="sms:+1-972-829-5173" className="text-primary transition-colors">
+                          <MessageSquareText className="h-6 w-6" />
                         </Link>
                       </motion.div>
-                    </div>
+                    </motion.div>
                   </div>
                 </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+              </>
+            )}
+          </AnimatePresence>
         </div>
-      </motion.nav>
-    </AnimatePresence>
+      </div>
+    </motion.nav>
   );
 };
 

@@ -39,7 +39,7 @@ function Page() {
   return (
     <div className="h-screen snap-y snap-mandatory overflow-y-scroll">
       <Navbar />
-      <div className="flex h-screen snap-start flex-col items-center justify-center bg-tertiary pt-24 text-primary">
+      <div className="bg-tertiary text-primary flex h-screen snap-start flex-col items-center justify-center pt-16">
         <motion.h1
           variants={h1Variants}
           initial="initial"
@@ -61,7 +61,7 @@ function Page() {
           Page Not Found - Redirecting in {time} seconds
         </motion.p>
       </div>
-      <hr className="h-0.5 bg-primary" />
+      <hr className="bg-primary h-0.5" />
       <div className="snap-start">
         <Footer />
       </div>

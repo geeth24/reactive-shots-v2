@@ -5,12 +5,14 @@ import React, { Suspense } from 'react';
 
 function Page() {
   return (
-    <div className="h-screen">
+    <div className="min-h-screen">
       <Navbar />
-      <Suspense>
-        <LetsTalk />
-      </Suspense>
-      <hr className="h-0.5 bg-primary" />
+      <div className="pt-16">
+        <Suspense>
+          <LetsTalk />
+        </Suspense>
+      </div>
+      <hr className="bg-primary h-0.5" />
       <Footer />
     </div>
   );

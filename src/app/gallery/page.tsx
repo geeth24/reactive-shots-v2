@@ -2,7 +2,7 @@
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
-import Pricing from '@/components/Pricing';
+import Gallery from '@/components/Gallery';
 import React from 'react';
 
 function Page() {
@@ -10,7 +10,7 @@ function Page() {
     <div className="min-h-screen">
       <Navbar />
       <div className="pt-16">
-        <Pricing />
+        <Gallery />
       </div>
       <CTA />
       <hr className="bg-primary h-0.5" />

@@ -26,7 +26,7 @@ const Page: React.FC = () => {
   };
 
   return (
-    <div className="bg-background relative min-h-screen">
+    <div className="relative min-h-screen bg-black">
       {/* Navigation */}
       <Navbar sectionOneRef={heroRef} sectionTwoRef={typesRef} scrollDivRef={ctaRef} />
 

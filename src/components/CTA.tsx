@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from './button';
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 function CTA() {
   const containerVariants = {
@@ -11,17 +12,8 @@ function CTA() {
     },
   };
 
-  const headingVariants = {
-    initial: { y: 20, opacity: 0 },
-    animate: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    },
-  };
-
-  const textVariants = {
-    initial: { y: 20, opacity: 0 },
+  const contentVariants = {
+    initial: { y: 30, opacity: 0 },
     animate: {
       y: 0,
       opacity: 1,
@@ -29,91 +21,57 @@ function CTA() {
     },
   };
 
-  const buttonVariants = {
-    initial: { y: 20, opacity: 0 },
-    animate: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut', delay: 0.4 },
-    },
-  };
-
-  const statsVariants = {
-    initial: { y: 20, opacity: 0 },
-    animate: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut', delay: 0.6 },
-    },
-  };
-
   return (
     <motion.div
-      className="from-primary/5 relative flex min-h-[80vh] w-full flex-col items-center justify-center bg-gradient-to-b to-transparent px-4 py-16"
+      className="bg-black py-24"
       variants={containerVariants}
       initial="initial"
       animate="animate"
     >
-      <div className="relative z-10 flex w-full max-w-5xl flex-col items-center justify-center text-center">
-        <motion.div className="mb-8 max-w-4xl space-y-6" variants={headingVariants}>
-          <h1 className="font-blackmud text-primary text-4xl leading-tight font-light tracking-tight md:text-5xl lg:text-6xl">
-            Let&apos;s Create Something
-            <span className="text-primary/90 mt-2 block">Extraordinary Together</span>
-          </h1>
-          <motion.p
-            variants={textVariants}
-            className="text-primary/80 mx-auto max-w-2xl text-lg font-light tracking-wide md:text-xl"
-          >
-            From intimate portraits to grand celebrations, we transform moments into timeless
-            memories. Your story deserves to be told beautifully.
-          </motion.p>
-        </motion.div>
+      <div className="container mx-auto px-4">
+        <motion.div className="mx-auto max-w-4xl text-center" variants={contentVariants}>
+          {/* Main Content */}
+          <h2 className="font-blackmud mb-6 text-4xl text-white md:text-5xl lg:text-6xl">
+            Ready to Capture Your Story?
+          </h2>
 
-        <motion.div
-          variants={buttonVariants}
-          className="mt-8 flex flex-col items-center gap-4 sm:flex-row"
-        >
-          <Button
-            href="/lets-talk"
-            color="primary"
-            className="px-8 py-3 text-lg font-medium tracking-wide"
-          >
-            Start Your Journey
-          </Button>
-          <Button
-            href="/pricing"
-            color="white"
-            className="px-8 py-3 text-lg font-medium tracking-wide"
-          >
-            View Packages
-          </Button>
-        </motion.div>
+          <p className="mx-auto mb-12 max-w-2xl text-lg text-white/70 md:text-xl">
+            Let&apos;s create something beautiful together. From intimate moments to grand
+            celebrations, we&apos;re here to tell your story through stunning photography.
+          </p>
 
-        <motion.div
-          variants={statsVariants}
-          className="mt-16 grid grid-cols-2 gap-8 sm:grid-cols-4"
-        >
-          <div className="flex flex-col items-center">
-            <span className="text-primary text-4xl font-light tracking-tight">25+</span>
-            <span className="text-primary/70 mt-1 text-sm font-light tracking-wide">
-              Happy Clients
-            </span>
+          {/* CTA Buttons */}
+          <div className="flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
+            <Link
+              href="/lets-talk"
+              className="bg-primary hover:bg-primary/90 group inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 font-semibold text-white transition-colors"
+            >
+              Get Started
+              <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
+            </Link>
+
+            <Link
+              href="/gallery"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-4 font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/10"
+            >
+              View Our Work
+            </Link>
           </div>
-          <div className="flex flex-col items-center">
-            <span className="text-primary text-4xl font-light tracking-tight">50+</span>
-            <span className="text-primary/70 mt-1 text-sm font-light tracking-wide">
-              Events Captured
-            </span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-primary text-4xl font-light tracking-tight">3+</span>
-            <span className="text-primary/70 mt-1 text-sm font-light tracking-wide">
-              Years Experience
-            </span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-primary text-4xl font-light tracking-tight">24/7</span>
-            <span className="text-primary/70 mt-1 text-sm font-light tracking-wide">Support</span>
+
+          {/* Simple Stats */}
+          <div className="mt-16 flex justify-center gap-8 text-center sm:gap-12">
+            <div>
+              <div className="text-2xl font-bold text-white">500+</div>
+              <div className="text-sm text-white/60">Photos Captured</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-white">50+</div>
+              <div className="text-sm text-white/60">Happy Clients</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-white">4+</div>
+              <div className="text-sm text-white/60">Years Experience</div>
+            </div>
           </div>
         </motion.div>
       </div>

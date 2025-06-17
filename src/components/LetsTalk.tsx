@@ -1,5 +1,5 @@
 'use client';
-import { Mail, MessageSquareMore } from 'lucide-react';
+import { Mail, MessageSquareMore, Phone, MapPin, Clock, Send } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Categories, Category, Album } from './Types';
 import { Button } from './button';
+
 function LetsTalk() {
   const urlSearchParams = useSearchParams();
   const pricingCategory = urlSearchParams.get('category');
@@ -26,282 +27,311 @@ function LetsTalk() {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const imageVariants = {
-    offscreen: { opacity: 0, scale: 0.95 },
-    onscreen: {
+  const containerVariants = {
+    initial: { opacity: 0 },
+    animate: {
       opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5, ease: 'easeOut', delay: 0.3 },
+      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
-  // h1 animation with parallax-like effect
-  const h1Variants = {
-    initial: { y: -50, opacity: 0 },
+  const headingVariants = {
+    initial: { y: 30, opacity: 0 },
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
-  // Paragraph animation that complements the h1
-  const pVariants = {
-    initial: { y: 100, opacity: 0 },
+  const textVariants = {
+    initial: { y: 20, opacity: 0 },
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut', delay: 0.3 },
+      transition: { duration: 0.8, ease: 'easeOut', delay: 0.2 },
     },
   };
 
   const formVariants = {
-    initial: { y: 50, opacity: 0 },
+    initial: { y: 30, opacity: 0 },
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut', delay: 0.6 },
+      transition: { duration: 0.8, ease: 'easeOut', delay: 0.4 },
+    },
+  };
+
+  const cardVariants = {
+    initial: { y: 20, opacity: 0 },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
+    hover: {
+      y: -5,
+      transition: { duration: 0.2 },
     },
   };
 
   const [loaded, setLoaded] = useState<boolean>(false);
   const [images, setImages] = useState<string[]>([]);
-  const [blurData, setBlurData] = useState<Map<string, string>>(new Map());
 
   const getPhotos = async () => {
-    const res = await fetch('https://aura-api.reactiveshots.com/api/category-albums');
-    const data = await res.json();
-    let allImages: string[] = [];
+    try {
+      const res = await fetch('https://aura-api.reactiveshots.com/api/category-albums');
+      const data = await res.json();
 
-    data.forEach((category: Categories) => {
-      const data_images = category.album.album_photos;
-      allImages = allImages.concat(data_images.map((img) => img.image));
-    });
-
-    const shuffledImages = allImages.sort(() => 0.5 - Math.random()).slice(0, 4);
-    setImages(shuffledImages);
-    shuffledImages.forEach((image) => {
-      const fullImageData = data.find((category: any) =>
-        category.album.album_photos.some((img: any) => img.image === image),
-      );
-
-      if (fullImageData) {
-        const blurDataUrl = fullImageData.album.album_photos.find((img: any) => img.image === image)
-          ?.file_metadata.blur_data_url;
-        if (blurDataUrl) {
-          setBlurData((prev) => new Map(prev).set(image, blurDataUrl));
-        }
-      }
-    });
-    setLoaded(true);
-  };
-
-  useEffect(() => {
-    // get photos on load and refresh every 2 seconds
-    getPhotos();
-    const interval = setInterval(() => {
-      getPhotos();
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    if (
-      formData.name === '' ||
-      formData.email === '' ||
-      formData.subject === '' ||
-      formData.message === ''
-    ) {
-      return;
-    } else {
-      setIsSubmitting(true);
-
-      await fetch('https://mailer.geethg.com/reactiveshots/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        }),
+      const allImages: string[] = [];
+      data.forEach((category: Categories) => {
+        const dataImages = category.album.album_photos;
+        const randomImages = dataImages
+          .sort(() => Math.random() - Math.random())
+          .slice(0, 2)
+          .map((image: Album) => image.image);
+        allImages.push(...randomImages);
       });
 
-      setIsSubmitting(false);
-
-      setFormData({
-        name: '',
-        subject: '',
-        email: '',
-        message: '',
-      });
+      setImages(allImages.slice(0, 6));
+      setLoaded(true);
+    } catch (error) {
+      console.error('Error fetching photos:', error);
     }
   };
 
+  useEffect(() => {
+    getPhotos();
+  }, []);
+
+  const contactInfo = [
+    {
+      icon: Phone,
+      label: 'Phone',
+      value: '+1 (972) 829-5173',
+      href: 'tel:+1-972-829-5173',
+      description: 'Call or text anytime',
+    },
+    {
+      icon: Mail,
+      label: 'Email',
+      value: 'info@reactiveshots.com',
+      href: 'mailto:info@reactiveshots.com',
+      description: 'We respond within 24 hours',
+    },
+    {
+      icon: MapPin,
+      label: 'Location',
+      value: 'Dallas, TX',
+      href: '#',
+      description: 'Serving DFW area',
+    },
+    {
+      icon: Clock,
+      label: 'Availability',
+      value: 'Mon - Sun',
+      href: '#',
+      description: '9 AM - 8 PM',
+    },
+  ];
+
   return (
-    <div className="container mx-auto flex flex-col items-center justify-center px-4 py-24">
-      <div className="mt-4 grid w-full gap-4 md:grid-cols-2">
-        <div className="flex flex-col justify-between space-y-4">
-          <div className="flex flex-col justify-end">
-            <motion.h2
-              variants={h1Variants}
-              initial="initial"
-              animate="animate"
-              whileInView="onscreen"
-              viewport={{ once: true }}
-              className="font-blackmud text-primary text-3xl leading-loose"
-            >
-              Let&apos;s make your moments unforgettable
-            </motion.h2>
-            <motion.div
-              variants={pVariants}
-              initial="initial"
-              animate="animate"
-              whileInView="onscreen"
-              viewport={{ once: true }}
-              className="mt-8 flex flex-col space-y-4"
-            >
-              <div className="flex flex-row space-x-2">
-                <MessageSquareMore className="text-primary h-6 w-6" />
-                <Link href="sms:+1-972-829-5173" className="text-primary">
-                  +1 (972) 829-5173
-                </Link>
-              </div>
-              <div className="flex flex-row space-x-2">
-                <Mail className="text-primary h-6 w-6" />
-                <Link href="mailto:info@reactiveshots.com" className="text-primary">
-                  info@reactiveshots.com
-                </Link>
-              </div>
+    <div className="min-h-screen bg-black">
+      <motion.div
+        className="container mx-auto px-4 py-24"
+        variants={containerVariants}
+        initial="initial"
+        animate="animate"
+      >
+        {/* Header Section */}
+        <motion.div variants={headingVariants} className="mb-16 text-center">
+          <h1 className="font-blackmud mb-4 text-4xl text-white md:text-5xl lg:text-6xl">
+            Let&apos;s Create Something Beautiful
+          </h1>
+          <p className="mx-auto mb-12 max-w-3xl text-lg text-white/70 md:text-xl">
+            Ready to bring your vision to life? Let&apos;s discuss your photography needs and create
+            something beautiful together. We&apos;re here to make your special moments
+            unforgettable.
+          </p>
+        </motion.div>
 
-              <Link href="https://www.instagram.com/reactiveshots/">
-                <div className="text-primary flex flex-row space-x-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-instagram h-6 w-6"
-                  >
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                  </svg>
-                  <p className="text-primary">@reactiveshots</p>
-                </div>
-              </Link>
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Contact Information */}
+          <motion.div className="space-y-8" variants={containerVariants}>
+            <motion.div variants={textVariants}>
+              <h2 className="font-blackmud mb-6 text-2xl text-white md:text-3xl">Get In Touch</h2>
+              <p className="mb-8 leading-relaxed text-white/70">
+                Whether you&apos;re planning a wedding, need professional portraits, or want to
+                capture a special event, we&apos;re here to help. Reach out through any of the
+                methods below, and we&apos;ll get back to you promptly.
+              </p>
             </motion.div>
-          </div>
-          <motion.form
-            variants={formVariants}
-            initial="initial"
-            animate="animate"
-            whileInView="onscreen"
-            viewport={{ once: true }}
-            className="flex flex-col justify-end space-y-4"
-            onSubmit={handleSubmit}
-          >
-            <div className="flex flex-col space-y-2">
-              <div className="flex w-full flex-row gap-2">
-                <div className="flex w-full flex-col">
-                  <label htmlFor="name" className="text-primary">
-                    Name
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="border-primary/50 text-primary focus:border-primary focus:ring-primary w-full rounded-lg border p-2 text-base focus:ring-1 md:text-sm"
-                  />
-                </div>
-                <div className="flex w-full flex-col">
-                  <label htmlFor="email" className="text-primary">
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="border-primary/50 text-primary focus:border-primary focus:ring-primary w-full rounded-lg border p-2 text-base focus:ring-1 md:text-sm"
-                  />
-                </div>
-              </div>
-              <label htmlFor="subject" className="text-primary">
-                Subject
-              </label>
-              <input
-                id="subject"
-                name="subject"
-                type="text"
-                placeholder="Subject"
-                value={formData.subject}
-                onChange={handleChange}
-                className="border-primary/50 text-primary focus:border-primary focus:ring-primary rounded-lg border p-2 text-base focus:ring-1 md:text-sm"
-              />
-              <label htmlFor="message" className="text-primary">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                placeholder="Your Message"
-                value={formData.message}
-                onChange={handleChange}
-                className="border-primary/50 text-primary focus:border-primary focus:ring-primary h-32 rounded-lg border p-2 text-base focus:ring-1 md:text-sm lg:h-64"
-              />
 
-              <Button type="submit" color="primary" className="w-full">
-                {isSubmitting ? 'Sending...' : 'Send'}
-              </Button>
+            {/* Contact Cards */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {contactInfo.map((contact, index) => (
+                <motion.div
+                  key={contact.label}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-colors hover:bg-white/10"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="rounded-lg bg-white/10 p-3">
+                      <contact.icon className="text-primary size-6" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="mb-1 font-medium text-white">{contact.label}</h3>
+                      {contact.href !== '#' ? (
+                        <Link
+                          href={contact.href}
+                          className="mb-1 block font-medium text-white/80 transition-colors hover:text-white"
+                        >
+                          {contact.value}
+                        </Link>
+                      ) : (
+                        <div className="mb-1 font-medium text-white/80">{contact.value}</div>
+                      )}
+                      <p className="text-sm text-white/60">{contact.description}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          </motion.form>
+
+            {/* Photo Gallery Preview */}
+            {loaded && images.length > 0 && (
+              <motion.div variants={containerVariants} className="mt-12">
+                <h3 className="font-blackmud mb-6 text-xl text-white">Recent Work</h3>
+                <div className="grid grid-cols-3 gap-2 overflow-hidden rounded-xl">
+                  {images.slice(0, 6).map((image, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
+                      className="relative aspect-square overflow-hidden"
+                    >
+                      <Image
+                        src={image}
+                        alt={`Recent work ${index + 1}`}
+                        fill
+                        className="object-cover transition-transform duration-300 hover:scale-110"
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </motion.div>
+
+          {/* Contact Form */}
+          <motion.div variants={formVariants}>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
+              <h2 className="font-blackmud mb-6 text-2xl text-white md:text-3xl">
+                Send Us a Message
+              </h2>
+
+              <form className="space-y-6">
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="name" className="mb-2 block text-sm font-medium text-white">
+                      Full Name *
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="Your full name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="focus:border-primary focus:ring-primary/20 w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/50 backdrop-blur-sm transition-colors focus:ring-2"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="mb-2 block text-sm font-medium text-white">
+                      Email Address *
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="your@email.com"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="focus:border-primary focus:ring-primary/20 w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/50 backdrop-blur-sm transition-colors focus:ring-2"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="subject" className="mb-2 block text-sm font-medium text-white">
+                    Subject
+                  </label>
+                  <input
+                    id="subject"
+                    name="subject"
+                    type="text"
+                    placeholder="What can we help you with?"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    className="focus:border-primary focus:ring-primary/20 w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/50 backdrop-blur-sm transition-colors focus:ring-2"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="mb-2 block text-sm font-medium text-white">
+                    Message *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Tell us about your project, event date, location, and any specific requirements..."
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={6}
+                    className="focus:border-primary focus:ring-primary/20 w-full resize-none rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/50 backdrop-blur-sm transition-colors focus:ring-2"
+                    required
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  color="primary"
+                  className="group w-full px-8 py-4 text-lg font-semibold"
+                  disabled={isSubmitting}
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    {isSubmitting ? (
+                      <>
+                        <div className="size-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="size-5 transition-transform group-hover:translate-x-1" />
+                        Send Message
+                      </>
+                    )}
+                  </span>
+                </Button>
+              </form>
+
+              <div className="mt-6 text-center">
+                <p className="text-sm text-white/60">
+                  Available Monday - Sunday, 9 AM - 8 PM. We&apos;re always ready to capture your
+                  story, whether it&apos;s a last-minute session or a planned celebration.
+                  Don&apos;t hesitate to reach out!
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
-        <div className="grid grid-cols-2 gap-0.5">
-          {images.map((src, index) => (
-            <motion.div
-              key={index}
-              className="pointer-events-none overflow-hidden"
-              initial="offscreen"
-              whileInView="onscreen"
-              viewport={{ once: true }}
-              variants={imageVariants}
-            >
-              <Image
-                key={index}
-                src={`${loaded ? `${src}` : '/RS-White.png'}`}
-                {...(loaded && blurData.get(src)
-                  ? {
-                      blurDataURL: blurData.get(src),
-                      placeholder: 'blur' as const,
-                    }
-                  : {})}
-                alt={src.split('-')[0]}
-                width={500}
-                height={500}
-                className={`aspect-square h-full w-full object-cover ${
-                  index === 0 ? 'rounded-tl-lg' : ''
-                } ${index === 1 ? 'rounded-tr-lg' : ''} ${index === 2 ? 'rounded-bl-lg' : ''} ${
-                  index === 3 ? 'rounded-br-lg' : ''
-                }`}
-              />
-            </motion.div>
-          ))}
-        </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -32,5 +32,10 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+
+  /* Add scroll padding to account for fixed navbar */
+  html {
+    scroll-padding-top: 4rem; /* 64px - matches the smaller navbar height */
+  }
 }
 
