@@ -8,7 +8,6 @@ function About() {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -17,7 +16,6 @@ function About() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -26,7 +24,6 @@ function About() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut', delay: 0.2 },
     },
   };
 
@@ -35,7 +32,6 @@ function About() {
     animate: {
       scale: 1,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut', delay: 0.3 },
     },
   };
 
@@ -44,7 +40,6 @@ function About() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: 'easeOut' },
     },
     hover: {
       y: -5,

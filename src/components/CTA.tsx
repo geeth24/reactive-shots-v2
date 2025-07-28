@@ -8,7 +8,6 @@ function CTA() {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -17,7 +16,6 @@ function CTA() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut', delay: 0.2 },
     },
   };
 

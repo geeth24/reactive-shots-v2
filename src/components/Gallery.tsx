@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { PauseCircle, PlayCircle, ArrowRight, Camera } from 'lucide-react';
@@ -139,7 +140,6 @@ const Gallery: React.FC = () => {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -148,7 +148,6 @@ const Gallery: React.FC = () => {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -157,7 +156,6 @@ const Gallery: React.FC = () => {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: 'easeOut' },
     },
     hover: {
       y: -10,
@@ -217,7 +215,7 @@ const Gallery: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+                            transition={{ duration: 0.6 }}
             className="grid gap-8 md:grid-cols-2"
           >
             {categoryOrder.map((category, index) => {

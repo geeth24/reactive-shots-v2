@@ -17,7 +17,6 @@ function Footer() {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -26,11 +25,9 @@ function Footer() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut' },
     },
     hover: {
       scale: 1.05,
-      transition: { duration: 0.2 },
     },
   };
 
@@ -74,6 +71,17 @@ function Footer() {
             <div className="space-y-2 text-sm text-white/60">
               <p>📧 hello@reactiveshots.com</p>
               <p>📱 +1 (972) 829-5173</p>
+              <p>
+                💬{' '}
+                <a 
+                  href="https://wa.me/19728295173" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white/60 hover:text-primary transition-colors"
+                >
+                  WhatsApp
+                </a>
+              </p>
               <p>📍 Dallas, Texas</p>
             </div>
           </motion.div>

@@ -109,12 +109,10 @@ function Hero() {
     animate: {
       scale: 1,
       opacity: 1,
-      transition: { duration: 2, ease: 'easeOut' },
     },
     exit: {
       scale: 1.1,
       opacity: 0,
-      transition: { duration: 1, ease: 'easeIn' },
     },
   };
 
@@ -122,7 +120,6 @@ function Hero() {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      transition: { duration: 1.5, ease: 'easeOut' },
     },
   };
 
@@ -131,7 +128,6 @@ function Hero() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 1.2, ease: 'easeOut' },
     },
   };
 
@@ -140,7 +136,6 @@ function Hero() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 1.2, ease: 'easeOut', delay: 0.3 },
     },
   };
 
@@ -149,7 +144,6 @@ function Hero() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 1.2, ease: 'easeOut', delay: 0.6 },
     },
   };
 
@@ -157,19 +151,12 @@ function Hero() {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      transition: { duration: 1.2, ease: 'easeOut', delay: 0.9 },
     },
   };
 
   const arrowVariants = {
     animate: {
       y: [0, 10, 0],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        repeatType: 'loop' as const,
-        ease: 'easeInOut',
-      },
     },
   };
 
@@ -177,7 +164,6 @@ function Hero() {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      transition: { duration: 1.5, ease: 'easeOut' },
     },
   };
 
