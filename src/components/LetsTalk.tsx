@@ -1,5 +1,5 @@
 'use client';
-import { Mail, MessageSquareMore, Phone, MapPin, Clock, Send } from 'lucide-react';
+import { Mail, MessageSquareMore, Phone, MapPin, Clock, Send, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -31,7 +31,6 @@ function LetsTalk() {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -40,7 +39,6 @@ function LetsTalk() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -49,7 +47,6 @@ function LetsTalk() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut', delay: 0.2 },
     },
   };
 
@@ -58,7 +55,6 @@ function LetsTalk() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut', delay: 0.4 },
     },
   };
 
@@ -67,7 +63,6 @@ function LetsTalk() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: 'easeOut' },
     },
     hover: {
       y: -5,
@@ -111,6 +106,13 @@ function LetsTalk() {
       value: '+1 (972) 829-5173',
       href: 'tel:+1-972-829-5173',
       description: 'Call or text anytime',
+    },
+    {
+      icon: MessageCircle,
+      label: 'WhatsApp',
+      value: '+1 (972) 829-5173',
+      href: 'https://wa.me/19728295173',
+      description: 'Chat with us instantly',
     },
     {
       icon: Mail,

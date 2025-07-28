@@ -110,7 +110,6 @@ const Pricing: React.FC = () => {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -119,7 +118,6 @@ const Pricing: React.FC = () => {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -128,7 +126,6 @@ const Pricing: React.FC = () => {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut', delay: 0.2 },
     },
   };
 
@@ -137,7 +134,6 @@ const Pricing: React.FC = () => {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: 'easeOut' },
     },
     hover: {
       y: -10,
@@ -317,12 +313,13 @@ const Pricing: React.FC = () => {
               your specific needs and budget. Let&apos;s discuss your vision and create something
               perfect for you.
             </p>
-            <Link
+            <Button
               href="/lets-talk"
-              className="bg-primary hover:bg-primary/90 inline-flex items-center gap-2 rounded-full px-8 py-4 font-semibold text-white transition-colors"
+              color="primary"
+              className="px-8 py-4"
             >
               Get Custom Quote
-            </Link>
+            </Button>
           </div>
         </motion.div>
       </motion.div>

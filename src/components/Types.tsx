@@ -128,7 +128,7 @@ const Types: React.FC = () => {
     }
   };
 
-  const getPhotos = async () => {
+  const getPhotos = useCallback(async () => {
     const res = await fetch('https://aura-api.reactiveshots.com/api/category-albums');
     const data = await res.json();
 
@@ -204,11 +204,11 @@ const Types: React.FC = () => {
     });
     setLoaded(true);
     console.log(images);
-  };
+  }, []);
 
   useEffect(() => {
     getPhotos();
-  }, []);
+  }, [getPhotos]);
 
   useEffect(() => {
     if (!isPaused) {
@@ -218,7 +218,7 @@ const Types: React.FC = () => {
       }, 5000);
       return () => clearInterval(interval);
     }
-  }, [refreshCounter, isPaused]);
+  }, [refreshCounter, isPaused, getPhotos]);
 
   const variants = {
     enter: (direction: number) => ({
@@ -230,13 +230,11 @@ const Types: React.FC = () => {
       x: 0,
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.6, ease: 'easeOut' },
     },
     exit: (direction: number) => ({
       x: direction < 0 ? 1000 : -1000,
       opacity: 0,
       scale: 0.75,
-      transition: { duration: 0.6, ease: 'easeOut' },
     }),
   };
 
@@ -245,7 +243,6 @@ const Types: React.FC = () => {
     onscreen: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.6, ease: 'easeOut', delay: 0.2 },
     },
   };
 
@@ -318,7 +315,7 @@ const Types: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
+              transition={{ duration: 0.8 }}
               className="flex flex-col items-center justify-center gap-12 lg:flex-row lg:gap-20"
             >
               {categoryOrder.map((category, index) => (
@@ -356,7 +353,7 @@ const Types: React.FC = () => {
                     <motion.div
                       layoutId="activeIndicator"
                       className="absolute -bottom-2 left-1/2 h-1 w-16 -translate-x-1/2 rounded-full bg-white shadow-lg"
-                      transition={{ duration: 0.3, ease: 'easeOut' }}
+                      transition={{ duration: 0.3 }}
                     />
                   )}
                 </motion.button>

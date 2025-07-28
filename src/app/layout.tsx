@@ -38,7 +38,7 @@ export default function RootLayout({
     <html lang="en">
       <link rel="icon" href="/favicon.ico" />
 
-      <body className={`${blackMud.variable} ${opensans.className}`}>
+      <body className={`${blackMud.variable} ${opensans.className} bg-background-dark`}>
         {children}
         <Analytics />
       </body>

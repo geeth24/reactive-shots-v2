@@ -12,7 +12,6 @@ function Page() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut' },
     },
   };
 
@@ -21,7 +20,6 @@ function Page() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut', delay: 0.3 },
     },
   };
 
@@ -46,6 +44,7 @@ function Page() {
           animate="animate"
           whileInView="animate"
           viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
           className="font-blackmud text-4xl"
         >
           404
@@ -56,6 +55,7 @@ function Page() {
           animate="animate"
           whileInView="animate"
           viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           className="text-lg"
         >
           Page Not Found - Redirecting in {time} seconds

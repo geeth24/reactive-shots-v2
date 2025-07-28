@@ -17,7 +17,6 @@ function Footer() {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -26,11 +25,9 @@ function Footer() {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut' },
     },
     hover: {
       scale: 1.05,
-      transition: { duration: 0.2 },
     },
   };
 
@@ -74,6 +71,17 @@ function Footer() {
             <div className="space-y-2 text-sm text-white/60">
               <p>📧 hello@reactiveshots.com</p>
               <p>📱 +1 (972) 829-5173</p>
+              <p>
+                💬{' '}
+                <a 
+                  href="https://wa.me/19728295173" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white/60 hover:text-primary transition-colors"
+                >
+                  WhatsApp
+                </a>
+              </p>
               <p>📍 Dallas, Texas</p>
             </div>
           </motion.div>
@@ -128,7 +136,7 @@ function Footer() {
                   placeholder="Enter your email"
                   className="focus:border-primary focus:ring-primary flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/50 backdrop-blur-sm focus:ring-1 focus:outline-none"
                 />
-                <button className="bg-primary hover:bg-primary/90 rounded-lg px-6 py-3 text-sm font-semibold text-white transition-colors">
+                <button className="bg-primary hover:bg-primary/90 rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors">
                   Subscribe
                 </button>
               </div>

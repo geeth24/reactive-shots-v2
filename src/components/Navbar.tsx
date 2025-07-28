@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { throttle } from 'lodash';
 import Link from 'next/link';
-import { Menu, MessageSquareText, X, Youtube, Instagram } from 'lucide-react';
+import { Menu, MessageSquareText, X, Youtube, Instagram, MessageCircle } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 const links = [
@@ -107,11 +107,9 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut' },
     },
     hover: {
       scale: 1.05,
-      transition: { duration: 0.2 },
     },
   };
 
@@ -252,6 +250,16 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
                   <MessageSquareText className="h-5 w-5" />
                 </Link>
               </motion.div>
+              <motion.div variants={iconVariants} whileHover="hover">
+                <Link
+                  href="https://wa.me/19728295173"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200 hover:bg-white/10"
+                >
+                  <MessageCircle className="h-5 w-5" />
+                </Link>
+              </motion.div>
             </div>
           </div>
 
@@ -274,7 +282,7 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
                   initial={{ opacity: 0, y: -20, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                  transition={{ duration: 0.2, ease: 'easeOut' }}
+                  transition={{ duration: 0.2 }}
                   className="fixed top-12 right-4 left-4 z-[56] rounded-2xl border border-white/10 bg-black/95 shadow-xl backdrop-blur-lg md:hidden"
                 >
                   <div className="flex flex-col space-y-6 p-6">
@@ -327,6 +335,16 @@ const Navbar: React.FC<NavbarProps> = ({ sectionOneRef, sectionTwoRef, scrollDiv
                       <motion.div variants={iconVariants} whileHover="hover">
                         <Link href="sms:+1-972-829-5173" className="text-primary transition-colors">
                           <MessageSquareText className="h-6 w-6" />
+                        </Link>
+                      </motion.div>
+                      <motion.div variants={iconVariants} whileHover="hover">
+                        <Link 
+                          href="https://wa.me/19728295173" 
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary transition-colors"
+                        >
+                          <MessageCircle className="h-6 w-6" />
                         </Link>
                       </motion.div>
                     </motion.div>

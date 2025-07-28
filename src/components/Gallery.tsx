@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { PauseCircle, PlayCircle, ArrowRight, Camera } from 'lucide-react';
 import { Category } from './Types';
+import { Button } from '@/components/button';
 
 const categoryOrder: Category[] = [
   Category.Events,
@@ -139,7 +140,6 @@ const Gallery: React.FC = () => {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -148,7 +148,6 @@ const Gallery: React.FC = () => {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -157,7 +156,6 @@ const Gallery: React.FC = () => {
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: 'easeOut' },
     },
     hover: {
       y: -10,
@@ -217,7 +215,7 @@ const Gallery: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+                            transition={{ duration: 0.6 }}
             className="grid gap-8 md:grid-cols-2"
           >
             {categoryOrder.map((category, index) => {
@@ -334,13 +332,14 @@ const Gallery: React.FC = () => {
             Can&apos;t find what you&apos;re looking for? We&apos;d love to create something custom
             for you.
           </p>
-          <Link
+          <Button
             href="/lets-talk"
-            className="bg-primary hover:bg-primary/90 inline-flex items-center gap-2 rounded-full px-8 py-4 font-semibold text-white transition-colors"
+            color="primary"
+            className="px-8 py-4"
           >
             Get In Touch
             <ArrowRight className="size-5" />
-          </Link>
+          </Button>
         </motion.div>
       </motion.div>
     </div>
