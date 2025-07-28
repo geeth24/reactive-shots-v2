@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { Button } from '@/components/button';
 
 function CTA() {
   const containerVariants = {
@@ -42,20 +42,22 @@ function CTA() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
-            <Link
+            <Button
               href="/lets-talk"
-              className="bg-primary hover:bg-primary/90 group inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 font-semibold text-white transition-colors"
+              color="primary"
+              className="group px-8 py-4"
             >
               Get Started
               <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
-            </Link>
+            </Button>
 
-            <Link
+            <Button
               href="/gallery"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-4 font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/10"
+              outline
+              className="px-8 py-4"
             >
               View Our Work
-            </Link>
+            </Button>
           </div>
 
           {/* Simple Stats */}

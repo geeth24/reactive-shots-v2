@@ -317,12 +317,13 @@ const Pricing: React.FC = () => {
               your specific needs and budget. Let&apos;s discuss your vision and create something
               perfect for you.
             </p>
-            <Link
+            <Button
               href="/lets-talk"
-              className="bg-primary hover:bg-primary/90 inline-flex items-center gap-2 rounded-full px-8 py-4 font-semibold text-white transition-colors"
+              color="primary"
+              className="px-8 py-4"
             >
               Get Custom Quote
-            </Link>
+            </Button>
           </div>
         </motion.div>
       </motion.div>

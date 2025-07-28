@@ -128,7 +128,7 @@ function Footer() {
                   placeholder="Enter your email"
                   className="focus:border-primary focus:ring-primary flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/50 backdrop-blur-sm focus:ring-1 focus:outline-none"
                 />
-                <button className="bg-primary hover:bg-primary/90 rounded-lg px-6 py-3 text-sm font-semibold text-white transition-colors">
+                <button className="bg-primary hover:bg-primary/90 rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors">
                   Subscribe
                 </button>
               </div>
