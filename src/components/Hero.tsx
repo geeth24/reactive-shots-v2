@@ -248,11 +248,11 @@ function Hero() {
 
       {/* Main Content */}
       <div className="relative z-20 flex min-h-screen w-full items-center">
-        <div className="container mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
             {/* Left Column - Main Content */}
             <motion.div
-              className="flex flex-col justify-center space-y-8"
+              className="flex flex-col justify-center space-y-6 pt-16 sm:pt-0 sm:space-y-8"
               variants={contentVariants}
               initial="initial"
               animate="animate"
@@ -260,28 +260,28 @@ function Hero() {
               {/* Badge */}
               <motion.div
                 variants={headingVariants}
-                className="border-primary/30 bg-primary/10 inline-flex w-fit items-center rounded-full border px-4 py-2 backdrop-blur-sm"
+                className="border-primary/30 bg-primary/10 inline-flex w-fit items-center rounded-full border px-3 py-2 backdrop-blur-sm sm:px-4"
               >
-                <span className="text-primary text-sm font-medium tracking-wide">
+                <span className="text-primary text-xs font-medium tracking-wide sm:text-sm">
                   Professional Photography & Videography
                 </span>
               </motion.div>
 
               {/* Main Heading */}
-              <motion.div variants={headingVariants} className="space-y-4">
-                <h1 className="font-blackmud text-primary text-5xl leading-tight font-bold tracking-tight sm:text-6xl lg:text-7xl">
+              <motion.div variants={headingVariants} className="space-y-3 sm:space-y-4">
+                <h1 className="font-blackmud text-primary text-4xl leading-tight font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
                   Reactive Shots
                 </h1>
-                <div className="flex items-center gap-4">
-                  <div className="bg-primary h-1 w-16 rounded-full" />
-                  <span className="text-primary/80 text-lg">Est. 2024</span>
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="bg-primary h-1 w-12 rounded-full sm:w-16" />
+                  <span className="text-primary/80 text-base sm:text-lg">Est. 2024</span>
                 </div>
               </motion.div>
 
               {/* Subtitle */}
               <motion.p
                 variants={subheadingVariants}
-                className="text-primary/90 max-w-xl text-xl leading-relaxed sm:text-2xl"
+                className="text-primary/90 max-w-xl text-lg leading-relaxed sm:text-xl md:text-2xl"
               >
                 Capturing Life&apos;s Beautiful Moments Through Photography & Videography
               </motion.p>
@@ -289,12 +289,12 @@ function Hero() {
               {/* CTA Buttons */}
               <motion.div
                 variants={ctaVariants}
-                className="flex flex-col gap-4 sm:flex-row sm:gap-6"
+                className="flex flex-col gap-3 sm:flex-row sm:gap-4 lg:gap-6"
               >
                 <Button
                   href="/lets-talk"
                   color="primary"
-                  className="group relative overflow-hidden px-8 py-4 text-lg font-semibold tracking-wide"
+                  className="group relative overflow-hidden px-6 py-3 text-base font-semibold tracking-wide sm:px-8 sm:py-4 sm:text-lg"
                 >
                   <span className="relative z-10">Start Your Journey</span>
                   <motion.div
@@ -308,7 +308,7 @@ function Hero() {
                 <Button
                   href="/gallery"
                   outline
-                  className="border-primary/40 text-primary hover:bg-primary/10 px-8 py-4 text-lg font-semibold tracking-wide backdrop-blur-sm"
+                  className="border-primary/40 text-primary hover:bg-primary/10 px-6 py-3 text-base font-semibold tracking-wide backdrop-blur-sm sm:px-8 sm:py-4 sm:text-lg"
                 >
                   View Gallery
                 </Button>
@@ -317,46 +317,46 @@ function Hero() {
 
             {/* Right Column - Stats & Controls */}
             <motion.div
-              className="flex flex-col justify-center space-y-8 lg:items-end"
+              className="flex flex-col justify-center space-y-6 sm:space-y-8 lg:items-end"
               variants={contentVariants}
               initial="initial"
               animate="animate"
             >
               {/* Stats */}
-              <motion.div variants={ctaVariants} className="grid grid-cols-3 gap-6 lg:gap-8">
+              <motion.div variants={ctaVariants} className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 <div className="text-center lg:text-right">
-                  <div className="text-primary text-3xl font-bold">500+</div>
-                  <div className="text-primary/70 text-sm">Projects</div>
+                  <div className="text-primary text-2xl font-bold sm:text-3xl">500+</div>
+                  <div className="text-primary/70 text-xs sm:text-sm">Projects</div>
                 </div>
                 <div className="text-center lg:text-right">
-                  <div className="text-primary text-3xl font-bold">50+</div>
-                  <div className="text-primary/70 text-sm">Happy Clients</div>
+                  <div className="text-primary text-2xl font-bold sm:text-3xl">50+</div>
+                  <div className="text-primary/70 text-xs sm:text-sm">Happy Clients</div>
                 </div>
                 <div className="text-center lg:text-right">
-                  <div className="text-primary text-3xl font-bold">4+</div>
-                  <div className="text-primary/70 text-sm">Years Experience</div>
+                  <div className="text-primary text-2xl font-bold sm:text-3xl">4+</div>
+                  <div className="text-primary/70 text-xs sm:text-sm">Years Experience</div>
                 </div>
               </motion.div>
 
               {/* Slideshow Controls */}
-              <motion.div variants={ctaVariants} className="flex flex-col space-y-4 lg:items-end">
+              <motion.div variants={ctaVariants} className="flex flex-col space-y-3 sm:space-y-4 lg:items-end">
                 {/* Play/Pause Button */}
                 <button
-                  className="text-primary/80 hover:text-primary flex items-center gap-3 transition-colors lg:justify-end"
+                  className="text-primary/80 hover:text-primary flex items-center gap-2 sm:gap-3 transition-colors lg:justify-end"
                   onClick={() => setIsPlaying(!isPlaying)}
                 >
-                  <div className="border-primary/40 hover:bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-sm transition-colors">
-                    {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                  <div className="border-primary/40 hover:bg-primary/10 flex h-8 w-8 items-center justify-center rounded-full border backdrop-blur-sm transition-colors sm:h-10 sm:w-10">
+                    {isPlaying ? <Pause className="h-3 w-3 sm:h-4 sm:w-4" /> : <Play className="h-3 w-3 sm:h-4 sm:w-4" />}
                   </div>
-                  <span className="text-sm font-medium tracking-wide">
+                  <span className="text-xs font-medium tracking-wide sm:text-sm">
                     {isPlaying ? 'Pause' : 'Play'} Slideshow
                   </span>
                 </button>
 
                 {/* Image Counter & Progress */}
                 {loaded && backgroundImages.length > 0 && (
-                  <div className="flex flex-col space-y-3 lg:items-end">
-                    <span className="text-primary/70 text-sm tracking-wide">
+                  <div className="flex flex-col space-y-2 sm:space-y-3 lg:items-end">
+                    <span className="text-primary/70 text-xs tracking-wide sm:text-sm">
                       {currentImageIndex + 1} of {backgroundImages.length}
                     </span>
                     <div className="flex gap-1">
@@ -364,9 +364,9 @@ function Hero() {
                         <button
                           key={index}
                           onClick={() => setCurrentImageIndex(index)}
-                          className={`h-1 w-8 rounded-full transition-all duration-300 ${
+                          className={`h-1 w-6 rounded-full transition-all duration-300 sm:w-8 ${
                             index === currentImageIndex
-                              ? 'bg-primary w-12'
+                              ? 'bg-primary w-8 sm:w-12'
                               : 'bg-primary/30 hover:bg-primary/50'
                           }`}
                         />
@@ -382,20 +382,20 @@ function Hero() {
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center"
+        className="absolute bottom-4 left-1/2 flex -translate-x-1/2 flex-col items-center sm:bottom-8"
         variants={scrollVariants}
         initial="initial"
         animate="animate"
       >
-        <motion.p className="text-primary/80 mb-3 text-sm tracking-wide">
+        <motion.p className="text-primary/80 mb-2 text-xs tracking-wide sm:mb-3 sm:text-sm">
           Scroll to Discover
         </motion.p>
         <motion.div
           variants={arrowVariants}
           animate="animate"
-          className="border-primary/40 hover:bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-sm transition-colors"
+          className="border-primary/40 hover:bg-primary/10 flex h-8 w-8 items-center justify-center rounded-full border backdrop-blur-sm transition-colors sm:h-10 sm:w-10"
         >
-          <ArrowDown className="text-primary/80 h-4 w-4" />
+          <ArrowDown className="text-primary/80 h-3 w-3 sm:h-4 sm:w-4" />
         </motion.div>
       </motion.div>
     </motion.div>
